@@ -1,8 +1,31 @@
 package com.joyful.joyfulkitchen.activity;
 
-/**
- * 测试
- */
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
-public class testActivity {
+import com.joyful.joyfulkitchen.R;
+
+public class TestActivity extends AppCompatActivity {
+
+
+
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.gtext);
+
+
+
+
+    }
+
+
+
 }
