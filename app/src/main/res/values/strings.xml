@@ -1,3 +1,27 @@
 <resources>
     <string name="app_name">JoyfulKitchen</string>
+
+
+    <string name="page">首页</string>
+    <string name="friend">朋友</string>
+    <string name="find">动态</string>
+    <string name="personal_solid">个人</string>
+
+    <string name="PleaseKey">搜菜谱、食材等</string>
+
+    <!-- register_a -->
+    <string name="cancle">取消</string>
+    <string name="title">请选择时间</string>
+    <string name="commit">确定</string>
+    <string name="year">年</string>
+    <string name="month">月</string>
+    <string name="day">日</string>
+    <string name="hour">时</string>
+    <string name="minute">分</string>
+
+    <string name="select_date">选择日期</string>
+    <string name="current_date">生日</string>
+    <!-- register_a -->
+
+
 </resources>
