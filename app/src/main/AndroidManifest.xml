@@ -16,6 +16,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.TestActivity"></activity>
+
+        <activity android:name=".activity.RuleViewMainActivity" />
+        <activity android:name=".activity.DatePickerMainActivity" />
+
     </application>
 
 </manifest>

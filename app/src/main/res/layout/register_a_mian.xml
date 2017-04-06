@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorAccent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/back"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:textColor="@color/white"
+            android:textSize="25dp"
+            tools:ignore="InefficientWeight,SpUsage" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:gravity="right"
+            android:text="1/5"
+            android:textColor="#b0ffffff"
+            android:textSize="32dp"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText,RtlHardcoded,SpUsage" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center_horizontal"
+        android:text="请告诉我你的性别、身高、体重 \n 为你提供的定制会更精确"
+        android:textColor="@color/white"
+        android:textSize="16dp"
+        tools:ignore="HardcodedText,SpUsage" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1.0dip"
+        android:layout_marginTop="17.0dip"
+        android:background="@drawable/register_info_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:visibility="visible"
+        tools:ignore="UselessParent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18.0dip"
+            android:includeFontPadding="false"
+            android:maxHeight="16.0sp"
+            android:text="性别"
+            android:textColor="#ccffffff"
+            android:textSize="15.0sp"
+            tools:ignore="HardcodedText" />
+
+        <CheckBox
+            android:id="@+id/btn_register_info_sex"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="11.0dip"
+            android:background="@drawable/user_sex_selector"
+            android:button="@null"
+            android:gravity="center" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1.0dip"
+            android:layout_marginBottom="18.0dip"
+            android:layout_marginTop="18.0dip"
+            android:background="@drawable/register_info_line" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:maxHeight="16.0sp"
+            android:text="身高(cm)"
+            android:textColor="#ccffffff"
+            android:textSize="15.0sp"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/tv_register_info_height_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="11.0dip"
+            android:includeFontPadding="false"
+            android:maxHeight="24.0sp"
+            android:text="165"
+            android:textColor="#cc222222"
+            android:textSize="24.0sp"
+            tools:ignore="HardcodedText" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.joyful.joyfulkitchen.view.RulerView
+                android:id="@+id/ruler_height"
+                android:layout_width="match_parent"
+                android:layout_height="48.0dip"
+                android:layout_marginTop="24.0dip"
+                app:alphaEnable="true"
+                app:lineColor="@color/blue"
+                app:lineMaxHeight="40dp"
+                app:lineMidHeight="30dp"
+                app:lineMinHeight="20dp"
+                app:lineSpaceWidth="10dp"
+                app:lineWidth="2dip"
+                app:maxValue="250.0"
+                app:minValue="80.0"
+                app:perValue="1"
+                app:selectorValue="165.0"
+                app:textColor="@color/black" />
+
+            <ImageView
+                android:layout_width="14.0dip"
+                android:layout_height="53.0dip"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="11.0dip"
+                android:scaleType="fitXY"
+                android:src="@drawable/user_info_ruler_height"
+                tools:ignore="ContentDescription" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1.0dip"
+            android:layout_marginBottom="18.0dip"
+            android:layout_marginTop="8.0dip"
+            android:background="@drawable/register_info_line" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:includeFontPadding="false"
+            android:maxHeight="16.0sp"
+            android:text="体重(kg)"
+            android:textColor="#ccffffff"
+            android:textSize="15.0sp"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/tv_register_info_weight_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="11.0dip"
+            android:includeFontPadding="false"
+            android:maxHeight="24.0sp"
+            android:text="55"
+            android:textColor="#cc222222"
+            android:textSize="24.0sp"
+            tools:ignore="HardcodedText" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0.0dip"
+            android:layout_weight="1.0">
+
+            <com.joyful.joyfulkitchen.view.RulerView
+                android:id="@+id/ruler_weight"
+                android:layout_width="match_parent"
+                android:layout_height="58.0dip"
+                android:layout_marginTop="24.0dip"
+                app:alphaEnable="true"
+                app:lineColor="@color/blue"
+                app:textColor="@color/black" />
+
+
+            <ImageView
+                android:layout_width="14.0dip"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="6.0dip"
+                android:scaleType="fitXY"
+                android:src="@drawable/user_info_ruler_weight"
+                tools:ignore="ContentDescription" />
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/register_next_step"
+            android:padding="10dp"
+            android:text="下一步"
+            android:textColor="@color/white"
+            android:textSize="22dp"
+            tools:ignore="HardcodedText" />
+    </LinearLayout>
+
+</LinearLayout>

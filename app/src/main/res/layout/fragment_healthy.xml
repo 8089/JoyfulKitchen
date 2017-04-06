@@ -1,13 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <TextView
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.joyful.joyfulkitchen.view.RoundIndicatorView
+            android:id="@+id/my_view"
+            android:layout_width="match_parent"
+            android:layout_height="300dp" />
+
+        <EditText
+            android:id="@+id/edit"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="150dp"
+            android:inputType="number"
+            android:background="@drawable/edittext"
+            android:text="0"
+            android:textSize="20sp"/>
+
+    </RelativeLayout>
+
+
+    <Button
+        android:id="@+id/shengao"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="我是 健康饮食"/>
+        android:text="弹出身高的框"/>
 
+
+    <Button
+        android:id="@+id/mubiao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="目标之类的框"/>
 
 
 </LinearLayout>
