@@ -45,8 +45,8 @@ public class MainActivity extends AppCompatActivity  implements BottomNavigation
         mBottomNavigationBar.setMode(BottomNavigationBar.MODE_FIXED);
         mBottomNavigationBar.setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_DEFAULT);
         //设置默认颜色
-//        mBottomNavigationBar
-//                .setInActiveColor(R.color.colorInActive)//设置未选中的Item的颜色，包括图片和文字
+        mBottomNavigationBar
+                .setInActiveColor(R.color.grey);//设置未选中的Item的颜色，包括图片和文字
 //                .setActiveColor(R.color.colorPrimary)
 //                .setBarBackgroundColor(R.color.chocolate);//设置整个控件的背景色
         //设置徽章

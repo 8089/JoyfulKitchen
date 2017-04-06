@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="backgroud_little_gray">#FAFAFA</color>
+    <!-- 非常浅的灰色做背景 -->
+    <color name="title_not_select_gray">#AAAAAA</color>
+	<!-- 标题没选中灰色 -->
+	
+	<color name="red_text">#EB413D</color>
+	<!-- 红色文字(舒服) -->
+    
+    <color name="black_text">#333333</color>
+ 	<!-- 黑色文字(降一级舒服) -->
+    
+
+</resources>
