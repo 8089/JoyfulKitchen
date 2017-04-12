@@ -15,9 +15,9 @@ import com.joyful.joyfulkitchen.R;
 import com.joyful.joyfulkitchen.activity.TestActivity;
 
 /**
- * 美食圈 ---》关注 fragment
+ *  美食圈 --》发现 fragment
  */
-public class GourmetFollowFragment extends Fragment {
+ public class GourmetFindFragment extends Fragment {
     private LinearLayout all;
 
 
@@ -26,12 +26,13 @@ public class GourmetFollowFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = View.inflate(getContext(), R.layout.fragment_gourmet_follow, null);
-        mRecyclerview = (RecyclerView) view.findViewById(R.id.FollowRv);
+        View view = View.inflate(getContext(), R.layout.fragment_gourmet_find, null);
+       
+	   mRecyclerview = (RecyclerView) view.findViewById(R.id.rv);
 
         mRecyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        mRecyclerview.setAdapter(new GourmetFollowFragment.myAdapter());
+        mRecyclerview.setAdapter(new GourmetFindFragment.myAdapter());
 
 
         return view;
@@ -50,22 +51,21 @@ public class GourmetFollowFragment extends Fragment {
         });*/
     }
 
-    public class myAdapter extends RecyclerView.Adapter<GourmetFollowFragment.MyViewHolder>{
+    public class myAdapter extends RecyclerView.Adapter<GourmetFindFragment.MyViewHolder>{
 
         @Override
-        public GourmetFollowFragment.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recyclerview_find, null);
 
-            GourmetFollowFragment.MyViewHolder myViewHolder = new GourmetFollowFragment.MyViewHolder(view);
-
-
+            MyViewHolder myViewHolder = new MyViewHolder(view);
 
             return myViewHolder;
         }
 
         @Override
         public void onBindViewHolder(MyViewHolder holder, int position) {
-            GourmetFollowFragment.MyViewHolder myViewHolder = (GourmetFollowFragment.MyViewHolder) holder;
+
+            MyViewHolder myViewHolder = (MyViewHolder) holder;
 
             myViewHolder.all.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -75,8 +75,6 @@ public class GourmetFollowFragment extends Fragment {
                 }
             });
         }
-
-
 
         @Override
         public int getItemCount() {
@@ -89,10 +87,6 @@ public class GourmetFollowFragment extends Fragment {
         public MyViewHolder(View itemView) {
             super(itemView);
             all = (LinearLayout) itemView.findViewById(R.id.all);
-
         }
     }
-
-
-
 }

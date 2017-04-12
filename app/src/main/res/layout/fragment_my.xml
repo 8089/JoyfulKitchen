@@ -1,25 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/LinearLayout_vertical_m_m">
 
 
     <LinearLayout
         style="@style/LinearLayout_vertical_m_w"
-        android:layout_weight="2.3"
-        android:background="@color/orangered_a">
+        android:background="@mipmap/mybg">
 
         <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/imageView"
-                style="@style/personal_data_LinearLayout_public_1"
-                android:layout_gravity="bottom"
-                android:layout_marginLeft="20dp"
-                app:srcCompat="@drawable/back" />
 
             <TextView
                 style="@style/personal_data_LinearLayout_public"
@@ -27,25 +20,29 @@
                 android:textColor="@color/white" />
 
             <ImageView
-                android:id="@+id/imageView1"
-                style="@style/personal_data_LinearLayout_public_1"
+                android:id="@+id/xiugai"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:layout_gravity="bottom"
                 android:layout_marginRight="20dp"
-                app:srcCompat="@drawable/back" />
+                app:srcCompat="@mipmap/update" />
 
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/yourInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="horizontal"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
 
-            <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="85dp"
-                android:layout_height="85dp"
+            <com.joyful.joyfulkitchen.view.AvatarImageView
+                android:id="@+id/myFace"
+                android:layout_width="85dip"
+                android:layout_height="85dip"
                 android:layout_gravity="center"
-                app:srcCompat="@drawable/a" />
+                android:src="@mipmap/face" />
 
             <TextView
                 android:id="@+id/textView"
@@ -53,17 +50,19 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginBottom="8dp"
-                android:gravity="bottom"
-                android:text="用户名"
-                android:textSize="15dp" />
+                android:text="世界就这样"
+                android:textSize="35dp"
+                android:textColor="@color/white"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="38dp"
             android:background="#80eaeaea"
-            android:layout_weight="1"
+            android:gravity="bottom"
+            android:layout_marginTop="40dp"
             android:orientation="horizontal">
 
             <TextView
@@ -91,128 +90,14 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        style="@style/LinearLayout_vertical_m_w"
-        android:layout_weight="1">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:background="#F1EFE3" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <LinearLayout
-            style="@style/LinearLayout_horizontal_m_w"
-            android:scrollbars="vertical">
+    </android.support.v7.widget.RecyclerView>
 
-            <ImageView
-                style="@style/personal_user_LinearLayout_My_collection_ImageView_a"
-                app:srcCompat="@drawable/add" />
-
-            <TextView
-                style="@style/personal_user_LinearLayout_My_collection_TextView"
-                android:text="我的收藏" />
-
-            <ImageView
-                style="@style/personal_user_LinearLayout_My_collection_ImageView_b"
-                app:srcCompat="@drawable/back" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            style="@style/LinearLayout_horizontal_m_w"
-            android:scrollbars="vertical">
-
-            <ImageView
-                style="@style/personal_user_LinearLayout_My_collection_ImageView_a"
-                app:srcCompat="@drawable/add" />
-
-            <TextView
-                style="@style/personal_user_LinearLayout_My_collection_TextView"
-                android:text="我的下载" />
-
-            <ImageView
-                style="@style/personal_user_LinearLayout_My_collection_ImageView_b"
-                app:srcCompat="@drawable/add" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            style="@style/LinearLayout_horizontal_m_w"
-            android:scrollbars="vertical">
-
-            <ImageView
-                style="@style/personal_user_LinearLayout_My_collection_ImageView_a"
-                app:srcCompat="@drawable/add" />
-
-            <TextView
-                style="@style/personal_user_LinearLayout_My_collection_TextView"
-                android:text="浏览历史" />
-
-            <ImageView
-                style="@style/personal_user_LinearLayout_My_collection_ImageView_b"
-                app:srcCompat="@drawable/add" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            style="@style/LinearLayout_horizontal_m_w"
-            android:scrollbars="vertical">
-
-            <ImageView
-                style="@style/personal_user_LinearLayout_My_collection_ImageView_a"
-                app:srcCompat="@drawable/add" />
-
-            <TextView
-                style="@style/personal_user_LinearLayout_My_collection_TextView"
-                android:text="我的积分" />
-
-            <ImageView
-                style="@style/personal_user_LinearLayout_My_collection_ImageView_b"
-                app:srcCompat="@drawable/add" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            style="@style/LinearLayout_horizontal_m_w"
-            android:scrollbars="vertical">
-
-            <ImageView
-                style="@style/personal_user_LinearLayout_My_collection_ImageView_a"
-                app:srcCompat="@drawable/add" />
-
-            <TextView
-                style="@style/personal_user_LinearLayout_My_collection_TextView"
-                android:text="我的订单" />
-
-            <ImageView
-                style="@style/personal_user_LinearLayout_My_collection_ImageView_b"
-                app:srcCompat="@drawable/add" />
-
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:background="#F1EFE3" />
-        <LinearLayout
-            style="@style/LinearLayout_horizontal_m_w"
-            android:scrollbars="vertical">
-
-            <ImageView
-                style="@style/personal_user_LinearLayout_My_collection_ImageView_a"
-                app:srcCompat="@drawable/add" />
-
-            <TextView
-                style="@style/personal_user_LinearLayout_My_collection_TextView"
-                android:text="系统设置" />
-
-            <ImageView
-                style="@style/personal_user_LinearLayout_My_collection_ImageView_b"
-                app:srcCompat="@drawable/add" />
-
-        </LinearLayout>
-
-
-    </LinearLayout>
 
 </LinearLayout>

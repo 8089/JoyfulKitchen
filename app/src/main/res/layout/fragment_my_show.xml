@@ -13,7 +13,7 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/back"
             style="@style/personal_data_LinearLayout_public_1"
             android:layout_marginLeft="20dp"
             app:srcCompat="@drawable/back" />
@@ -22,6 +22,8 @@
             style="@style/personal_data_LinearLayout_public"
             android:layout_marginLeft="10dp"
             android:text="个人资料"
+            android:textSize="20sp"
+            android:gravity="center"
             android:textColor="@color/white" />
 
         <TextView
@@ -36,17 +38,21 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:orientation="horizontal">
+        android:layout_height="110dp"
+        android:gravity="center"
+        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/imageView3"
-            style="@style/personal_data_LinearLayout_public"
-            app:srcCompat="@drawable/add" />
+        <com.joyful.joyfulkitchen.view.AvatarImageView
+            android:id="@+id/myFace"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:src="@mipmap/face"/>
 
         <TextView
             android:id="@+id/textView4"
-            style="@style/personal_data_LinearLayout_public"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
             android:text="更换头像" />
 
     </LinearLayout>

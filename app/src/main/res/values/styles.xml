@@ -25,7 +25,7 @@
 
     <style name="LinearLayout_vertical_m_w">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_height">200dp</item>
         <item name="android:orientation">vertical</item>
     </style>
 
@@ -103,7 +103,8 @@
         <item name="android:layout_weight">1</item>
     </style>
 
-    <style name="personal_user_LinearLayout_My_collection_TextView" parent="personal_user_LinearLayout_My_collection_public">
+    <style name="personal_user_LinearLayout_My_collection_TextView"
+        parent="personal_user_LinearLayout_My_collection_public">
         <item name="android:paddingBottom">15dp</item>
         <item name="android:layout_weight">10</item>
         <item name="android:textSize">20dp</item>
