@@ -33,10 +33,12 @@ public class MainActivity extends AppCompatActivity  implements BottomNavigation
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         // 初始化
         initView();
         // 初始化 fragment
         initFragment();
+
 
     }
 

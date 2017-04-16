@@ -5,20 +5,21 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.joyful.joyfulkitchen.R;
-import com.joyful.joyfulkitchen.activity.DatePickerMainActivity;
-import com.joyful.joyfulkitchen.activity.RuleViewMainActivity;
+import com.joyful.joyfulkitchen.activity.FoodSelectActivity;
+import com.joyful.joyfulkitchen.utils.ToastUtils;
 import com.joyful.joyfulkitchen.view.RoundIndicatorView;
+
+import org.joda.time.DateTime;
+
+import noman.weekcalendar.WeekCalendar;
+import noman.weekcalendar.listener.OnDateClickListener;
 
 // 健康饮食
 public class HealthyFragment extends Fragment {
@@ -30,8 +31,8 @@ public class HealthyFragment extends Fragment {
 
     private RoundIndicatorView roundIndicatorView;
     private EditText editText;
-    private Button button;
-
+    private TextView tv_food_select;
+    private WeekCalendar weekCalendar;
 
     public static HealthyFragment newInstance(String param1) {
         HealthyFragment fragment = new HealthyFragment();
@@ -52,54 +53,69 @@ public class HealthyFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+
+
         View view = inflater.inflate(R.layout.fragment_healthy, container, false);
-//expected class or package
-        view.findViewById(R.id.shengao).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), RuleViewMainActivity.class);
-                startActivity(intent);
-            }
-        });
-        view.findViewById(R.id.mubiao).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), DatePickerMainActivity.class);
-                startActivity(intent);
-            }
-        });
 
+        initView(view);
+        setOnListeners();
 
-        roundIndicatorView = (RoundIndicatorView) view.findViewById(R.id.my_view);
+        return view;
+    }
+
+    private void initView(View view) {
+        tv_food_select = (TextView) view.findViewById(R.id.tv_food_select);
+        weekCalendar = (WeekCalendar) view.findViewById(R.id.weekCalendar);
         editText = (EditText) view.findViewById(R.id.edit);
+        roundIndicatorView = (RoundIndicatorView) view.findViewById(R.id.riv_view);
+    }
+
+    private void setOnListeners() {
+        tv_food_select.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), FoodSelectActivity.class);
+                startActivityForResult(intent, 1);
+            }
+        });
+
 
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                ToastUtils.showToast(getContext(), "beforeTextChanged");
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 try{
-                    Log.i("aaaaa","aaaaaaaaaaa="+ s);
                     if(s.length() >0 ) {
                         int a = Integer.valueOf(s.toString());
                         roundIndicatorView.setCurrentNumAnim(a);
+                    }else{
+                        roundIndicatorView.setCurrentNumAnim(0);
                     }
                 } catch (Exception e){
-                    Toast.makeText(getContext(), "数字太大了", Toast.LENGTH_SHORT).show();
+                    ToastUtils.showToast(getContext(), "数字太大了");
                 }
             }
 
             @Override
             public void afterTextChanged(Editable s) {
+            }
+        });
 
+        weekCalendar.setOnDateClickListener(new OnDateClickListener() {
+            @Override
+            public void onDateClick(DateTime dateTime) {
+                ToastUtils.showToast(getContext(), "您选择的日期是:" + dateTime.toLocalDate());
             }
         });
 
 
 
-        return view;
+
     }
 
 

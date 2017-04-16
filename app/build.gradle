@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao'
 
 android {
     compileSdkVersion 25
@@ -19,6 +20,13 @@ android {
     }
 }
 
+allprojects {
+    repositories {
+        maven { url "https://jitpack.io" }
+    }
+}
+
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -26,11 +34,32 @@ dependencies {
     })
     // 选项按钮
     compile 'com.android.support:appcompat-v7:25.3.0'
+    compile 'com.android.support:design:25.3.0'
+    compile 'com.android.support:cardview-v7:25.3.0'
+
+    compile 'noman.weekcalendar:weekcalendar:1.0.6'// weekcalendar
+
     compile 'com.ashokvarma.android:bottom-navigation-bar:1.4.1'
     compile 'com.android.support:support-v4:25.1.0'
     testCompile 'junit:junit:4.12'
 
-    // cradview  支持包
- /*   compile 'com.android.support:cardview-v7:25.3.0'
-    compile 'com.android.support:recyclerview-v7:25.3.0'*/
+    /* greendao 数据库*/
+    compile 'org.greenrobot:greendao:3.2.0'
+    //compile 'net.zetetic:android-database-sqlcipher:3.5.4' //数据库加密时添加
+    //compile 'com.github.yuweiguocn:GreenDaoUpgradeHelper:v1.2.0' //使用数据库升级辅助GreenDaoUpgradleHepler时添加
+
+}
+
+//数据库版本以及Dao的相关设置
+greendao {
+    //数据库schema版本
+    schemaVersion 1
+    //设置DaoMaster DaoSession Dao包名，默认的是bean所在的包名
+    daoPackage 'com.joyful.joyfulkitchen.dao'
+    //设置DaoMaster DaoSeeeion Dao目录，默认是build/generated/source/greendao
+    targetGenDir 'src/main/java'
+    //设置true,自动生成测试单元
+    //generateTests 'true'
+    //设置生成的单元测试目录，默认是src/androidTest/java
+    //targetGenDirTests 'src/androidTest/java'
 }

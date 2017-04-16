@@ -4,6 +4,15 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
+    <!-- food select color-->
+
+    <color name="text_unselect_color">#333333</color>
+    <color name="tab_unselect_color">#ffffff</color>
+    <color name="bg">#57C5E8</color>
+    <color name="tab_select_color">#57C5E8</color>
+    <color name="text_select_color">#FFFFFF</color>
+
+
 
     <!-- register_b_a -->
     <color name="background">#FFFFFF</color>
