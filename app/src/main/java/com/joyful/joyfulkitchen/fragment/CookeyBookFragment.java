@@ -9,7 +9,6 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.joyful.joyfulkitchen.R;
@@ -32,7 +31,6 @@ public class CookeyBookFragment extends Fragment implements View.OnClickListener
 
     private String mParam1;
 
-    private ImageView btn_back;
     private TextView go_soupage;
     private RecyclerView meau_recyclerView_left, meau_recyclerView_right;
     private MeauTypeLeftAdapter meauTypeLeftAdapter;
@@ -74,8 +72,7 @@ public class CookeyBookFragment extends Fragment implements View.OnClickListener
 
 
     private void initView(View view) {
-        btn_back = (ImageView) view.findViewById(R.id.btn_back);
-        btn_back.setOnClickListener(this);
+
         go_soupage = (TextView) view.findViewById(R.id.go_soupage);
         go_soupage.setOnClickListener(this);
 
@@ -153,10 +150,6 @@ public class CookeyBookFragment extends Fragment implements View.OnClickListener
                 bundle.putString("pname", "家常菜");
                 intent.putExtras(bundle);
                 startActivity(intent);
-                break;
-            case R.id.btn_back:
-                // 关闭这个页面
-//                this.finish();
                 break;
             default:
                 break;
