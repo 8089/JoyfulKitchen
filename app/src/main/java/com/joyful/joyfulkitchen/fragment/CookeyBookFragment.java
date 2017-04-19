@@ -68,8 +68,6 @@ public class CookeyBookFragment extends Fragment implements View.OnClickListener
         initView(view);
 
         addListeener();
-
-
         return view;
     }
 
@@ -144,9 +142,6 @@ public class CookeyBookFragment extends Fragment implements View.OnClickListener
         });
     }
 
-
-
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -167,7 +162,6 @@ public class CookeyBookFragment extends Fragment implements View.OnClickListener
                 break;
         }
     }
-
 
     /**
      * 获取所有的类型
