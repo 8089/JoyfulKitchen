@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.joyful.joyfulkitchen.R;
 import com.joyful.joyfulkitchen.activity.FoodSelectActivity;
-import com.joyful.joyfulkitchen.utils.ToastUtils;
+import com.joyful.joyfulkitchen.util.ToastUtils;
 import com.joyful.joyfulkitchen.view.RoundIndicatorView;
 
 import org.joda.time.DateTime;

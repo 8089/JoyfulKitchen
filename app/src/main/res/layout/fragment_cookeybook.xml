@@ -1,38 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <LinearLayout
+    android:layout_height="match_parent"
+    android:background="@color/bg_1"
+    android:orientation="vertical">
+
+    <!--<include layout="@layout/meautype_top" android:layout_height="wrap_content" ></include>-->
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/lightgreen"
-        >
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:background="@color/meautype_top"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="20dp"
-            app:srcCompat="@mipmap/menu" />
-        <SearchView
-            android:id="@+id/searchView"
+            android:background="@color/meautype_top"
+            android:layout_gravity="center"
+            android:padding="20dp"
+            android:src="@drawable/back" />
+
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/home_search"
-            android:iconifiedByDefault="false"
-            android:queryHint="@string/PleaseKey" />
+            android:gravity="center_vertical"
+            android:paddingLeft="20dp"
+            android:text="菜谱分类"
+            android:textColor="@color/wight" />
 
     </LinearLayout>
 
-    <com.jude.rollviewpager.RollPagerView
-        android:id="@+id/view_pager"
+    <TextView
+        android:id="@+id/go_soupage"
         android:layout_width="match_parent"
-        android:layout_height="180dp"
-        app:rollviewpager_play_delay="3000"/>
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/btn_shape"
+        android:gravity="center"
+        android:text="搜菜谱 如: 糖醋排骨 或 鸡蛋"
+        android:textColor="@color/bg_1"
+        android:textSize="14sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/meau_recyclerView_left"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/meau_recyclerView_right"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@color/wight"
+            android:padding="10dp">
+
+        </android.support.v7.widget.RecyclerView>
+
+
+    </LinearLayout>
+
+
 </LinearLayout>
