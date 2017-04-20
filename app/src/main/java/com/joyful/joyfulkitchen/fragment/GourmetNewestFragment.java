@@ -16,7 +16,7 @@ public class GourmetNewestFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_gourmet_newest, container,false);
+        View view = inflater.inflate(R.layout.fragment_my_yourinfo, container,false);
 
         return view;
     }

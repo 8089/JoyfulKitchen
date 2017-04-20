@@ -24,7 +24,7 @@
 
 
                 <com.joyful.joyfulkitchen.view.RoundIndicatorView
-                    android:background="@drawable/bg6"
+                    android:background="@drawable/bg"
                     android:id="@+id/riv_view"
                     android:layout_width="match_parent"
 
