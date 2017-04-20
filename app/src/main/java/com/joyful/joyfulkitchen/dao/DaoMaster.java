@@ -23,6 +23,8 @@ public class DaoMaster extends AbstractDaoMaster {
     public static void createAllTables(Database db, boolean ifNotExists) {
         FoodDao.createTable(db, ifNotExists);
         FoodTypeDao.createTable(db, ifNotExists);
+        PostDao.createTable(db, ifNotExists);
+        PostImgDao.createTable(db, ifNotExists);
         RecordDao.createTable(db, ifNotExists);
         UserDao.createTable(db, ifNotExists);
     }
@@ -31,6 +33,8 @@ public class DaoMaster extends AbstractDaoMaster {
     public static void dropAllTables(Database db, boolean ifExists) {
         FoodDao.dropTable(db, ifExists);
         FoodTypeDao.dropTable(db, ifExists);
+        PostDao.dropTable(db, ifExists);
+        PostImgDao.dropTable(db, ifExists);
         RecordDao.dropTable(db, ifExists);
         UserDao.dropTable(db, ifExists);
     }
@@ -53,6 +57,8 @@ public class DaoMaster extends AbstractDaoMaster {
         super(db, SCHEMA_VERSION);
         registerDaoClass(FoodDao.class);
         registerDaoClass(FoodTypeDao.class);
+        registerDaoClass(PostDao.class);
+        registerDaoClass(PostImgDao.class);
         registerDaoClass(RecordDao.class);
         registerDaoClass(UserDao.class);
     }

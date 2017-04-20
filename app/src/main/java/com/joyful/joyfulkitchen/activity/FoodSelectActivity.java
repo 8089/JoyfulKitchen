@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import com.joyful.joyfulkitchen.Itemdecoration.FoodSearchItemDecoration;
 import com.joyful.joyfulkitchen.R;
 import com.joyful.joyfulkitchen.adapter.FoodSearchAdapter;
-import com.joyful.joyfulkitchen.utils.ToastUtils;
+import com.joyful.joyfulkitchen.util.ToastUtils;
 import com.joyful.joyfulkitchen.view.XTabHost;
 
 import java.util.ArrayList;

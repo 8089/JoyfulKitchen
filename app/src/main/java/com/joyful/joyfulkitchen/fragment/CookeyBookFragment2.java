@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 // cookeybook  菜谱
-public class CookeyBookFragment extends Fragment {
+public class CookeyBookFragment2 extends Fragment {
 
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_Name = "ARG_Name";
@@ -48,8 +48,8 @@ public class CookeyBookFragment extends Fragment {
     private int preIndex = 0;
 
 
-    public static CookeyBookFragment newInstance(String param1) {
-        CookeyBookFragment fragment = new CookeyBookFragment();
+    public static CookeyBookFragment2 newInstance(String param1) {
+        CookeyBookFragment2 fragment = new CookeyBookFragment2();
         Bundle args = new Bundle();
         args.putString(ARG_Name, param1);
         fragment.setArguments(args);
@@ -67,7 +67,7 @@ public class CookeyBookFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_cookeybook2, container, false);
+        View view = inflater.inflate(R.layout.fragment_cookeybook, container, false);
 
         initView(view);
         addListener();

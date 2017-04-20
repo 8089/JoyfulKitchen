@@ -28,19 +28,21 @@ public class User {
     @Property(nameInDb = "nickname")
     private String nickName;                //  VARCHAR(30) 昵称
 
-    private String phone;                   // VARCHAR(20)  ,                  -- 电话号码
+    private String phone;                   // VARCHAR(20)  ,                   -- 电话号码
+    private String email;                   // VARCHAR(20)                      -- email
     private String pwd;                     //VARCHAR(20),                      -- 密码
     private String img;                     //VARCHAR(50),                      -- 头像
-    private int age;                        //INTEGER ,                 		-- 年龄
+    private Date birth;                     // Date ,                 		     -- 年龄
     private int sex;                        //BIT ,                             -- 性别
     private String city;                    // VARCHAR(20),                     -- 城市
-    private String country;                 // VARCHAR(20) ,                 -- 国家
-    private float weight;                  // FLOAT ,                        -- 体重
-    private float heigth;                  //FLOAT ,                        -- 身高
-    private int target;                    //INTEGER,                      -- 目标
-    private int power;                     //INTEGER  ,                      -- 工作强度
-    private int active;                    //INTEGER   ,                    -- 是否激活
-    private String token;                  //VARCHAR(50) ,                   -- token 码
+    private String country;                 // VARCHAR(20) ,                    -- 国家
+    private float weight;                  // FLOAT ,                           -- 体重
+    private float heigth;                  //FLOAT ,                            -- 身高
+    private int target;                    //INTEGER,                           -- 目标
+    private int power;                     //INTEGER  ,                         -- 工作强度
+    private int active;                    //INTEGER   ,                        -- 是否激活
+    private String token;                  //VARCHAR(50) ,                       -- token 码
+
 
     @Property(nameInDb = "create_time")
     private Date createTime;             // DATETIME,                 -- 创建时间
@@ -48,16 +50,18 @@ public class User {
     @Property(nameInDb = "update_time")
     private Date updateTime;             // DATETIME                  -- 更新时间
 
-    @Generated(hash = 456176655)
-    public User(Long userId, String nickName, String phone, String pwd, String img, int age,
-            int sex, String city, String country, float weight, float heigth, int target,
-            int power, int active, String token, Date createTime, Date updateTime) {
+    @Generated(hash = 85224398)
+    public User(Long userId, String nickName, String phone, String email, String pwd,
+            String img, Date birth, int sex, String city, String country, float weight,
+            float heigth, int target, int power, int active, String token, Date createTime,
+            Date updateTime) {
         this.userId = userId;
         this.nickName = nickName;
         this.phone = phone;
+        this.email = email;
         this.pwd = pwd;
         this.img = img;
-        this.age = age;
+        this.birth = birth;
         this.sex = sex;
         this.city = city;
         this.country = country;
@@ -115,12 +119,12 @@ public class User {
         this.img = img;
     }
 
-    public int getAge() {
-        return this.age;
+    public Date getBirth() {
+        return this.birth;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setBirth(Date birth) {
+        this.birth = birth;
     }
 
     public int getSex() {
@@ -210,4 +214,14 @@ public class User {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+
 }
