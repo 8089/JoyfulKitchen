@@ -1,4 +1,4 @@
-package com.joyful.joyfulkitchen.utils;
+package com.joyful.joyfulkitchen.util;
 
 import android.content.Context;
 import android.widget.Toast;

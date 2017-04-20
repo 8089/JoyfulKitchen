@@ -51,6 +51,14 @@ dependencies {
     compile 'com.jakewharton:butterknife:7.0.1'
 
 
+
+    compile 'com.squareup.okhttp:okhttp:2.7.5'
+    compile 'com.squareup.okio:okio:1.11.0'
+
+    compile 'com.android.volley:volley:1.0.0'
+
+
+
     /* greendao 数据库*/
     compile 'org.greenrobot:greendao:3.2.0'
     //compile 'net.zetetic:android-database-sqlcipher:3.5.4' //数据库加密时添加
