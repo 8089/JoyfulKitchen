@@ -330,4 +330,8 @@
     <color name="orangered">#FF4500</color>
     <color name="orangered_a">#FF533B</color>
 
+
+    <color name="text_Grey">#8496a0</color>
+    <color name="colorWhite">#ffffff</color>
+
 </resources>

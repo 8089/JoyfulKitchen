@@ -36,6 +36,7 @@
         <activity android:name=".activity.MyselfActivity" />
 		<activity android:name=".activity.SearchListActivity" />
 		<activity android:name=".activity.FoodDetailActivity" />
+		
     </application>
 
 
