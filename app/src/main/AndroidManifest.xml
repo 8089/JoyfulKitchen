@@ -12,12 +12,17 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
+    <!-- 蓝牙连接权限-->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.BLUETOOTH_PRIVILEGED" />
+    <uses-feature android:name="android.hardware.bluetooth_le" android:required="true"/>
 
 
     <application
         android:name=".base.BaseApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/kit"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -36,7 +41,9 @@
         <activity android:name=".activity.MyselfActivity" />
 		<activity android:name=".activity.SearchListActivity" />
 		<activity android:name=".activity.FoodDetailActivity" />
-		
+
+		<service android:name=".service.BluetoothService" />
+
     </application>
 
 
