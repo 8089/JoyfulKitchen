@@ -21,7 +21,7 @@
         <TextView
             style="@style/personal_data_LinearLayout_public"
             android:layout_marginLeft="10dp"
-            android:text="个人资料"
+            android:text="修改个人资料"
             android:textSize="20sp"
             android:gravity="center"
             android:textColor="@color/white" />

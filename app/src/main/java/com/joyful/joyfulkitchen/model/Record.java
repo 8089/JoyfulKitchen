@@ -10,8 +10,8 @@ import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.DaoException;
 import com.joyful.joyfulkitchen.dao.DaoSession;
 import com.joyful.joyfulkitchen.dao.FoodDao;
-import com.joyful.joyfulkitchen.dao.UserDao;
 import com.joyful.joyfulkitchen.dao.RecordDao;
+import com.joyful.joyfulkitchen.dao.UserDao;
 
 /*记录称量*/
 @Entity(nameInDb = "tb_record")

@@ -66,7 +66,7 @@
             tools:ignore="UselessParent">
 
             <!--<com.example.administrator.DatePicker.DatePickerView-->
-            <com.joyful.joyfulkitchen.Date.DatePickerView
+            <com.joyful.joyfulkitchen.date.DatePickerView
                 android:id="@+id/year_pv"
                 android:layout_width="0dp"
                 android:layout_height="160dp"
@@ -81,7 +81,7 @@
                 android:textColor="@color/text2"
                 android:textSize="18sp" />
 
-            <com.joyful.joyfulkitchen.Date.DatePickerView
+            <com.joyful.joyfulkitchen.date.DatePickerView
                 android:id="@+id/month_pv"
                 android:layout_width="0dp"
                 android:layout_height="160dp"
@@ -96,7 +96,7 @@
                 android:textColor="@color/text2"
                 android:textSize="18sp" />
 
-            <com.joyful.joyfulkitchen.Date.DatePickerView
+            <com.joyful.joyfulkitchen.date.DatePickerView
                 android:id="@+id/day_pv"
                 android:layout_width="0dp"
                 android:layout_height="160dp"
@@ -111,7 +111,7 @@
                 android:textColor="@color/text2"
                 android:textSize="18sp" />
 
-            <com.joyful.joyfulkitchen.Date.DatePickerView
+            <com.joyful.joyfulkitchen.date.DatePickerView
                 android:id="@+id/hour_pv"
                 android:layout_width="0dp"
                 android:layout_height="160dp"
@@ -127,7 +127,7 @@
                 android:textColor="@color/text2"
                 android:textSize="18sp" />
 
-            <com.joyful.joyfulkitchen.Date.DatePickerView
+            <com.joyful.joyfulkitchen.date.DatePickerView
                 android:id="@+id/minute_pv"
                 android:layout_width="0dp"
                 android:layout_height="160dp"

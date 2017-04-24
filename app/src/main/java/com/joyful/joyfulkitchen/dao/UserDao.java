@@ -27,20 +27,21 @@ public class UserDao extends AbstractDao<User, Long> {
         public final static Property UserId = new Property(0, Long.class, "userId", true, "user_id");
         public final static Property NickName = new Property(1, String.class, "nickName", false, "nickname");
         public final static Property Phone = new Property(2, String.class, "phone", false, "PHONE");
-        public final static Property Pwd = new Property(3, String.class, "pwd", false, "PWD");
-        public final static Property Img = new Property(4, String.class, "img", false, "IMG");
-        public final static Property Age = new Property(5, int.class, "age", false, "AGE");
-        public final static Property Sex = new Property(6, int.class, "sex", false, "SEX");
-        public final static Property City = new Property(7, String.class, "city", false, "CITY");
-        public final static Property Country = new Property(8, String.class, "country", false, "COUNTRY");
-        public final static Property Weight = new Property(9, float.class, "weight", false, "WEIGHT");
-        public final static Property Heigth = new Property(10, float.class, "heigth", false, "HEIGTH");
-        public final static Property Target = new Property(11, int.class, "target", false, "TARGET");
-        public final static Property Power = new Property(12, int.class, "power", false, "POWER");
-        public final static Property Active = new Property(13, int.class, "active", false, "ACTIVE");
-        public final static Property Token = new Property(14, String.class, "token", false, "TOKEN");
-        public final static Property CreateTime = new Property(15, java.util.Date.class, "createTime", false, "create_time");
-        public final static Property UpdateTime = new Property(16, java.util.Date.class, "updateTime", false, "update_time");
+        public final static Property Email = new Property(3, String.class, "email", false, "EMAIL");
+        public final static Property Pwd = new Property(4, String.class, "pwd", false, "PWD");
+        public final static Property Img = new Property(5, String.class, "img", false, "IMG");
+        public final static Property Birth = new Property(6, java.util.Date.class, "birth", false, "BIRTH");
+        public final static Property Sex = new Property(7, int.class, "sex", false, "SEX");
+        public final static Property City = new Property(8, String.class, "city", false, "CITY");
+        public final static Property Country = new Property(9, String.class, "country", false, "COUNTRY");
+        public final static Property Weight = new Property(10, float.class, "weight", false, "WEIGHT");
+        public final static Property Heigth = new Property(11, float.class, "heigth", false, "HEIGTH");
+        public final static Property Target = new Property(12, int.class, "target", false, "TARGET");
+        public final static Property Power = new Property(13, int.class, "power", false, "POWER");
+        public final static Property Active = new Property(14, int.class, "active", false, "ACTIVE");
+        public final static Property Token = new Property(15, String.class, "token", false, "TOKEN");
+        public final static Property CreateTime = new Property(16, java.util.Date.class, "createTime", false, "create_time");
+        public final static Property UpdateTime = new Property(17, java.util.Date.class, "updateTime", false, "update_time");
     }
 
 
@@ -59,20 +60,21 @@ public class UserDao extends AbstractDao<User, Long> {
                 "\"user_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: userId
                 "\"nickname\" TEXT," + // 1: nickName
                 "\"PHONE\" TEXT," + // 2: phone
-                "\"PWD\" TEXT," + // 3: pwd
-                "\"IMG\" TEXT," + // 4: img
-                "\"AGE\" INTEGER NOT NULL ," + // 5: age
-                "\"SEX\" INTEGER NOT NULL ," + // 6: sex
-                "\"CITY\" TEXT," + // 7: city
-                "\"COUNTRY\" TEXT," + // 8: country
-                "\"WEIGHT\" REAL NOT NULL ," + // 9: weight
-                "\"HEIGTH\" REAL NOT NULL ," + // 10: heigth
-                "\"TARGET\" INTEGER NOT NULL ," + // 11: target
-                "\"POWER\" INTEGER NOT NULL ," + // 12: power
-                "\"ACTIVE\" INTEGER NOT NULL ," + // 13: active
-                "\"TOKEN\" TEXT," + // 14: token
-                "\"create_time\" INTEGER," + // 15: createTime
-                "\"update_time\" INTEGER);"); // 16: updateTime
+                "\"EMAIL\" TEXT," + // 3: email
+                "\"PWD\" TEXT," + // 4: pwd
+                "\"IMG\" TEXT," + // 5: img
+                "\"BIRTH\" INTEGER," + // 6: birth
+                "\"SEX\" INTEGER NOT NULL ," + // 7: sex
+                "\"CITY\" TEXT," + // 8: city
+                "\"COUNTRY\" TEXT," + // 9: country
+                "\"WEIGHT\" REAL NOT NULL ," + // 10: weight
+                "\"HEIGTH\" REAL NOT NULL ," + // 11: heigth
+                "\"TARGET\" INTEGER NOT NULL ," + // 12: target
+                "\"POWER\" INTEGER NOT NULL ," + // 13: power
+                "\"ACTIVE\" INTEGER NOT NULL ," + // 14: active
+                "\"TOKEN\" TEXT," + // 15: token
+                "\"create_time\" INTEGER," + // 16: createTime
+                "\"update_time\" INTEGER);"); // 17: updateTime
     }
 
     /** Drops the underlying database table. */
@@ -100,46 +102,55 @@ public class UserDao extends AbstractDao<User, Long> {
             stmt.bindString(3, phone);
         }
  
+        String email = entity.getEmail();
+        if (email != null) {
+            stmt.bindString(4, email);
+        }
+ 
         String pwd = entity.getPwd();
         if (pwd != null) {
-            stmt.bindString(4, pwd);
+            stmt.bindString(5, pwd);
         }
  
         String img = entity.getImg();
         if (img != null) {
-            stmt.bindString(5, img);
+            stmt.bindString(6, img);
         }
-        stmt.bindLong(6, entity.getAge());
-        stmt.bindLong(7, entity.getSex());
+ 
+        java.util.Date birth = entity.getBirth();
+        if (birth != null) {
+            stmt.bindLong(7, birth.getTime());
+        }
+        stmt.bindLong(8, entity.getSex());
  
         String city = entity.getCity();
         if (city != null) {
-            stmt.bindString(8, city);
+            stmt.bindString(9, city);
         }
  
         String country = entity.getCountry();
         if (country != null) {
-            stmt.bindString(9, country);
+            stmt.bindString(10, country);
         }
-        stmt.bindDouble(10, entity.getWeight());
-        stmt.bindDouble(11, entity.getHeigth());
-        stmt.bindLong(12, entity.getTarget());
-        stmt.bindLong(13, entity.getPower());
-        stmt.bindLong(14, entity.getActive());
+        stmt.bindDouble(11, entity.getWeight());
+        stmt.bindDouble(12, entity.getHeigth());
+        stmt.bindLong(13, entity.getTarget());
+        stmt.bindLong(14, entity.getPower());
+        stmt.bindLong(15, entity.getActive());
  
         String token = entity.getToken();
         if (token != null) {
-            stmt.bindString(15, token);
+            stmt.bindString(16, token);
         }
  
         java.util.Date createTime = entity.getCreateTime();
         if (createTime != null) {
-            stmt.bindLong(16, createTime.getTime());
+            stmt.bindLong(17, createTime.getTime());
         }
  
         java.util.Date updateTime = entity.getUpdateTime();
         if (updateTime != null) {
-            stmt.bindLong(17, updateTime.getTime());
+            stmt.bindLong(18, updateTime.getTime());
         }
     }
 
@@ -162,46 +173,55 @@ public class UserDao extends AbstractDao<User, Long> {
             stmt.bindString(3, phone);
         }
  
+        String email = entity.getEmail();
+        if (email != null) {
+            stmt.bindString(4, email);
+        }
+ 
         String pwd = entity.getPwd();
         if (pwd != null) {
-            stmt.bindString(4, pwd);
+            stmt.bindString(5, pwd);
         }
  
         String img = entity.getImg();
         if (img != null) {
-            stmt.bindString(5, img);
+            stmt.bindString(6, img);
         }
-        stmt.bindLong(6, entity.getAge());
-        stmt.bindLong(7, entity.getSex());
+ 
+        java.util.Date birth = entity.getBirth();
+        if (birth != null) {
+            stmt.bindLong(7, birth.getTime());
+        }
+        stmt.bindLong(8, entity.getSex());
  
         String city = entity.getCity();
         if (city != null) {
-            stmt.bindString(8, city);
+            stmt.bindString(9, city);
         }
  
         String country = entity.getCountry();
         if (country != null) {
-            stmt.bindString(9, country);
+            stmt.bindString(10, country);
         }
-        stmt.bindDouble(10, entity.getWeight());
-        stmt.bindDouble(11, entity.getHeigth());
-        stmt.bindLong(12, entity.getTarget());
-        stmt.bindLong(13, entity.getPower());
-        stmt.bindLong(14, entity.getActive());
+        stmt.bindDouble(11, entity.getWeight());
+        stmt.bindDouble(12, entity.getHeigth());
+        stmt.bindLong(13, entity.getTarget());
+        stmt.bindLong(14, entity.getPower());
+        stmt.bindLong(15, entity.getActive());
  
         String token = entity.getToken();
         if (token != null) {
-            stmt.bindString(15, token);
+            stmt.bindString(16, token);
         }
  
         java.util.Date createTime = entity.getCreateTime();
         if (createTime != null) {
-            stmt.bindLong(16, createTime.getTime());
+            stmt.bindLong(17, createTime.getTime());
         }
  
         java.util.Date updateTime = entity.getUpdateTime();
         if (updateTime != null) {
-            stmt.bindLong(17, updateTime.getTime());
+            stmt.bindLong(18, updateTime.getTime());
         }
     }
 
@@ -216,20 +236,21 @@ public class UserDao extends AbstractDao<User, Long> {
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // userId
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // nickName
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // phone
-            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // pwd
-            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // img
-            cursor.getInt(offset + 5), // age
-            cursor.getInt(offset + 6), // sex
-            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // city
-            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // country
-            cursor.getFloat(offset + 9), // weight
-            cursor.getFloat(offset + 10), // heigth
-            cursor.getInt(offset + 11), // target
-            cursor.getInt(offset + 12), // power
-            cursor.getInt(offset + 13), // active
-            cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14), // token
-            cursor.isNull(offset + 15) ? null : new java.util.Date(cursor.getLong(offset + 15)), // createTime
-            cursor.isNull(offset + 16) ? null : new java.util.Date(cursor.getLong(offset + 16)) // updateTime
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // email
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // pwd
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // img
+            cursor.isNull(offset + 6) ? null : new java.util.Date(cursor.getLong(offset + 6)), // birth
+            cursor.getInt(offset + 7), // sex
+            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // city
+            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // country
+            cursor.getFloat(offset + 10), // weight
+            cursor.getFloat(offset + 11), // heigth
+            cursor.getInt(offset + 12), // target
+            cursor.getInt(offset + 13), // power
+            cursor.getInt(offset + 14), // active
+            cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15), // token
+            cursor.isNull(offset + 16) ? null : new java.util.Date(cursor.getLong(offset + 16)), // createTime
+            cursor.isNull(offset + 17) ? null : new java.util.Date(cursor.getLong(offset + 17)) // updateTime
         );
         return entity;
     }
@@ -239,20 +260,21 @@ public class UserDao extends AbstractDao<User, Long> {
         entity.setUserId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setNickName(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setPhone(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
-        entity.setPwd(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
-        entity.setImg(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
-        entity.setAge(cursor.getInt(offset + 5));
-        entity.setSex(cursor.getInt(offset + 6));
-        entity.setCity(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
-        entity.setCountry(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
-        entity.setWeight(cursor.getFloat(offset + 9));
-        entity.setHeigth(cursor.getFloat(offset + 10));
-        entity.setTarget(cursor.getInt(offset + 11));
-        entity.setPower(cursor.getInt(offset + 12));
-        entity.setActive(cursor.getInt(offset + 13));
-        entity.setToken(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
-        entity.setCreateTime(cursor.isNull(offset + 15) ? null : new java.util.Date(cursor.getLong(offset + 15)));
-        entity.setUpdateTime(cursor.isNull(offset + 16) ? null : new java.util.Date(cursor.getLong(offset + 16)));
+        entity.setEmail(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setPwd(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setImg(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setBirth(cursor.isNull(offset + 6) ? null : new java.util.Date(cursor.getLong(offset + 6)));
+        entity.setSex(cursor.getInt(offset + 7));
+        entity.setCity(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
+        entity.setCountry(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
+        entity.setWeight(cursor.getFloat(offset + 10));
+        entity.setHeigth(cursor.getFloat(offset + 11));
+        entity.setTarget(cursor.getInt(offset + 12));
+        entity.setPower(cursor.getInt(offset + 13));
+        entity.setActive(cursor.getInt(offset + 14));
+        entity.setToken(cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15));
+        entity.setCreateTime(cursor.isNull(offset + 16) ? null : new java.util.Date(cursor.getLong(offset + 16)));
+        entity.setUpdateTime(cursor.isNull(offset + 17) ? null : new java.util.Date(cursor.getLong(offset + 17)));
      }
     
     @Override

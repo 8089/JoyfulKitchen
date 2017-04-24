@@ -11,6 +11,18 @@
     
     <color name="black_text">#333333</color>
  	<!-- 黑色文字(降一级舒服) -->
-    
+
+
+    <color name="meautype_top">#FF533C</color>
+    <color name="wight">#FFFFFF</color>
+    <color name="bg_1">#EDEDED</color>
+    <color name="btn_left_text">#FF533C</color>
+    <color name="btn_left_text2">#4C4C4C</color>
+    <color name="btn_text">#999999</color>
+    <color name="btn_border">#B6B6B6</color>
+
+    <color name="light_blue">#6593cb</color>
+
+
 
 </resources>

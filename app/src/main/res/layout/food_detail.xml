@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:imagecontrol="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/food_detail"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context="com.joyful.joyfulkitchen.activity.FoodDetailActivity">
+    <!--菜图-->
+    <com.joyful.joyfulkitchen.view.DampView
+        android:id="@+id/dampView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!--图-->
+            <com.android.volley.toolbox.NetworkImageView
+                android:id="@+id/food_caitu"
+                android:layout_width="match_parent"
+                android:layout_height="750px"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/test" />
+            <!--食材 描述部分-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/food_cainame"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="酱肉包子" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:gravity="right"
+                    android:text="133243浏览.234213收藏"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/divider" />
+                <!--描述-->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="描述"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/food_imtro"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="今天的酱肉包子就是专门为饿的时候吃一个保证你浑身来劲"
+                    android:textSize="13sp" />
+
+                <!--食材 步骤-->
+                <ListView
+                    android:id="@+id/food_materials"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </ListView>
+
+                <ListView
+                    android:id="@+id/food_steps"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:divider="@color/gray"
+                    android:dividerHeight="0dp">
+                </ListView>
+            </LinearLayout>
+        </LinearLayout>
+    </com.joyful.joyfulkitchen.view.DampView>
+
+    <!--圆形-->
+    <!--<RoundImageView
+        android:id="@+id/user_touxiang"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/touxiang"
+        imagecontrol:border_inside_color="#fff7f2e9"
+        imagecontrol:border_outside_color="#F2F2F2"
+        imagecontrol:border_thickness="2dp" />
+-->
+
+
+</LinearLayout>

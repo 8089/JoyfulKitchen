@@ -20,11 +20,13 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:focusableInTouchMode="true">
 
 
                 <com.joyful.joyfulkitchen.view.RoundIndicatorView
-                    android:background="@drawable/bg6"
+                    android:background="@drawable/bg"
                     android:id="@+id/riv_view"
                     android:layout_width="match_parent"
 
@@ -51,6 +53,7 @@
                     android:inputType="number"
                     android:background="@drawable/edittext"
                     android:hint="0"
+
                     android:textSize="20sp"/>
 
                 <TextView

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
+   <!-- <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#FF4081</color>-->
 
     <!-- food select color-->
 
@@ -329,5 +329,9 @@
 
     <color name="orangered">#FF4500</color>
     <color name="orangered_a">#FF533B</color>
+
+
+    <color name="text_Grey">#8496a0</color>
+    <color name="colorWhite">#ffffff</color>
 
 </resources>
