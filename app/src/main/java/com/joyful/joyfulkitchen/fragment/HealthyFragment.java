@@ -1,5 +1,6 @@
 package com.joyful.joyfulkitchen.fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -7,6 +8,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -17,6 +19,8 @@ import com.joyful.joyfulkitchen.util.ToastUtils;
 import com.joyful.joyfulkitchen.view.RoundIndicatorView;
 
 import org.joda.time.DateTime;
+
+import java.lang.reflect.Field;
 
 import noman.weekcalendar.WeekCalendar;
 import noman.weekcalendar.listener.OnDateClickListener;
@@ -63,6 +67,7 @@ public class HealthyFragment extends Fragment {
 
         return view;
     }
+
 
     private void initView(View view) {
         tv_food_select = (TextView) view.findViewById(R.id.tv_food_select);

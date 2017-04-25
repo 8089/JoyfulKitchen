@@ -7,8 +7,16 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <!--<item name="colorAccent">@color/colorAccent</item>-->
         <item name="colorAccent">@color/colorPrimary</item>
+        
+        <item name="android:actionOverflowButtonStyle">
+            @style/ActionOverflowButtonStyle
+        </item>
+        
     </style>
 
+    <style name="ActionOverflowButtonStyle">
+        <item name="android:src">@drawable/add</item>
+    </style>
 
     <!-- 公共 -->
     <style name="LinearLayout_horizontal_m_w">
