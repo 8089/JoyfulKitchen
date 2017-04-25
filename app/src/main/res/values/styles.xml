@@ -85,6 +85,9 @@
     <style name="personal_data_LinearLayout_EditText" parent="personal_data_public_a">
         <item name="android:background">@null</item>
         <item name="android:layout_weight">10</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:maxLength">8</item>
+        <item name="android:textSize">15dp</item>
     </style>
     <!-- personal_data 的 LinearLayout 里的 EditText  ↑  个人资料 昵称那一块 -->
     <!-- ************************************  -->
@@ -171,6 +174,13 @@
         <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
 
+    <!-- 食物列表 -->
+    <style name="text_weighing_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">16sp</item>
+    </style>
 
 
 </resources>

@@ -12,6 +12,7 @@ import com.ashokvarma.bottomnavigation.BadgeItem;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.joyful.joyfulkitchen.R;
+import com.joyful.joyfulkitchen.dao.GreenDaoManager;
 import com.joyful.joyfulkitchen.fragment.CookeyBookFragment;
 import com.joyful.joyfulkitchen.fragment.GourmetCircleFragment;
 import com.joyful.joyfulkitchen.fragment.HealthyFragment;
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity  implements BottomNavigation
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
 
         // 初始化

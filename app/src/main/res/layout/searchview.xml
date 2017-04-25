@@ -30,6 +30,7 @@
             android:background="@null"
             android:gravity="center_vertical"
             android:hint="输入内容进行搜索"
+            android:maxLines="1"
             android:imeOptions="actionSearch"
             android:singleLine="true"
             android:textColor="#0e0e0e"
