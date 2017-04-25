@@ -81,6 +81,8 @@
                     android:layout_height="wrap_content">
 
                 </ListView>
+				
+				
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -88,6 +90,27 @@
                     android:layout_marginBottom="8dp"
                     android:layout_marginTop="8dp"
                     android:textSize="20sp" />
+
+					
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <Button
+                        android:id="@+id/updateckb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="修改菜谱"/>
+                    <Button
+                        android:id="@+id/start"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="开始称量"/>
+                </LinearLayout>
+
+
                 <ListView
                     android:id="@+id/food_steps"
                     android:layout_width="match_parent"

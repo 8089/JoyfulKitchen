@@ -2,16 +2,19 @@ package com.joyful.joyfulkitchen.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.joyful.joyfulkitchen.date.CustomDatePicker;
 import com.joyful.joyfulkitchen.R;
 import com.joyful.joyfulkitchen.view.WheelView;
+import com.joyful.joyfulkitchen.view.XTabHost;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -33,11 +36,33 @@ public class DatePickerMainActivity extends Activity implements OnClickListener 
     private static final String[] PLANETS_work_intensity = new String[]{"较轻体力劳动", "轻体力劳动", "中等体力劳动"};
     private TextView tv_work_intensity;
 
+    //返回上一页
+    private ImageView back;
+    private TextView finish;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_b_main);
+
+        //返回上一页
+        back = (ImageView) findViewById(R.id.back);
+        back.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        //完成
+        finish = (TextView) findViewById(R.id.finish);
+        finish.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent gofinish  = new Intent(DatePickerMainActivity.this, MainActivity.class);
+                startActivity(gofinish);
+            }
+        });
 
         findViewById(R.id.selectDate).setOnClickListener(this);
         currentDate = (TextView) findViewById(R.id.currentDate);

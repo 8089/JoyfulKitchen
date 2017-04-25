@@ -39,6 +39,7 @@ public class DatePickerView extends View {
     /**
      * 选中的位置，这个位置是mDataList的中心位置，一直不变
      */
+
     private int mCurrentSelected;
     private Paint mPaint, nPaint;
     private float mMaxTextSize = 80;

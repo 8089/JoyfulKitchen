@@ -201,7 +201,7 @@ public class RoundIndicatorView extends View {
         for (int i = 0; i <= 100; i++) {
             if(i%10 == 0 && i!= 100){   //画粗刻度和刻度值
                 paint.setStrokeWidth(dp2px(2));
-                paint.setAlpha(0x70);
+                paint.setAlpha(0x140);
                 canvas.drawLine(0, -radius-sweepInWidth/2, 0, -radius + sweepInWidth/2 + dp2px(1), paint);
                 drawText(canvas, i * maxNum/100+"", paint);
             }else {         //画细刻度

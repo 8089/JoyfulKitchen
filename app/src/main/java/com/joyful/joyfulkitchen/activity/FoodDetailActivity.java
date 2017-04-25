@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -51,10 +53,42 @@ public class FoodDetailActivity extends AppCompatActivity {
     // 步骤
     private List<SearchMeauList.StepsBean> foodStepsData = new ArrayList<SearchMeauList.StepsBean>();
 
+    //修改食谱
+    private Button updateckb;
+
+    //开始称量
+    private Button weighing;
+
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.food_detail);
+
+
+        //修改食谱
+        updateckb = (Button) findViewById(R.id.updateckb);
+        updateckb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent upcbk = new Intent(FoodDetailActivity.this, UpdateFoodActivity.class);
+                startActivity(upcbk);
+            }
+        });
+
+        //开始称量 ---> 首页
+        weighing = (Button) findViewById(R.id.start);
+        weighing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent startWeighting = new Intent(FoodDetailActivity.this, MainActivity.class);
+                startActivity(startWeighting);
+            }
+        });
+
 
         Intent intent = this.getIntent();
 

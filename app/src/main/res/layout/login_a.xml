@@ -20,6 +20,7 @@
             android:orientation="horizontal">
 
             <ImageView
+                android:id="@+id/back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/back"
@@ -35,6 +36,7 @@
                 tools:ignore="InefficientWeight,SpUsage" />
 
             <TextView
+                android:id="@+id/goregist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="15dp"

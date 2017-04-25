@@ -10,11 +10,15 @@ import org.greenrobot.greendao.internal.DaoConfig;
 
 import com.joyful.joyfulkitchen.model.Food;
 import com.joyful.joyfulkitchen.model.FoodType;
+import com.joyful.joyfulkitchen.model.Post;
+import com.joyful.joyfulkitchen.model.PostImg;
 import com.joyful.joyfulkitchen.model.Record;
 import com.joyful.joyfulkitchen.model.User;
 
 import com.joyful.joyfulkitchen.dao.FoodDao;
 import com.joyful.joyfulkitchen.dao.FoodTypeDao;
+import com.joyful.joyfulkitchen.dao.PostDao;
+import com.joyful.joyfulkitchen.dao.PostImgDao;
 import com.joyful.joyfulkitchen.dao.RecordDao;
 import com.joyful.joyfulkitchen.dao.UserDao;
 
@@ -29,11 +33,15 @@ public class DaoSession extends AbstractDaoSession {
 
     private final DaoConfig foodDaoConfig;
     private final DaoConfig foodTypeDaoConfig;
+    private final DaoConfig postDaoConfig;
+    private final DaoConfig postImgDaoConfig;
     private final DaoConfig recordDaoConfig;
     private final DaoConfig userDaoConfig;
 
     private final FoodDao foodDao;
     private final FoodTypeDao foodTypeDao;
+    private final PostDao postDao;
+    private final PostImgDao postImgDao;
     private final RecordDao recordDao;
     private final UserDao userDao;
 
@@ -47,6 +55,12 @@ public class DaoSession extends AbstractDaoSession {
         foodTypeDaoConfig = daoConfigMap.get(FoodTypeDao.class).clone();
         foodTypeDaoConfig.initIdentityScope(type);
 
+        postDaoConfig = daoConfigMap.get(PostDao.class).clone();
+        postDaoConfig.initIdentityScope(type);
+
+        postImgDaoConfig = daoConfigMap.get(PostImgDao.class).clone();
+        postImgDaoConfig.initIdentityScope(type);
+
         recordDaoConfig = daoConfigMap.get(RecordDao.class).clone();
         recordDaoConfig.initIdentityScope(type);
 
@@ -55,11 +69,15 @@ public class DaoSession extends AbstractDaoSession {
 
         foodDao = new FoodDao(foodDaoConfig, this);
         foodTypeDao = new FoodTypeDao(foodTypeDaoConfig, this);
+        postDao = new PostDao(postDaoConfig, this);
+        postImgDao = new PostImgDao(postImgDaoConfig, this);
         recordDao = new RecordDao(recordDaoConfig, this);
         userDao = new UserDao(userDaoConfig, this);
 
         registerDao(Food.class, foodDao);
         registerDao(FoodType.class, foodTypeDao);
+        registerDao(Post.class, postDao);
+        registerDao(PostImg.class, postImgDao);
         registerDao(Record.class, recordDao);
         registerDao(User.class, userDao);
     }
@@ -67,6 +85,8 @@ public class DaoSession extends AbstractDaoSession {
     public void clear() {
         foodDaoConfig.clearIdentityScope();
         foodTypeDaoConfig.clearIdentityScope();
+        postDaoConfig.clearIdentityScope();
+        postImgDaoConfig.clearIdentityScope();
         recordDaoConfig.clearIdentityScope();
         userDaoConfig.clearIdentityScope();
     }
@@ -77,6 +97,14 @@ public class DaoSession extends AbstractDaoSession {
 
     public FoodTypeDao getFoodTypeDao() {
         return foodTypeDao;
+    }
+
+    public PostDao getPostDao() {
+        return postDao;
+    }
+
+    public PostImgDao getPostImgDao() {
+        return postImgDao;
     }
 
     public RecordDao getRecordDao() {

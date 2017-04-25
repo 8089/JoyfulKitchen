@@ -39,7 +39,7 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
     private Button btnTakephoto;//拍照
     private Button btnPhotos;//相册
     private Bitmap head;//头像Bitmap
-    private static String path="/sdcard/myHead/";//sd路径
+    private static String path = "/sdcard/myHead/";//sd路径
 
     private LayoutInflater inflater;
     private View layout;
@@ -76,7 +76,7 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
 
 
         Bitmap bt = BitmapFactory.decodeFile(path + "head.jpg");//从Sd中找头像，转换成Bitmap
-        if(bt!=null){
+        if(bt != null){
             @SuppressWarnings("deprecation")
             Drawable drawable = new BitmapDrawable(bt);//转换成drawable
             ivHead.setImageDrawable(drawable);
@@ -87,9 +87,6 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
              *
              */
         }
-
-
-
     }
 
     @Override
@@ -110,9 +107,12 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
 
                 AlertDialog.Builder MyBuilder = new AlertDialog.Builder(this);
                 MyBuilder.setView(layout);
-                MyDialog = MyBuilder.create();
+                if(MyDialog == null){
+                    MyDialog = MyBuilder.create();
+                    MyDialog.getWindow().setLayout(600, 380);
+                }
                 MyDialog.show();
-                MyDialog.getWindow().setLayout(600, 380);
+
 
                 break;
             default:
@@ -180,7 +180,8 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
         }
         FileOutputStream b = null;
         File file = new File(path);
-        file.mkdirs();// 创建文件夹
+        if (!file.exists())
+            file.mkdirs();// 创建文件夹
         String fileName = path +  "head.jpg";//图片名字
         try {
            b = new FileOutputStream(fileName);
@@ -191,8 +192,10 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
         } finally {
             try {
                 //关闭流
-                b.flush();
-                b.close();
+                if (b != null) {
+                    b.flush();
+                    b.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
