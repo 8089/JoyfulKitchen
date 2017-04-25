@@ -70,7 +70,7 @@ public class RoundIndicatorView extends View {
 
     public void setCurrentNumAnim(int num) {
         float duration = (float)Math.abs(num-currentNum)/maxNum * 1500 + 500; //根据进度差计算动画时间
-        ObjectAnimator anim = ObjectAnimator.ofInt(this,"currentNum",num);
+        ObjectAnimator anim = ObjectAnimator.ofInt(this,"currentNum", num);
         anim.setDuration((long) Math.min(duration,2000));
         /*anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -100,7 +100,7 @@ public class RoundIndicatorView extends View {
         startAngle = array.getInt(R.styleable.RoundIndicatorView_startAngle,270);
         sweepAngle = array.getInt(R.styleable.RoundIndicatorView_sweepAngle,360);
         //内外圆的宽度
-        sweepInWidth = dp2px(13);
+        sweepInWidth = dp2px(8);
         sweepOutWidth = dp2px(3);
         array.recycle();
     }
@@ -143,7 +143,7 @@ public class RoundIndicatorView extends View {
         drawRound(canvas);  //画内外圆
         drawScale(canvas);//画刻度
         drawIndicator(canvas); //画当前进度值
-        drawCenterText(canvas);//画中间的文字
+//        drawCenterText(canvas);//画中间的文字
         canvas.restore();
     }
 
@@ -200,13 +200,13 @@ public class RoundIndicatorView extends View {
 
     private void drawScale(Canvas canvas) {
         canvas.save();
-        float angle = (float)sweepAngle/100;//刻度间隔
+        float angle = (float)sweepAngle / 100;//刻度间隔
         canvas.rotate(-270 + startAngle); //将起始刻度点旋转到正上方（270)
         for (int i = 0; i <= 100; i++) {
             if(i%10 == 0 && i!= 100){   //画粗刻度和刻度值
                 paint.setStrokeWidth(dp2px(2));
-                paint.setAlpha(0x140);
-                canvas.drawLine(0, -radius-sweepInWidth/2, 0, -radius + sweepInWidth/2 + dp2px(1), paint);
+                paint.setAlpha(255);
+                canvas.drawLine(0, -radius-sweepInWidth/2, 0, -radius + sweepInWidth/2 + dp2px(2), paint);
                 drawText(canvas, i * maxNum/100+"", paint);
             }else {         //画细刻度
                 paint.setStrokeWidth(dp2px(1));
@@ -239,9 +239,9 @@ public class RoundIndicatorView extends View {
         canvas.save();
         //内圆
         paint.setAlpha(0x40);
-        paint.setStrokeWidth(sweepInWidth);
-        RectF rectf = new RectF(-radius, -radius, radius, radius);
-        canvas.drawArc(rectf,startAngle,sweepAngle,false,paint);
+//        paint.setStrokeWidth(sweepInWidth);
+//        RectF rectf = new RectF(-radius, -radius, radius, radius);
+//        canvas.drawArc(rectf,startAngle,sweepAngle,false,paint);
         //外圆
         paint.setStrokeWidth(sweepOutWidth);
         int w = dp2px(10);

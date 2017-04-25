@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.joyful.joyfulkitchen.fragment.TabPageFragment;
+import com.joyful.joyfulkitchen.model.Food;
 import com.joyful.joyfulkitchen.model.WeighingFood;
 
 import java.util.List;
@@ -16,10 +17,10 @@ import java.util.List;
 
 public class TabFragmentPageAdapter extends FragmentPagerAdapter {
 
-    private List<WeighingFood> datas;
+    private List<Food> datas;
     private Context context;
 
-    public TabFragmentPageAdapter(FragmentManager fm, Context context, List<WeighingFood> datas) {
+    public TabFragmentPageAdapter(FragmentManager fm, Context context, List<Food> datas) {
         super(fm);
         this.datas = datas;
         this.context = context;
@@ -37,6 +38,6 @@ public class TabFragmentPageAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return datas.get(position).getName();
+        return datas.get(position).getFoodName();
     }
 }

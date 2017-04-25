@@ -1,6 +1,9 @@
 package com.joyful.joyfulkitchen.activity;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v13.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -10,13 +13,17 @@ import com.ashokvarma.bottomnavigation.BadgeItem;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.joyful.joyfulkitchen.R;
+import com.joyful.joyfulkitchen.dao.FoodDao;
 import com.joyful.joyfulkitchen.dao.GreenDaoManager;
-import com.joyful.joyfulkitchen.fragment.CookeyBookFragment;
+import com.joyful.joyfulkitchen.fragment.CookeyBookFragment2;
 import com.joyful.joyfulkitchen.fragment.GourmetCircleFragment;
 import com.joyful.joyfulkitchen.fragment.HealthyFragment;
+import com.joyful.joyfulkitchen.fragment.HealthyFragment2;
 import com.joyful.joyfulkitchen.fragment.MyFragment;
+import com.joyful.joyfulkitchen.model.Food;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity  implements BottomNavigationBar.OnTabSelectedListener  {
@@ -29,11 +36,19 @@ public class MainActivity extends AppCompatActivity  implements BottomNavigation
     private BadgeItem badgeItem;
 
 
+    // Storage Permissions
+    private static final int REQUEST_EXTERNAL_STORAGE = 1;
+    private static String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        initDao();
 
 
         // 初始化
@@ -42,6 +57,44 @@ public class MainActivity extends AppCompatActivity  implements BottomNavigation
         initFragment();
 
 
+    }
+
+    private void initDao() {
+
+// Check if we have write permission
+        int permission = ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            // We don't have permission so prompt the user
+            ActivityCompat.requestPermissions(
+                    this,
+                    PERMISSIONS_STORAGE,
+                    REQUEST_EXTERNAL_STORAGE
+            );
+        }
+
+
+
+
+        for (int i = 0; i < 999; i++) {
+            try {
+                Food food = new Food();
+                food.setFoodId((long) i);
+                food.setFoodName("小麦 ==" + i);
+                food.setFoodImg("http://oojlkncnc.bkt.clouddn.com/%E8%B0%B7%E7%B1%BB%E5%B0%8F%E9%BA%A6.2.jpg");
+                food.setEnergy(317);
+                food.setProtein(11.9);
+                food.setFat(11.9);
+                food.setCarbohydrate(1.3);
+                food.setFiber(64.4);
+                food.setCholesterol(10.8);
+                food.setCreateTime(new Date());
+                FoodDao foodDao = GreenDaoManager.getInstance().getSession().getFoodDao();
+                foodDao.insert(food);
+                break;
+            } catch (Exception e) {
+                continue;
+            }
+        }
     }
 
     // 初始化底部导航
@@ -91,8 +144,8 @@ public class MainActivity extends AppCompatActivity  implements BottomNavigation
 
     private List<Fragment> getFragments() {
         ArrayList<Fragment> fragments = new ArrayList<>();
-        fragments.add(HealthyFragment.newInstance("健康饮食"));
-        fragments.add(CookeyBookFragment.newInstance("菜谱"));
+        fragments.add(HealthyFragment2.newInstance("健康饮食"));
+        fragments.add(CookeyBookFragment2.newInstance("菜谱"));
         fragments.add(GourmetCircleFragment.newInstance("美食圈"));
         fragments.add(MyFragment.newInstance("我的"));
 

@@ -20,6 +20,9 @@ import com.joyful.joyfulkitchen.adapter.CookeyBookImageLoopAdapter;
 import com.joyful.joyfulkitchen.adapter.RecyclerAdapter;
 import com.joyful.joyfulkitchen.adapter.RecyclerViewHolder;
 import com.joyful.joyfulkitchen.adapter.TabFragmentPageAdapter;
+import com.joyful.joyfulkitchen.dao.FoodDao;
+import com.joyful.joyfulkitchen.dao.GreenDaoManager;
+import com.joyful.joyfulkitchen.model.Food;
 import com.joyful.joyfulkitchen.model.WeighingFood;
 import com.joyful.joyfulkitchen.util.ToastUtils;
 import com.jude.rollviewpager.OnItemClickListener;
@@ -39,9 +42,10 @@ public class CookeyBookFragment2 extends Fragment {
     private String mParam1;
 
     private RecyclerView mRecyclerView;
-    private List<WeighingFood> datas;
-    private RecyclerAdapter<WeighingFood> weighingFoodAdapter;
-
+    
+    private RecyclerAdapter<Food> foodAdapter;
+    
+    private List<Food> foods;
 
     private TabLayout tabLayout;
     private TabFragmentPageAdapter tabFragmentPageAdapter;
@@ -67,7 +71,7 @@ public class CookeyBookFragment2 extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_cookeybook, container, false);
+        View view = inflater.inflate(R.layout.fragment_cookeybook2, container, false);
 
         initView(view);
         addListener();
@@ -85,45 +89,40 @@ public class CookeyBookFragment2 extends Fragment {
             }
         });
 
-        mRecyclerView.setAdapter(weighingFoodAdapter = new RecyclerAdapter<WeighingFood>(getContext(), datas, R.layout.item_food_weighing) {
+        mRecyclerView.setAdapter(foodAdapter = new RecyclerAdapter<Food>(getContext(), foods, R.layout.item_food_weighing) {
             @Override
-            public void convert(RecyclerViewHolder holder, WeighingFood data, int position) {
-                holder.setText(R.id.shicai, data.getName());
-                holder.setText(R.id.chengzhong, data.getWeight());
-                if (data.isSelected()){
-                    holder.itemView.setBackground(getContext().getResources().getDrawable(R.drawable.item_selector2));
-                }else {
-                    holder.itemView.setBackground(getContext().getResources().getDrawable(R.drawable.item_selector));
-                }
+            public void convert(RecyclerViewHolder holder, Food data, int position) {
+                holder.setText(R.id.shicai, data.getFoodName());
+                holder.setText(R.id.chengzhong, data.getCholesterol() + "g");
+                
             }
         });
-        weighingFoodAdapter.setOnItemClickListener(new RecyclerAdapter.OnItemClickListener() {
+        foodAdapter.setOnItemClickListener(new RecyclerAdapter.OnItemClickListener() {
             @Override
             public void OnItemClickListener(View view, int position) {
                 ToastUtils.showToast(getContext(), "点击" + position);
                 /*datas.remove(position);
-                weighingFoodAdapter.notifyItemRemoved(position);*/
-                datas.get(preIndex).setSelected(false);
-                datas.get(position).setSelected(true);
+                foodAdapter.notifyItemRemoved(position);*/
+                
                 preIndex = position;
-                weighingFoodAdapter.notifyDataSetChanged();
+                foodAdapter.notifyDataSetChanged();
 
             }
         });
-        weighingFoodAdapter.setOnItemLongClickListener(new RecyclerAdapter.OnItemLongClickListener() {
+        foodAdapter.setOnItemLongClickListener(new RecyclerAdapter.OnItemLongClickListener() {
             @Override
             public void OnItemLongClickListener(View view, final int position) {
 
                 new MaterialDialog.Builder(getContext())
-                        .title("确定删除"+ datas.get(position).getName() + "?")
+                        .title("确定删除"+ foods.get(position).getFoodName() + "?")
                         .positiveText("确定")
                         .negativeText("取消")
                         .onPositive(new MaterialDialog.SingleButtonCallback() {
                             @Override
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                                datas.remove(position);
+                                foods.remove(position);
                                 tabFragmentPageAdapter.notifyDataSetChanged();
-                                weighingFoodAdapter.notifyItemRemoved(position);
+                                foodAdapter.notifyItemRemoved(position);
                             }
                         })
                         .show();
@@ -147,7 +146,7 @@ public class CookeyBookFragment2 extends Fragment {
 
         //Fragment+ViewPager+FragmentViewPager组合的使用
         ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewPager);
-        tabFragmentPageAdapter = new TabFragmentPageAdapter(getActivity().getSupportFragmentManager(),getContext(), datas);
+        tabFragmentPageAdapter = new TabFragmentPageAdapter(getActivity().getSupportFragmentManager(),getContext(), foods);
         viewPager.setAdapter(tabFragmentPageAdapter);
 
         //TabLayout
@@ -159,14 +158,7 @@ public class CookeyBookFragment2 extends Fragment {
 
 
     public void initWeighingFoods() {
-        if (datas == null) {
-            datas = new ArrayList<>();
-            for (int i = 0; i < 20; i++) {
-                WeighingFood w = new WeighingFood("西瓜" + i, i * 10 + "g");
-                if (i == 0)
-                    w.setSelected(true);
-                datas.add(w);
-            }
-        }
+        FoodDao foodDao = GreenDaoManager.getInstance().getSession().getFoodDao();
+        foods = foodDao.loadAll();
     }
 }

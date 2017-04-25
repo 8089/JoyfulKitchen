@@ -14,10 +14,10 @@ public class HeatUtilImpl implements BaseHeatUtil {
 
     /**  根据用户信息， 获取每日所需要的热量 */
     @Override
-    public float getDailyHeat(User user) {
+    public double getDailyHeat(User user) {
 
         int age = getAge(user.getBirth());
-        float BMR = getBMR(user.getSex(), user.getHeigth(), user.getWeight(), age);
+        double BMR = getBMR(user.getSex(), user.getHeigth(), user.getWeight(), age);
         return getHeatByPower(user.getPower(), BMR);
 
     }
@@ -25,8 +25,8 @@ public class HeatUtilImpl implements BaseHeatUtil {
     // 1千卡=1大卡=1000卡=1000卡路里 =4186焦耳=4.186千焦。
     //  1千卡转换成 焦耳
     @Override
-    public float kcal2Joule(float kcal) {
-        return kcal * 1000 * 4.184f;
+    public double kcal2Joule(double kcal) {
+        return kcal * 1000 * 4.184;
     }
 
 
@@ -38,8 +38,8 @@ public class HeatUtilImpl implements BaseHeatUtil {
      积极运动（每周6-7次）总需 = BMR x 1.725
      专业运动（2倍运动量）总需 = BMR x 1.9
      * */
-    private float getHeatByPower(int power, float bmr) {
-        float heat = 0;
+    private double getHeatByPower(int power, double bmr) {
+        double heat = 0;
         // power 0 是较轻， 1 是轻体， 2 是中等体
         switch (power){
             case 0:
@@ -64,13 +64,13 @@ public class HeatUtilImpl implements BaseHeatUtil {
      男: BMR = 66 + ( 13.7 x 体重kg ) + ( 5 x 身高cm ) - ( 6.8 x 年龄years )
      *
      * */
-    private float getBMR(int sex, float heigth, float weight, int age) {
-        float BMR = 0;
+    private double getBMR(int sex, double heigth, double weight, int age) {
+        double BMR = 0;
         // 0 代表女的，  1代表男的
         if (sex == 0){
-            BMR = 65.5f + (9.6f * weight) + (1.8f * heigth * 100) - (4.7f * age);
+            BMR = 65.5f + (9.6 * weight) + (1.8 * heigth * 100) - (4.7 * age);
         }else if (sex == 1){
-            BMR = 66f + (13.7f * weight) + (5f * heigth * 100) - (6.8f * age);
+            BMR = 66f + (13.7 * weight) + (5 * heigth * 100) - (6.8 * age);
         }
         return BMR;
     }
@@ -109,8 +109,8 @@ public class HeatUtilImpl implements BaseHeatUtil {
      交通警值勤勤、乐队指挥） 或坐着⼯工作但⼿手臂激烈烈动作的（ 如重型机械操作， 驾驶拖拉机） ， 擦地、
      扫地、铺床、刷漆、⽤用洗⾐衣机洗⾐衣、园艺⼯工作、中等速度步⾏行行等。
      * */
-    private float getPhysicalStrength(int power) {
-        float physicalStrength = 0;
+    private double getPhysicalStrength(int power) {
+        double physicalStrength = 0;
         // power 0 是较轻， 1 是轻体， 2 是中等体
         switch (power){
             case 0:
@@ -135,7 +135,7 @@ public class HeatUtilImpl implements BaseHeatUtil {
      ⼥  女女子 ： 基本热量量（ 千卡） = 体重( ⽄斤） X 9
         男⼦子 ： 基本热量量（ 千卡） = 体重( ⽄斤） X 1 0
      * */
-    private float getBaseHeat(float weight, int sex){
+    private double getBaseHeat(double weight, int sex){
         // 0 代表女的，  1代表男的
         return sex == 0 ? weight * 2 * 9 : weight * 2 * 10;
     }

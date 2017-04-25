@@ -31,8 +31,8 @@ public class RecordDao extends AbstractDao<Record, Long> {
      */
     public static class Properties {
         public final static Property Record_id = new Property(0, Long.class, "record_id", true, "record_id");
-        public final static Property TotalWeight = new Property(1, float.class, "totalWeight", false, "total_weight");
-        public final static Property TotalEnergy = new Property(2, float.class, "totalEnergy", false, "total_energy");
+        public final static Property TotalWeight = new Property(1, double.class, "totalWeight", false, "total_weight");
+        public final static Property TotalEnergy = new Property(2, double.class, "totalEnergy", false, "total_energy");
         public final static Property MeauName = new Property(3, String.class, "meauName", false, "meau_name");
         public final static Property CreateTime = new Property(4, java.util.Date.class, "createTime", false, "create_time");
         public final static Property UpdateTime = new Property(5, java.util.Date.class, "updateTime", false, "update_time");
@@ -161,8 +161,8 @@ public class RecordDao extends AbstractDao<Record, Long> {
     public Record readEntity(Cursor cursor, int offset) {
         Record entity = new Record( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // record_id
-            cursor.getFloat(offset + 1), // totalWeight
-            cursor.getFloat(offset + 2), // totalEnergy
+            cursor.getDouble(offset + 1), // totalWeight
+            cursor.getDouble(offset + 2), // totalEnergy
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // meauName
             cursor.isNull(offset + 4) ? null : new java.util.Date(cursor.getLong(offset + 4)), // createTime
             cursor.isNull(offset + 5) ? null : new java.util.Date(cursor.getLong(offset + 5)), // updateTime
@@ -175,8 +175,8 @@ public class RecordDao extends AbstractDao<Record, Long> {
     @Override
     public void readEntity(Cursor cursor, Record entity, int offset) {
         entity.setRecord_id(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
-        entity.setTotalWeight(cursor.getFloat(offset + 1));
-        entity.setTotalEnergy(cursor.getFloat(offset + 2));
+        entity.setTotalWeight(cursor.getDouble(offset + 1));
+        entity.setTotalEnergy(cursor.getDouble(offset + 2));
         entity.setMeauName(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setCreateTime(cursor.isNull(offset + 4) ? null : new java.util.Date(cursor.getLong(offset + 4)));
         entity.setUpdateTime(cursor.isNull(offset + 5) ? null : new java.util.Date(cursor.getLong(offset + 5)));

@@ -24,14 +24,14 @@ public class Food {
     private String foodName;                    // VARCHAR(30),
 
     @Property(nameInDb = "food_img")
-    private String food_img;                    // VARCHAR(50),   -- 食物图片
+    private String foodImg;                    // VARCHAR(50),   -- 食物图片
 
-    private float energy;                       // FLOAT,        -- 热量(每一百克)(Kcal 千卡)
-    private float protein;                      //   FLOAT,      -- 蛋白(g)
-    private float fat;                          // FLOAT ,       -- 脂肪(g)
-    private float carbohydrate;                // FLOAT,        --  碳水化合物(g)
-    private float fiber;                        // FLOAT ,       -- 纤维(g)
-    private float cholesterol;                  // FLOAT,       -- 胆固醇(毫克)(g)
+    private double energy;                       // FLOAT,        -- 热量(每一百克)(Kcal 千卡)
+    private double protein;                      //   FLOAT,      -- 蛋白(g)
+    private double fat;                          // FLOAT ,       -- 脂肪(g)
+    private double carbohydrate;                // FLOAT,        --  碳水化合物(g)
+    private double fiber;                        // FLOAT ,       -- 纤维(g)
+    private double cholesterol;                  // FLOAT,       -- 胆固醇(毫克)(g)
 
     @Property(nameInDb = "food_type_id")
     private Long foodTypeId;
@@ -53,13 +53,13 @@ public class Food {
     @Generated(hash = 1296197325)
     private transient FoodDao myDao;
 
-    @Generated(hash = 154660969)
-    public Food(Long foodId, String foodName, String food_img, float energy, float protein,
-            float fat, float carbohydrate, float fiber, float cholesterol, Long foodTypeId,
-            Date createTime, Date updateTime) {
+    @Generated(hash = 2122643115)
+    public Food(Long foodId, String foodName, String foodImg, double energy, double protein,
+            double fat, double carbohydrate, double fiber, double cholesterol,
+            Long foodTypeId, Date createTime, Date updateTime) {
         this.foodId = foodId;
         this.foodName = foodName;
-        this.food_img = food_img;
+        this.foodImg = foodImg;
         this.energy = energy;
         this.protein = protein;
         this.fat = fat;
@@ -91,59 +91,59 @@ public class Food {
         this.foodName = foodName;
     }
 
-    public String getFood_img() {
-        return this.food_img;
+    public String getFoodImg() {
+        return this.foodImg;
     }
 
-    public void setFood_img(String food_img) {
-        this.food_img = food_img;
+    public void setFoodImg(String foodImg) {
+        this.foodImg = foodImg;
     }
 
-    public float getEnergy() {
+    public double getEnergy() {
         return this.energy;
     }
 
-    public void setEnergy(float energy) {
+    public void setEnergy(double energy) {
         this.energy = energy;
     }
 
-    public float getProtein() {
+    public double getProtein() {
         return this.protein;
     }
 
-    public void setProtein(float protein) {
+    public void setProtein(double protein) {
         this.protein = protein;
     }
 
-    public float getFat() {
+    public double getFat() {
         return this.fat;
     }
 
-    public void setFat(float fat) {
+    public void setFat(double fat) {
         this.fat = fat;
     }
 
-    public float getCarbohydrate() {
+    public double getCarbohydrate() {
         return this.carbohydrate;
     }
 
-    public void setCarbohydrate(float carbohydrate) {
+    public void setCarbohydrate(double carbohydrate) {
         this.carbohydrate = carbohydrate;
     }
 
-    public float getFiber() {
+    public double getFiber() {
         return this.fiber;
     }
 
-    public void setFiber(float fiber) {
+    public void setFiber(double fiber) {
         this.fiber = fiber;
     }
 
-    public float getCholesterol() {
+    public double getCholesterol() {
         return this.cholesterol;
     }
 
-    public void setCholesterol(float cholesterol) {
+    public void setCholesterol(double cholesterol) {
         this.cholesterol = cholesterol;
     }
 
@@ -245,5 +245,8 @@ public class Food {
         this.daoSession = daoSession;
         myDao = daoSession != null ? daoSession.getFoodDao() : null;
     }
+
+
+
 
 }

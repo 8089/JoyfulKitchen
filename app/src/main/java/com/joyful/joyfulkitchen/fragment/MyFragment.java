@@ -22,7 +22,7 @@ public class MyFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_Name = "ARG_Name";
     private static final String TAG = "RoundImage";
-    private ImageView mImg;
+
     private String mParam1;
 
     //修改个人信息

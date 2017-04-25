@@ -42,6 +42,16 @@
         <item>自定义</item>
     </string-array>
 
+    <string name="unit_title">请选择要转换的单位</string>
+    <string-array name="unit">
+        <item>克</item>
+        <item>两</item>
+        <item>磅</item>
+        <item>毫升</item>
+        <item>安士</item>
+    </string-array>
+    <string name="unit_positive">OK</string>
+
 
 
     <string name="head">这里是HeadView</string>

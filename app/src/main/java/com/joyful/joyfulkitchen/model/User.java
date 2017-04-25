@@ -36,8 +36,8 @@ public class User {
     private int sex;                        //BIT ,                             -- 性别
     private String city;                    // VARCHAR(20),                     -- 城市
     private String country;                 // VARCHAR(20) ,                    -- 国家
-    private float weight;                  // FLOAT ,                           -- 体重
-    private float heigth;                  //FLOAT ,                            -- 身高
+    private double weight;                  // FLOAT ,                           -- 体重
+    private double heigth;                  //FLOAT ,                            -- 身高
     private int target;                    //INTEGER,                           -- 目标
     private int power;                     //INTEGER  ,                         -- 工作强度
     private int active;                    //INTEGER   ,                        -- 是否激活
@@ -50,10 +50,10 @@ public class User {
     @Property(nameInDb = "update_time")
     private Date updateTime;             // DATETIME                  -- 更新时间
 
-    @Generated(hash = 85224398)
+    @Generated(hash = 2112966527)
     public User(Long userId, String nickName, String phone, String email, String pwd,
-            String img, Date birth, int sex, String city, String country, float weight,
-            float heigth, int target, int power, int active, String token, Date createTime,
+            String img, Date birth, int sex, String city, String country, double weight,
+            double heigth, int target, int power, int active, String token, Date createTime,
             Date updateTime) {
         this.userId = userId;
         this.nickName = nickName;
@@ -101,6 +101,14 @@ public class User {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPwd() {
@@ -151,19 +159,19 @@ public class User {
         this.country = country;
     }
 
-    public float getWeight() {
+    public double getWeight() {
         return this.weight;
     }
 
-    public void setWeight(float weight) {
+    public void setWeight(double weight) {
         this.weight = weight;
     }
 
-    public float getHeigth() {
+    public double getHeigth() {
         return this.heigth;
     }
 
-    public void setHeigth(float heigth) {
+    public void setHeigth(double heigth) {
         this.heigth = heigth;
     }
 
@@ -215,13 +223,5 @@ public class User {
         this.updateTime = updateTime;
     }
 
-    public String getEmail() {
-        return this.email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-
+    
 }
