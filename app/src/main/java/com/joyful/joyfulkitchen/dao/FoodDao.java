@@ -31,13 +31,13 @@ public class FoodDao extends AbstractDao<Food, Long> {
     public static class Properties {
         public final static Property FoodId = new Property(0, Long.class, "foodId", true, "food_id");
         public final static Property FoodName = new Property(1, String.class, "foodName", false, "food_name");
-        public final static Property Food_img = new Property(2, String.class, "food_img", false, "food_img");
-        public final static Property Energy = new Property(3, float.class, "energy", false, "ENERGY");
-        public final static Property Protein = new Property(4, float.class, "protein", false, "PROTEIN");
-        public final static Property Fat = new Property(5, float.class, "fat", false, "FAT");
-        public final static Property Carbohydrate = new Property(6, float.class, "carbohydrate", false, "CARBOHYDRATE");
-        public final static Property Fiber = new Property(7, float.class, "fiber", false, "FIBER");
-        public final static Property Cholesterol = new Property(8, float.class, "cholesterol", false, "CHOLESTEROL");
+        public final static Property FoodImg = new Property(2, String.class, "foodImg", false, "food_img");
+        public final static Property Energy = new Property(3, double.class, "energy", false, "ENERGY");
+        public final static Property Protein = new Property(4, double.class, "protein", false, "PROTEIN");
+        public final static Property Fat = new Property(5, double.class, "fat", false, "FAT");
+        public final static Property Carbohydrate = new Property(6, double.class, "carbohydrate", false, "CARBOHYDRATE");
+        public final static Property Fiber = new Property(7, double.class, "fiber", false, "FIBER");
+        public final static Property Cholesterol = new Property(8, double.class, "cholesterol", false, "CHOLESTEROL");
         public final static Property FoodTypeId = new Property(9, Long.class, "foodTypeId", false, "food_type_id");
         public final static Property CreateTime = new Property(10, java.util.Date.class, "createTime", false, "create_time");
         public final static Property UpdateTime = new Property(11, java.util.Date.class, "updateTime", false, "update_time");
@@ -61,7 +61,7 @@ public class FoodDao extends AbstractDao<Food, Long> {
         db.execSQL("CREATE TABLE " + constraint + "\"tb_food\" (" + //
                 "\"food_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: foodId
                 "\"food_name\" TEXT," + // 1: foodName
-                "\"food_img\" TEXT," + // 2: food_img
+                "\"food_img\" TEXT," + // 2: foodImg
                 "\"ENERGY\" REAL NOT NULL ," + // 3: energy
                 "\"PROTEIN\" REAL NOT NULL ," + // 4: protein
                 "\"FAT\" REAL NOT NULL ," + // 5: fat
@@ -93,9 +93,9 @@ public class FoodDao extends AbstractDao<Food, Long> {
             stmt.bindString(2, foodName);
         }
  
-        String food_img = entity.getFood_img();
-        if (food_img != null) {
-            stmt.bindString(3, food_img);
+        String foodImg = entity.getFoodImg();
+        if (foodImg != null) {
+            stmt.bindString(3, foodImg);
         }
         stmt.bindDouble(4, entity.getEnergy());
         stmt.bindDouble(5, entity.getProtein());
@@ -134,9 +134,9 @@ public class FoodDao extends AbstractDao<Food, Long> {
             stmt.bindString(2, foodName);
         }
  
-        String food_img = entity.getFood_img();
-        if (food_img != null) {
-            stmt.bindString(3, food_img);
+        String foodImg = entity.getFoodImg();
+        if (foodImg != null) {
+            stmt.bindString(3, foodImg);
         }
         stmt.bindDouble(4, entity.getEnergy());
         stmt.bindDouble(5, entity.getProtein());
@@ -177,13 +177,13 @@ public class FoodDao extends AbstractDao<Food, Long> {
         Food entity = new Food( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // foodId
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // foodName
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // food_img
-            cursor.getFloat(offset + 3), // energy
-            cursor.getFloat(offset + 4), // protein
-            cursor.getFloat(offset + 5), // fat
-            cursor.getFloat(offset + 6), // carbohydrate
-            cursor.getFloat(offset + 7), // fiber
-            cursor.getFloat(offset + 8), // cholesterol
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // foodImg
+            cursor.getDouble(offset + 3), // energy
+            cursor.getDouble(offset + 4), // protein
+            cursor.getDouble(offset + 5), // fat
+            cursor.getDouble(offset + 6), // carbohydrate
+            cursor.getDouble(offset + 7), // fiber
+            cursor.getDouble(offset + 8), // cholesterol
             cursor.isNull(offset + 9) ? null : cursor.getLong(offset + 9), // foodTypeId
             cursor.isNull(offset + 10) ? null : new java.util.Date(cursor.getLong(offset + 10)), // createTime
             cursor.isNull(offset + 11) ? null : new java.util.Date(cursor.getLong(offset + 11)) // updateTime
@@ -195,13 +195,13 @@ public class FoodDao extends AbstractDao<Food, Long> {
     public void readEntity(Cursor cursor, Food entity, int offset) {
         entity.setFoodId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setFoodName(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
-        entity.setFood_img(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
-        entity.setEnergy(cursor.getFloat(offset + 3));
-        entity.setProtein(cursor.getFloat(offset + 4));
-        entity.setFat(cursor.getFloat(offset + 5));
-        entity.setCarbohydrate(cursor.getFloat(offset + 6));
-        entity.setFiber(cursor.getFloat(offset + 7));
-        entity.setCholesterol(cursor.getFloat(offset + 8));
+        entity.setFoodImg(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setEnergy(cursor.getDouble(offset + 3));
+        entity.setProtein(cursor.getDouble(offset + 4));
+        entity.setFat(cursor.getDouble(offset + 5));
+        entity.setCarbohydrate(cursor.getDouble(offset + 6));
+        entity.setFiber(cursor.getDouble(offset + 7));
+        entity.setCholesterol(cursor.getDouble(offset + 8));
         entity.setFoodTypeId(cursor.isNull(offset + 9) ? null : cursor.getLong(offset + 9));
         entity.setCreateTime(cursor.isNull(offset + 10) ? null : new java.util.Date(cursor.getLong(offset + 10)));
         entity.setUpdateTime(cursor.isNull(offset + 11) ? null : new java.util.Date(cursor.getLong(offset + 11)));

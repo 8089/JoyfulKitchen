@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@mipmap/home_bg">
+
+
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="350dp">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/home_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:elevation="4dp"
+                android:background="#5677fc"
+                app:subtitleTextColor="#FFFFFF"
+                app:popupTheme="@style/ToolbarPopupTheme">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:background="#FFFFFF"
+                    android:textSize="20sp"
+                    android:text="请选择食物"/>
+
+            </android.support.v7.widget.Toolbar>
+
+
+            <com.joyful.joyfulkitchen.view.RoundIndicatorView
+                android:layout_centerInParent="true"
+                android:id="@+id/riv_view"
+                android:layout_width="300dp"
+                android:layout_height="300dp" />
+
+            <TextView
+                android:id="@+id/tv_show_unit"
+                android:layout_width="80dp"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:layout_centerInParent="true"
+                android:background="@drawable/home_textview_shape"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:text="5000g"/>
+
+            <TextView
+                android:id="@+id/tv_ke"
+                style="@style/home_textview_style"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginRight="30dp"
+                android:text="克"/>
+        </RelativeLayout>
+
+
+
+
+    </android.support.design.widget.AppBarLayout>
+
+
+</android.support.design.widget.CoordinatorLayout>

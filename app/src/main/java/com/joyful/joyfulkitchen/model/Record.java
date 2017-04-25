@@ -22,10 +22,10 @@ public class Record {
     private Long record_id;         // INTEGER PRIMARY KEY AUTO_INCREMENT, -- 编号
 
     @Property(nameInDb = "total_weight")
-    private float totalWeight;     // FLOAT ,                          -- 该食材 总重量
+    private double totalWeight;     // FLOAT ,                          -- 该食材 总重量
 
     @Property(nameInDb = "total_energy")
-    private float totalEnergy;      // FLOAT,                           -- 该食材 总热量
+    private double totalEnergy;      // FLOAT,                           -- 该食材 总热量
 
     @Property(nameInDb = "meau_name")
     private String meauName;        // VARCHAR(30),                        -- 通过 菜名 查询 所具食材称量记录
@@ -53,8 +53,8 @@ public class Record {
     /** Used for active entity operations. */
     @Generated(hash = 765166123)
     private transient RecordDao myDao;
-    @Generated(hash = 1565155067)
-    public Record(Long record_id, float totalWeight, float totalEnergy, String meauName,
+    @Generated(hash = 1467421670)
+    public Record(Long record_id, double totalWeight, double totalEnergy, String meauName,
             Date createTime, Date updateTime, Long userId, Long foodId) {
         this.record_id = record_id;
         this.totalWeight = totalWeight;
@@ -74,16 +74,16 @@ public class Record {
     public void setRecord_id(Long record_id) {
         this.record_id = record_id;
     }
-    public float getTotalWeight() {
+    public double getTotalWeight() {
         return this.totalWeight;
     }
-    public void setTotalWeight(float totalWeight) {
+    public void setTotalWeight(double totalWeight) {
         this.totalWeight = totalWeight;
     }
-    public float getTotalEnergy() {
+    public double getTotalEnergy() {
         return this.totalEnergy;
     }
-    public void setTotalEnergy(float totalEnergy) {
+    public void setTotalEnergy(double totalEnergy) {
         this.totalEnergy = totalEnergy;
     }
     public String getMeauName() {
@@ -213,5 +213,6 @@ public class Record {
         this.daoSession = daoSession;
         myDao = daoSession != null ? daoSession.getRecordDao() : null;
     }
+
 
 }

@@ -34,8 +34,8 @@ public class UserDao extends AbstractDao<User, Long> {
         public final static Property Sex = new Property(7, int.class, "sex", false, "SEX");
         public final static Property City = new Property(8, String.class, "city", false, "CITY");
         public final static Property Country = new Property(9, String.class, "country", false, "COUNTRY");
-        public final static Property Weight = new Property(10, float.class, "weight", false, "WEIGHT");
-        public final static Property Heigth = new Property(11, float.class, "heigth", false, "HEIGTH");
+        public final static Property Weight = new Property(10, double.class, "weight", false, "WEIGHT");
+        public final static Property Heigth = new Property(11, double.class, "heigth", false, "HEIGTH");
         public final static Property Target = new Property(12, int.class, "target", false, "TARGET");
         public final static Property Power = new Property(13, int.class, "power", false, "POWER");
         public final static Property Active = new Property(14, int.class, "active", false, "ACTIVE");
@@ -243,8 +243,8 @@ public class UserDao extends AbstractDao<User, Long> {
             cursor.getInt(offset + 7), // sex
             cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // city
             cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // country
-            cursor.getFloat(offset + 10), // weight
-            cursor.getFloat(offset + 11), // heigth
+            cursor.getDouble(offset + 10), // weight
+            cursor.getDouble(offset + 11), // heigth
             cursor.getInt(offset + 12), // target
             cursor.getInt(offset + 13), // power
             cursor.getInt(offset + 14), // active
@@ -267,8 +267,8 @@ public class UserDao extends AbstractDao<User, Long> {
         entity.setSex(cursor.getInt(offset + 7));
         entity.setCity(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
         entity.setCountry(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
-        entity.setWeight(cursor.getFloat(offset + 10));
-        entity.setHeigth(cursor.getFloat(offset + 11));
+        entity.setWeight(cursor.getDouble(offset + 10));
+        entity.setHeigth(cursor.getDouble(offset + 11));
         entity.setTarget(cursor.getInt(offset + 12));
         entity.setPower(cursor.getInt(offset + 13));
         entity.setActive(cursor.getInt(offset + 14));

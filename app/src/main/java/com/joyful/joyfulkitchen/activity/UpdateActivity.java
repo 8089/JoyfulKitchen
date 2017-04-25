@@ -180,8 +180,11 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
         }
         FileOutputStream b = null;
         File file = new File(path);
-        if (!file.exists())
+        try {
             file.mkdirs();// 创建文件夹
+        }catch (Exception e){
+        }
+
         String fileName = path +  "head.jpg";//图片名字
         try {
            b = new FileOutputStream(fileName);
