@@ -1,17 +1,18 @@
 package com.joyful.joyfulkitchen.model;
 
 
+import com.joyful.joyfulkitchen.dao.DaoSession;
+import com.joyful.joyfulkitchen.dao.FoodDao;
+import com.joyful.joyfulkitchen.dao.FoodTypeDao;
+
+import org.greenrobot.greendao.DaoException;
 import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Property;
 import org.greenrobot.greendao.annotation.ToOne;
 
 import java.util.Date;
-import org.greenrobot.greendao.annotation.Generated;
-import org.greenrobot.greendao.DaoException;
-import com.joyful.joyfulkitchen.dao.DaoSession;
-import com.joyful.joyfulkitchen.dao.FoodTypeDao;
-import com.joyful.joyfulkitchen.dao.FoodDao;
 
 @Entity(nameInDb = "tb_food")
 public class Food {
@@ -45,13 +46,21 @@ public class Food {
     @Property(nameInDb = "update_time")
     private Date updateTime;                    // DATETIME      -- 更新时间
 
-    /** Used to resolve relations */
+    /**
+     * Used to resolve relations
+     */
     @Generated(hash = 2040040024)
     private transient DaoSession daoSession;
 
-    /** Used for active entity operations. */
+    /**
+     * Used for active entity operations.
+     */
     @Generated(hash = 1296197325)
     private transient FoodDao myDao;
+
+    @Generated(hash = 866324199)
+    public Food() {
+    }
 
     @Generated(hash = 154660969)
     public Food(Long foodId, String foodName, String food_img, float energy, float protein,
@@ -69,10 +78,6 @@ public class Food {
         this.foodTypeId = foodTypeId;
         this.createTime = createTime;
         this.updateTime = updateTime;
-    }
-
-    @Generated(hash = 866324199)
-    public Food() {
     }
 
     public Long getFoodId() {
@@ -174,7 +179,9 @@ public class Food {
     @Generated(hash = 107578111)
     private transient Long foodType__resolvedKey;
 
-    /** To-one relationship, resolved on first access. */
+    /**
+     * To-one relationship, resolved on first access.
+     */
     @Generated(hash = 1851720693)
     public FoodType getFoodType() {
         Long __key = this.foodTypeId;
@@ -193,7 +200,9 @@ public class Food {
         return foodType;
     }
 
-    /** called by internal mechanisms, do not call yourself. */
+    /**
+     * called by internal mechanisms, do not call yourself.
+     */
     @Generated(hash = 329501633)
     public void setFoodType(FoodType foodType) {
         synchronized (this) {
@@ -239,11 +248,14 @@ public class Food {
         myDao.update(this);
     }
 
-    /** called by internal mechanisms, do not call yourself. */
+    /**
+     * called by internal mechanisms, do not call yourself.
+     */
     @Generated(hash = 505459956)
     public void __setDaoSession(DaoSession daoSession) {
         this.daoSession = daoSession;
         myDao = daoSession != null ? daoSession.getFoodDao() : null;
     }
+
 
 }

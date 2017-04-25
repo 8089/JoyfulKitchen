@@ -1,28 +1,26 @@
 package com.joyful.joyfulkitchen.adapter;
 
 import android.content.Context;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.joyful.joyfulkitchen.R;
-import com.joyful.joyfulkitchen.model.SearchMeauList;
+import com.joyful.joyfulkitchen.model.Food;
 
 import java.util.List;
 
 /**
  * 一道菜的 食材 item adapter
  */
-public class FoodStepsAdapter extends BaseAdapter {
-    private List<SearchMeauList.StepsBean> data;
+public class FoodTypesSelectedAdapter extends BaseAdapter {
+    private List<Food> data;
     private Context context;
     private LayoutInflater inflater;
 
-    public FoodStepsAdapter(Context context,List<SearchMeauList.StepsBean> data) {
+    public FoodTypesSelectedAdapter(Context context, List<Food> data) {
         this.context = context;
         this.data = data;
         this.inflater = LayoutInflater.from(context);
@@ -45,8 +43,7 @@ public class FoodStepsAdapter extends BaseAdapter {
 
 
     static class ViewHolder {
-        private TextView food_step_start;
-        private SimpleDraweeView food_step_img;
+        private TextView foods_name;
     }
 
     @Override
@@ -54,18 +51,13 @@ public class FoodStepsAdapter extends BaseAdapter {
         ViewHolder item;
         if (convertView == null) {
             item = new ViewHolder();
-            convertView = inflater.inflate(R.layout.food_steps_item, null);
-            item.food_step_start = (TextView) convertView.findViewById(R.id.food_step_start);
-            item.food_step_img = (SimpleDraweeView) convertView.findViewById(R.id.food_step_img);
+            convertView = inflater.inflate(R.layout.food_type_selected_item, null);
+            item.foods_name = (TextView) convertView.findViewById(R.id.foods_name);
             convertView.setTag(item);
         } else {
             item = (ViewHolder) convertView.getTag();
         }
-
-        item.food_step_start.setText(data.get(position).getStep());
-
-        Uri uri = Uri.parse(data.get(position).getImg());
-        item.food_step_img.setImageURI(uri);
+        item.foods_name.setText(data.get(position).getFoodName());
 
         return convertView;
     }

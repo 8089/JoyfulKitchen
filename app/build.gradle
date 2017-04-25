@@ -53,12 +53,16 @@ dependencies {
 
     compile 'com.android.volley:volley:1.0.0'
 
-
-
     /* greendao 数据库*/
     compile 'org.greenrobot:greendao:3.2.0'
     //compile 'net.zetetic:android-database-sqlcipher:3.5.4' //数据库加密时添加
     //compile 'com.github.yuweiguocn:GreenDaoUpgradeHelper:v1.2.0' //使用数据库升级辅助GreenDaoUpgradleHepler时添加
+
+    // 图片加载
+    compile 'com.facebook.fresco:fresco:0.12.0'
+    // 支持 WebP （静态图+动图），需要添加
+    compile 'com.facebook.fresco:animated-webp:0.12.0'
+    compile 'com.facebook.fresco:webpsupport:0.12.0'
 
 }
 

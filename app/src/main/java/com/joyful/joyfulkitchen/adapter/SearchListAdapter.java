@@ -1,23 +1,18 @@
 package com.joyful.joyfulkitchen.adapter;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.NetworkImageView;
-import com.android.volley.toolbox.Volley;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.joyful.joyfulkitchen.R;
 import com.joyful.joyfulkitchen.model.SearchMeauList;
-import com.joyful.joyfulkitchen.util.BitmapCache;
 
 import java.util.List;
-
-import static com.joyful.joyfulkitchen.R.id.albums;
 
 
 /**
@@ -28,15 +23,12 @@ public class SearchListAdapter extends BaseAdapter {
 	private Context context;
 	private LayoutInflater inflater;
 
-	private ImageLoader mImageLoader;
-
 
 	public SearchListAdapter(Context context, List<SearchMeauList> data) {
 		this.context = context;
 		this.data = data;
 		this.inflater = LayoutInflater.from(context);
-		RequestQueue queue = Volley.newRequestQueue(context);
-		mImageLoader = new ImageLoader(queue, new BitmapCache());
+
 	}
 
 	@Override
@@ -57,7 +49,7 @@ public class SearchListAdapter extends BaseAdapter {
 
 	static class ViewHolder{
 
-		public NetworkImageView albums; // 菜图片
+		public SimpleDraweeView albums; // 菜图片
 
 		private TextView title,tags; // 菜名 和 tags
 	}
@@ -68,7 +60,7 @@ public class SearchListAdapter extends BaseAdapter {
 		if(convertView == null){
 			item = new ViewHolder();
 			convertView = inflater.inflate(R.layout.search_list_item, null);
-			item.albums = (NetworkImageView) convertView.findViewById(albums);
+			item.albums = (SimpleDraweeView) convertView.findViewById(R.id.albums);
 			item.title = (TextView) convertView.findViewById(R.id.title);
 			item.tags = (TextView) convertView.findViewById(R.id.tags);
 
@@ -83,9 +75,10 @@ public class SearchListAdapter extends BaseAdapter {
 
 		// 菜图片处理.....
 		String imgUrl = data.get(position).getAlbums().get(0);
-		item.albums.setDefaultImageResId(R.mipmap.ic_loading_large);
-		item.albums.setErrorImageResId(R.mipmap.ic_loading_large);
-		item.albums.setImageUrl(imgUrl, mImageLoader);
+
+		Uri uri = Uri.parse(imgUrl);
+		item.albums.setImageURI(uri);
+
 		return convertView;
 	}
 

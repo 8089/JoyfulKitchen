@@ -27,7 +27,6 @@ public class MainActivity extends AppCompatActivity  implements BottomNavigation
     private BottomNavigationBar mBottomNavigationBar;
     private BadgeItem badgeItem;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
