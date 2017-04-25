@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/LinearLayout_vertical_m_m"
+    android:orientation="vertical"
     android:background="#F0FFF0">
 
 
@@ -43,6 +44,25 @@
                 android:layout_width="85dip"
                 android:layout_height="85dip"
                 android:layout_gravity="center"
+                android:src="@mipmap/me"
+               /> >
+
+            <TextView
+                android:id="@+id/loginning"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="8dp"
+                android:text="登录 | 注册"
+                android:textSize="35dp"/>
+
+            <!--<com.joyful.joyfulkitchen.view.AvatarImageView
+                android:id="@+id/myFace"
+                android:layout_width="85dip"
+                android:layout_height="85dip"
+                android:layout_gravity="center"
                 android:src="@mipmap/face" />
 
             <TextView
@@ -54,14 +74,57 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginBottom="8dp"
                 android:text="世界就这样"
-                android:textSize="35dp"/>
+                android:textSize="35dp"/>-->
         </LinearLayout>
 
 
 
     </LinearLayout>
 
-    <RelativeLayout
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:padding="16dp"
+        android:background="@color/white"
+        android:id="@+id/MyListView">
+    </ListView>
+
+    <!-- 我的 之 选项列表-->
+
+    <LinearLayout
+        android:id="@+id/setting"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        >
+
+        <TextView
+            android:id="@+id/ItemTitle"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center_vertical"
+            android:layout_gravity="center_vertical"
+            android:text="系统设置"
+            />
+
+        <ImageView
+            android:id="@+id/right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@mipmap/right" />
+
+    </LinearLayout>
+
+
+
+
+
+
+    <!--<RelativeLayout
         android:id="@+id/layout_mine_ckb"
         android:layout_width="match_parent"
         android:layout_height="54dp"
@@ -187,6 +250,6 @@
             android:paddingLeft="12dp"
             android:src="@mipmap/right" />
     </RelativeLayout>
-
+-->
 
 </LinearLayout>

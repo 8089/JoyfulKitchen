@@ -8,6 +8,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.ViewConfiguration;
 
 import com.ashokvarma.bottomnavigation.BadgeItem;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
@@ -22,6 +24,7 @@ import com.joyful.joyfulkitchen.fragment.HealthyFragment2;
 import com.joyful.joyfulkitchen.fragment.MyFragment;
 import com.joyful.joyfulkitchen.model.Food;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -56,6 +59,11 @@ public class MainActivity extends AppCompatActivity  implements BottomNavigation
         // 初始化 fragment
         initFragment();
 
+
+
+        // menu
+       setOverflowButtonAlways();
+       // getActionBar().setDisplayShowHomeEnabled(false);
 
     }
 
@@ -193,4 +201,29 @@ public class MainActivity extends AppCompatActivity  implements BottomNavigation
     public void onTabReselected(int position) {
 
     }
+
+
+    /* app menu */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+    private void setOverflowButtonAlways()
+    {
+        try
+        {
+            ViewConfiguration config = ViewConfiguration.get(this);
+            Field menuKey = ViewConfiguration.class
+                    .getDeclaredField("sHasPermanentMenuKey");
+            menuKey.setAccessible(true);
+            menuKey.setBoolean(config, false);
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+
 }

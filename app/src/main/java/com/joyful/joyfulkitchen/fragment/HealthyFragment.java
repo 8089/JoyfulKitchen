@@ -27,7 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.joyful.joyfulkitchen.R;
-import com.joyful.joyfulkitchen.activity.FoodSelectActivity;
+import com.joyful.joyfulkitchen.activity.FoodTypeSelectActivity;
 import com.joyful.joyfulkitchen.service.BluetoothService;
 import com.joyful.joyfulkitchen.util.ToastUtils;
 import com.joyful.joyfulkitchen.view.RoundIndicatorView;
@@ -149,7 +149,7 @@ public class HealthyFragment extends Fragment {
         tv_food_select.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), FoodSelectActivity.class);
+                Intent intent = new Intent(getContext(), FoodTypeSelectActivity.class);
                 startActivityForResult(intent, 1);
             }
         });

@@ -1,17 +1,18 @@
 package com.joyful.joyfulkitchen.model;
 
 
+import com.joyful.joyfulkitchen.dao.DaoSession;
+import com.joyful.joyfulkitchen.dao.FoodDao;
+import com.joyful.joyfulkitchen.dao.FoodTypeDao;
+
+import org.greenrobot.greendao.DaoException;
 import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Property;
 import org.greenrobot.greendao.annotation.ToOne;
 
 import java.util.Date;
-import org.greenrobot.greendao.annotation.Generated;
-import org.greenrobot.greendao.DaoException;
-import com.joyful.joyfulkitchen.dao.DaoSession;
-import com.joyful.joyfulkitchen.dao.FoodTypeDao;
-import com.joyful.joyfulkitchen.dao.FoodDao;
 
 @Entity(nameInDb = "tb_food")
 public class Food {
@@ -245,8 +246,6 @@ public class Food {
         this.daoSession = daoSession;
         myDao = daoSession != null ? daoSession.getFoodDao() : null;
     }
-
-
 
 
 }

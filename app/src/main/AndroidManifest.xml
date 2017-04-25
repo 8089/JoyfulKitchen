@@ -2,10 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.joyful.joyfulkitchen">
 
+    <!-- 读取 SD 卡 -->
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <!-- 网络连接权限 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- 网络连接状态 -->
@@ -37,14 +39,18 @@
         <activity android:name=".activity.RuleViewMainActivity" />
         <activity android:name=".activity.DatePickerMainActivity" />
         <activity android:name=".activity.UpdateActivity" />
-        <activity android:name=".activity.FoodSelectActivity" />
+         <activity android:name=".activity.FoodTypeSelectActivity" />
+        <activity android:name=".activity.SearchListActivity" />
+        <activity android:name=".activity.FoodDetailActivity" />
+        <activity android:name=".activity.FoodTypeSelectedActivity"/>
+
         <activity android:name=".activity.MyselfActivity" />
-		<activity android:name=".activity.SearchListActivity" />
-		<activity android:name=".activity.FoodDetailActivity" />
+        <activity android:name=".activity.LoginActivity" />
+        <activity android:name=".activity.RegistActivity" />
+        <activity android:name=".activity.UpdateFoodActivity" />
 
 		<service android:name=".service.BluetoothService" />
 
     </application>
-
 
 </manifest>
