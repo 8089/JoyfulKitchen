@@ -15,34 +15,40 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.joyful.joyfulkitchen.R;
 import com.joyful.joyfulkitchen.activity.FoodTypeSelectActivity;
+import com.joyful.joyfulkitchen.adapter.TabFragmentPageAdapter;
+import com.joyful.joyfulkitchen.dao.FoodDao;
+import com.joyful.joyfulkitchen.dao.GreenDaoManager;
+import com.joyful.joyfulkitchen.model.Food;
 import com.joyful.joyfulkitchen.service.BluetoothService;
 import com.joyful.joyfulkitchen.util.ToastUtils;
+import com.joyful.joyfulkitchen.util.UnitConversionUtil;
 import com.joyful.joyfulkitchen.view.RoundIndicatorView;
-
-import org.joda.time.DateTime;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
-import noman.weekcalendar.WeekCalendar;
-import noman.weekcalendar.listener.OnDateClickListener;
-
 import static com.joyful.joyfulkitchen.RefreshAndLoad.PullToRefreshLayout.TAG;
+
 
 // 健康饮食
 public class HealthyFragment extends Fragment {
@@ -51,35 +57,32 @@ public class HealthyFragment extends Fragment {
 
     private String mParam1;
 
+    private RoundIndicatorView mRoundIndicatorView;
+    private TextView tv_ke, tv_show_unit;
+    private Toolbar toolbar;
+    private int index = 0;
+    private String[] units = {"克", "两", "磅", "毫升", "安士"};
+
+    private TextView tv_food_select;
+
+    // -----------
     private BluetoothAdapter.LeScanCallback lazyCallback;
 
     private BluetoothAdapter mBluetoothAdapter;
-    private String mDeviceAddress =null;
+    private String mDeviceAddress = null;
     private ArrayList<ArrayList<BluetoothGattCharacteristic>> mGattCharacteristics = new ArrayList();
     private BluetoothGattCharacteristic mNotifyCharacteristic;
     private BluetoothService mBluetoothLeService;
     private static final int REQUEST_ENABLE_BT = 0;
 
 
-    private RoundIndicatorView roundIndicatorView;
-    private EditText editText;
-    private TextView tv_food_select;
-    private WeekCalendar weekCalendar;
+
+    private List<Food> foods;
+
+    private TabLayout tabLayout;
+    private TabFragmentPageAdapter tabFragmentPageAdapter;
 
     protected boolean isVisible;
-    /**
-     * 在这里实现Fragment数据的缓加载.
-     * @param isVisibleToUser
-     */
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if(getUserVisibleHint()) {
-            isVisible = true;
-        } else {
-            isVisible = false;
-        }
-    }
 
 
     private Handler handler = new Handler(){
@@ -89,13 +92,52 @@ public class HealthyFragment extends Fragment {
 
             int a = msg.arg1 ;
             String s = (String )msg.obj ;
-            roundIndicatorView.setCurrentNumAnim(a) ;
-            editText.setText(a+"") ;
+            a = Conversion(a, index);
+            mRoundIndicatorView.setCurrentNumAnim(a);
+            tv_show_unit.setText(a + units[index]);
             char c1 = s.charAt(2) ;
             char c2 = s.charAt(6) ;
-            Log.i("----------状态-----","第二个"+c1+"第6个"+c2);
+            Log.i("----------状态-----","第二个" + c1 + "第6个" + c2);
         }
     };
+
+    // 传入 g ，根据单位 转换
+    private int Conversion(int a, int index) {
+        int rs = 0;
+        switch (index){
+            case 0:
+                rs = a;
+                break;
+            case 1:
+                rs = UnitConversionUtil.g2Two(a);
+                break;
+            case 2:
+                rs = UnitConversionUtil.g2Lb(a);
+                break;
+            case 3:
+                rs = UnitConversionUtil.g2Ml(a);
+                break;
+            case 4:
+                rs = UnitConversionUtil.g2Oz(a);
+                break;
+        }
+        return rs;
+    }
+
+
+    /**
+     * 在这里实现Fragment数据的缓加载.
+     * @param
+     */
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        if(getUserVisibleHint()) {
+            isVisible = true;
+        } else {
+            isVisible = false;
+        }
+        super.setUserVisibleHint(isVisibleToUser);
+    }
 
     public static HealthyFragment newInstance(String param1) {
         HealthyFragment fragment = new HealthyFragment();
@@ -117,11 +159,12 @@ public class HealthyFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-
-
         View view = inflater.inflate(R.layout.fragment_healthy, container, false);
 
+        // 初始化view
         initView(view);
+
+        // 添加监听事件
         setOnListeners();
 
         initLanya();
@@ -129,23 +172,86 @@ public class HealthyFragment extends Fragment {
         return view;
     }
 
-    private void initLanya() {
-        //打开蓝牙
-        BluetoothManager bluetoothManager =
-                (BluetoothManager) getActivity().getSystemService(Context.BLUETOOTH_SERVICE);
 
-        mBluetoothAdapter = bluetoothManager.getAdapter();
+
+    private void initView(View view) {
+        setHasOptionsMenu(true);
+        toolbar = (Toolbar) view.findViewById(R.id.home_toolbar);
+        toolbar.setTitle(null);
+
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.action_search:
+                        ToastUtils.showToast(getContext(), "action_search");
+                        break;
+                    case R.id.action_settings:
+                        ToastUtils.showToast(getContext(), "action_settings");
+                        break;
+                }
+                return true;
+            }
+        });
+
+        mRoundIndicatorView = (RoundIndicatorView) view.findViewById(R.id.riv_view);
+        tv_ke = (TextView) view.findViewById(R.id.tv_ke);
+        tv_show_unit = (TextView) view.findViewById(R.id.tv_show_unit);
+        tv_show_unit.setText("0g");
+
+        tv_food_select = (TextView) view.findViewById(R.id.tv_food_select);
+
+        FoodDao foodDao = GreenDaoManager.getInstance().getSession().getFoodDao();
+        foods = foodDao.loadAll();
+
+        //Fragment+ViewPager+FragmentViewPager组合的使用
+        ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewPager_home);
+        tabFragmentPageAdapter = new TabFragmentPageAdapter(getActivity().getSupportFragmentManager(),getContext(), foods);
+        viewPager.setAdapter(tabFragmentPageAdapter);
+
+        //TabLayout
+        tabLayout = (TabLayout) view.findViewById(R.id.tabLayout_home);
+        tabLayout.setupWithViewPager(viewPager);
+
+
+
 
     }
 
-    private void initView(View view) {
-        tv_food_select = (TextView) view.findViewById(R.id.tv_food_select);
-        weekCalendar = (WeekCalendar) view.findViewById(R.id.weekCalendar);
-        editText = (EditText) view.findViewById(R.id.edit);
-        roundIndicatorView = (RoundIndicatorView) view.findViewById(R.id.riv_view);
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.home_menu, menu);
     }
 
     private void setOnListeners() {
+
+
+        tv_ke.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new MaterialDialog.Builder(getContext())
+                        .title(R.string.unit_title)
+                        .items(R.array.unit)
+                        .itemsCallbackSingleChoice(0, new MaterialDialog.ListCallbackSingleChoice() {
+                            @Override
+                            public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+
+                                tv_ke.setText(text);
+                                onSwitchUnit(which);
+
+                                return true;
+                            }
+                        })
+//                        .widgetColor(Color.GRAY)  改按钮颜色
+                        //widgetColor(), widgetColorRes(), widgetColorAttr(), and choiceWidgetColor()
+                        .positiveText(R.string.unit_positive)
+                        .show();
+            }
+        });
+
         tv_food_select.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -154,38 +260,37 @@ public class HealthyFragment extends Fragment {
             }
         });
 
+    }
 
-        editText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                ToastUtils.showToast(getContext(), "beforeTextChanged");
-            }
+    private void onSwitchUnit(int which) {
+        //克,两,磅,毫升,安士
+        switch (which){
+            case 0:
+                index = 0;
+                break;
+            case 1:
+                index = 1;
+                break;
+            case 2:
+                index = 2;
+                break;
+            case 3:
+                index = 3;
+                break;
+            case 4:
+                index = 4;
+                break;
+        }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                try{
-                    if(s.length() >0 ) {
-                        int a = Integer.valueOf(s.toString());
-                        roundIndicatorView.setCurrentNumAnim(a);
-                    }else{
-                        roundIndicatorView.setCurrentNumAnim(0);
-                    }
-                } catch (Exception e){
-                    ToastUtils.showToast(getContext(), "数字太大了");
-                }
-            }
+    }
 
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-        });
 
-        weekCalendar.setOnDateClickListener(new OnDateClickListener() {
-            @Override
-            public void onDateClick(DateTime dateTime) {
-                ToastUtils.showToast(getContext(), "您选择的日期是:" + dateTime.toLocalDate());
-            }
-        });
+    private void initLanya() {
+        //打开蓝牙
+        BluetoothManager bluetoothManager =
+                (BluetoothManager) getActivity().getSystemService(Context.BLUETOOTH_SERVICE);
+
+        mBluetoothAdapter = bluetoothManager.getAdapter();
 
     }
 
@@ -350,7 +455,7 @@ public class HealthyFragment extends Fragment {
 
         if (lazyCallback == null) {
             Log.i("lazyCallback","lazyCallback  new前");
-            lazyCallback = new LazyCallback();
+            lazyCallback = new HealthyFragment.LazyCallback();
         }
         Log.i("lazyCallback","new 后");
 
@@ -360,7 +465,7 @@ public class HealthyFragment extends Fragment {
             public void run() {
                 try{
                     boolean d = mBluetoothAdapter.startLeScan(lazyCallback);
-                    Log.i("扫描状态：",d+"");
+                    Log.i("扫描状态：",d + "");
                 }catch (Exception e){
                     Log.i("异常：",e.toString()+"扫描异常");
                     e.printStackTrace();
@@ -370,7 +475,7 @@ public class HealthyFragment extends Fragment {
         }).start();
 
 
-        /*registerReceiver(mGattUpdateReceiver,makeGattUpdateIntentFilter());*/
+        getActivity().registerReceiver(mGattUpdateReceiver,makeGattUpdateIntentFilter());
 
         if (mBluetoothLeService != null) {
             final boolean result = mBluetoothLeService.connect(mDeviceAddress);
@@ -391,7 +496,6 @@ public class HealthyFragment extends Fragment {
         mBluetoothLeService = null;
 
     }
-
     @Override
     public void onStop() {
         super.onStop();
@@ -410,4 +514,5 @@ public class HealthyFragment extends Fragment {
         Log.i("------onStop", "停止");
 
     }
+
 }

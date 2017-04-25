@@ -2,119 +2,96 @@
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="false">
+    android:layout_height="match_parent">
 
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/main_abl_app_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
-        <android.support.design.widget.CollapsingToolbarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:focusable="true"
-                android:focusableInTouchMode="true">
-
-
-                <com.joyful.joyfulkitchen.view.RoundIndicatorView
-                    android:background="@drawable/bg"
-                    android:id="@+id/riv_view"
-                    android:layout_width="match_parent"
-
-                    android:layout_height="400dp" />
-
-                <android.support.v7.widget.Toolbar
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/tv_food_select"
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="50dp"
-                        android:layout_marginRight="50dp"
-                        android:layout_marginTop="5dp"
-                        android:background="#99FFFFFF"
-                        android:gravity="center"
-                        android:textColor="#666"
-                        android:text="请选择食物"/>
-
-
-                </android.support.v7.widget.Toolbar>
-
-
-
-
-                <EditText
-                    android:id="@+id/edit"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="210dp"
-                    android:inputType="number"
-                    android:background="@drawable/edittext"
-                    android:hint="0"
-
-                    android:textSize="20sp"/>
-
-                <TextView
-                    android:id="@+id/tttt"
-                    android:layout_alignParentBottom="true"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp" />
-
-
-            </RelativeLayout>
-        </android.support.design.widget.CollapsingToolbarLayout>
-
-    </android.support.design.widget.AppBarLayout>
-
-
-    <android.support.v4.widget.NestedScrollView
-        android:id="@+id/nsl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="30dp"
-        android:paddingBottom="60dp"
-        android:scrollbars="none"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:background="@mipmap/home_bg">
 
 
-        <android.support.v7.widget.CardView
-            android:layout_width="wrap_content"
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="300dp">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/home_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:elevation="4dp"
+                android:background="#5677fc"
+                app:subtitleTextColor="#FFFFFF"
+                app:popupTheme="@style/ToolbarPopupTheme">
+
+                <TextView
+                    android:id="@+id/tv_food_select"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:background="#FFFFFF"
+                    android:textSize="20sp"
+                    android:text="请选择食物"/>
+
+            </android.support.v7.widget.Toolbar>
+
+
+            <RelativeLayout
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                android:layout_width="300dp"
+                android:layout_height="300dp">
+
+                <com.joyful.joyfulkitchen.view.RoundIndicatorView
+                    android:layout_centerInParent="true"
+                    android:id="@+id/riv_view"
+                    android:layout_width="300dp"
+                    android:layout_height="300dp" />
+
+                <TextView
+                    android:id="@+id/tv_show_unit"
+                    android:layout_width="80dp"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="125dp"
+                    android:background="@drawable/home_textview_shape"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:text="5000g"/>
+
+                <TextView
+                    android:id="@+id/tv_ke"
+                    style="@style/home_textview_style"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+
+                    android:text="克"/>
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabLayout_home"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            app:cardElevation="8dp"
-            app:contentPadding="16dp">
+            app:tabMode="scrollable"
+            />
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPager_home"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="20dp"
+            android:background="#ffffff"
+            />
 
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/person_intro"
-                />
-        </android.support.v7.widget.CardView>
-
-    </android.support.v4.widget.NestedScrollView>
-
-
-    <noman.weekcalendar.WeekCalendar
-        android:id="@+id/weekCalendar"
-        android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:background="@color/colorPrimary"
-        app:dayNameLength="threeLetters"
-        app:numOfPages="100"
-        app:layout_anchor="@id/tttt"/>
+    </android.support.design.widget.AppBarLayout>
 
 
 </android.support.design.widget.CoordinatorLayout>
