@@ -17,6 +17,7 @@ import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.joyful.joyfulkitchen.R;
 import com.joyful.joyfulkitchen.dao.FoodDao;
 import com.joyful.joyfulkitchen.dao.GreenDaoManager;
+import com.joyful.joyfulkitchen.fragment.CookeyBookFragment;
 import com.joyful.joyfulkitchen.fragment.CookeyBookFragment2;
 import com.joyful.joyfulkitchen.fragment.GourmetCircleFragment;
 import com.joyful.joyfulkitchen.fragment.HealthyFragment;
@@ -153,7 +154,7 @@ public class MainActivity extends AppCompatActivity  implements BottomNavigation
     private List<Fragment> getFragments() {
         ArrayList<Fragment> fragments = new ArrayList<>();
         fragments.add(HealthyFragment2.newInstance("健康饮食"));
-        fragments.add(CookeyBookFragment2.newInstance("菜谱"));
+        fragments.add(CookeyBookFragment.newInstance("菜谱"));
         fragments.add(GourmetCircleFragment.newInstance("美食圈"));
         fragments.add(MyFragment.newInstance("我的"));
 
