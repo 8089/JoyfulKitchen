@@ -9,13 +9,17 @@ import org.greenrobot.greendao.DaoException;
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Keep;
 import org.greenrobot.greendao.annotation.Property;
 import org.greenrobot.greendao.annotation.ToOne;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity(nameInDb = "tb_food")
-public class Food {
+@Keep
+public class Food implements Serializable{
+    private static final long serialVersionUID = 1L;
 
     @Id(autoincrement = true)
     @Property(nameInDb = "food_id")
@@ -51,10 +55,8 @@ public class Food {
     private transient DaoSession daoSession;
 
     /** Used for active entity operations. */
-    @Generated(hash = 1296197325)
     private transient FoodDao myDao;
 
-    @Generated(hash = 2122643115)
     public Food(Long foodId, String foodName, String foodImg, double energy, double protein,
             double fat, double carbohydrate, double fiber, double cholesterol,
             Long foodTypeId, Date createTime, Date updateTime) {
@@ -72,7 +74,6 @@ public class Food {
         this.updateTime = updateTime;
     }
 
-    @Generated(hash = 866324199)
     public Food() {
     }
 

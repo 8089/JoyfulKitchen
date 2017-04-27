@@ -3,9 +3,9 @@
     package="com.joyful.joyfulkitchen">
 
     <!-- 读取 SD 卡 -->
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <!-- 网络连接权限 -->
@@ -14,14 +14,15 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
-    <!-- 蓝牙连接权限-->
+    <!-- 蓝牙连接权限 -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.BLUETOOTH_PRIVILEGED" />
-    <uses-feature android:name="android.hardware.bluetooth_le" android:required="true"/>
 
     <!-- Android6.0 蓝牙扫描才需要-->
     <uses-permission-sdk-23 android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
+    <uses-feature android:name="android.hardware.bluetooth_le" android:required="true" />
 
     <application
         android:name=".base.BaseApplication"
@@ -41,18 +42,18 @@
         <activity android:name=".activity.RuleViewMainActivity" />
         <activity android:name=".activity.DatePickerMainActivity" />
         <activity android:name=".activity.UpdateActivity" />
-         <activity android:name=".activity.FoodTypeSelectActivity" />
+        <activity android:name=".activity.FoodTypeSelectActivity" />
         <activity android:name=".activity.SearchListActivity" />
         <activity android:name=".activity.FoodDetailActivity" />
-        <activity android:name=".activity.FoodTypeSelectedActivity"/>
-
+        <activity android:name=".activity.FoodTypeSelectedActivity" />
         <activity android:name=".activity.MyselfActivity" />
         <activity android:name=".activity.LoginActivity" />
         <activity android:name=".activity.RegistActivity" />
         <activity android:name=".activity.UpdateFoodActivity" />
 
-		<service android:name=".service.BluetoothService" />
+        <service android:name=".service.BluetoothService" />
 
+        <activity android:name=".activity.FoodValueActivity"></activity>
     </application>
 
 </manifest>

@@ -85,6 +85,7 @@ public class FoodTypeSelectActivity extends AppCompatActivity {
             public void onItemClick(View view, int layoutPosition, int position) {
                 Intent intent = new Intent(context,FoodTypeSelectedActivity.class);
                 intent.putExtra("foodTypeid",foodTypeList.get(position).getFoodTypeId());
+                intent.putExtra("foodTypeName",foodTypeList.get(position).getTypeName());
                 ToastUtil.toastMessage((Activity) context,foodTypeList.get(position).getFoodTypeId()+"");
                 startActivity(intent);
             }
