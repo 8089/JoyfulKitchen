@@ -7,6 +7,7 @@ import android.support.v13.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.ViewConfiguration;
@@ -21,7 +22,9 @@ import com.joyful.joyfulkitchen.fragment.CookeyBookFragment;
 import com.joyful.joyfulkitchen.fragment.GourmetCircleFragment;
 import com.joyful.joyfulkitchen.fragment.HealthyFragment;
 import com.joyful.joyfulkitchen.fragment.MyFragment;
+import com.joyful.joyfulkitchen.fragment.RecordFragment;
 import com.joyful.joyfulkitchen.model.Food;
+import com.joyful.joyfulkitchen.util.ToastUtils;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -43,6 +46,7 @@ public class MainActivity extends AppCompatActivity  implements BottomNavigation
     private static String[] PERMISSIONS_STORAGE = {
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
+
     };
 
     @Override
@@ -126,7 +130,8 @@ public class MainActivity extends AppCompatActivity  implements BottomNavigation
         mBottomNavigationBar
                 .addItem(new BottomNavigationItem(R.mipmap.healthy, "健康饮食").setActiveColorResource(R.color.orange))
                 .addItem(new BottomNavigationItem(R.mipmap.ckb, "菜谱").setActiveColorResource(R.color.orange))
-                .addItem(new BottomNavigationItem(R.mipmap.gourmet_circle, "美食圈").setActiveColorResource(R.color.orange).setBadgeItem(badgeItem))
+//                .addItem(new BottomNavigationItem(R.mipmap.gourmet_circle, "美食圈").setActiveColorResource(R.color.orange).setBadgeItem(badgeItem))
+                .addItem(new BottomNavigationItem(R.mipmap.gourmet_circle, "饮食记录").setActiveColorResource(R.color.orange).setBadgeItem(badgeItem))
                 .addItem(new BottomNavigationItem(R.mipmap.my, "我的").setActiveColorResource(R.color.orange))
                 .initialise();
         fragments = getFragments();
@@ -153,7 +158,8 @@ public class MainActivity extends AppCompatActivity  implements BottomNavigation
         ArrayList<Fragment> fragments = new ArrayList<>();
         fragments.add(HealthyFragment.newInstance("健康饮食"));
         fragments.add(CookeyBookFragment.newInstance("菜谱"));
-        fragments.add(GourmetCircleFragment.newInstance("美食圈"));
+//        fragments.add(GourmetCircleFragment.newInstance("美食圈"));
+        fragments.add(RecordFragment.newInstance("饮食记录"));
         fragments.add(MyFragment.newInstance("我的"));
 
         return fragments;
