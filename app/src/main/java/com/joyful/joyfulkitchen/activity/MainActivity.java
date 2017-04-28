@@ -7,10 +7,7 @@ import android.support.v13.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.ViewConfiguration;
 
 import com.ashokvarma.bottomnavigation.BadgeItem;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
@@ -18,15 +15,13 @@ import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.joyful.joyfulkitchen.R;
 import com.joyful.joyfulkitchen.dao.FoodDao;
 import com.joyful.joyfulkitchen.dao.GreenDaoManager;
-import com.joyful.joyfulkitchen.fragment.CookeyBookFragment;
-import com.joyful.joyfulkitchen.fragment.GourmetCircleFragment;
+
 import com.joyful.joyfulkitchen.fragment.HealthyFragment;
+import com.joyful.joyfulkitchen.fragment.HomeFragment;
 import com.joyful.joyfulkitchen.fragment.MyFragment;
 import com.joyful.joyfulkitchen.fragment.RecordFragment;
 import com.joyful.joyfulkitchen.model.Food;
-import com.joyful.joyfulkitchen.util.ToastUtils;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -65,7 +60,7 @@ public class MainActivity extends AppCompatActivity  implements BottomNavigation
 
 
         // menu
-       setOverflowButtonAlways();
+//       setOverflowButtonAlways();
        // getActionBar().setDisplayShowHomeEnabled(false);
 
     }
@@ -129,7 +124,7 @@ public class MainActivity extends AppCompatActivity  implements BottomNavigation
 //                                .setHideOnSelect(true);//当选中状态时消失，非选中状态显示
         mBottomNavigationBar
                 .addItem(new BottomNavigationItem(R.mipmap.healthy, "健康饮食").setActiveColorResource(R.color.orange))
-                .addItem(new BottomNavigationItem(R.mipmap.ckb, "菜谱").setActiveColorResource(R.color.orange))
+//                .addItem(new BottomNavigationItem(R.mipmap.ckb, "菜谱").setActiveColorResource(R.color.orange))
 //                .addItem(new BottomNavigationItem(R.mipmap.gourmet_circle, "美食圈").setActiveColorResource(R.color.orange).setBadgeItem(badgeItem))
                 .addItem(new BottomNavigationItem(R.mipmap.gourmet_circle, "饮食记录").setActiveColorResource(R.color.orange).setBadgeItem(badgeItem))
                 .addItem(new BottomNavigationItem(R.mipmap.my, "我的").setActiveColorResource(R.color.orange))
@@ -156,8 +151,9 @@ public class MainActivity extends AppCompatActivity  implements BottomNavigation
 
     private List<Fragment> getFragments() {
         ArrayList<Fragment> fragments = new ArrayList<>();
-        fragments.add(HealthyFragment.newInstance("健康饮食"));
-        fragments.add(CookeyBookFragment.newInstance("菜谱"));
+//        fragments.add(HealthyFragment.newInstance("健康饮食"));
+        fragments.add(HomeFragment.newInstance("健康饮食"));
+//        fragments.add(CookeyBookFragment.newInstance("菜谱"));
 //        fragments.add(GourmetCircleFragment.newInstance("美食圈"));
         fragments.add(RecordFragment.newInstance("饮食记录"));
         fragments.add(MyFragment.newInstance("我的"));
@@ -209,13 +205,13 @@ public class MainActivity extends AppCompatActivity  implements BottomNavigation
 
 
     /* app menu */
-    @Override
+   /* @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
-    }
-    private void setOverflowButtonAlways()
+    }*/
+    /*private void setOverflowButtonAlways()
     {
         try
         {
@@ -228,7 +224,7 @@ public class MainActivity extends AppCompatActivity  implements BottomNavigation
         {
             e.printStackTrace();
         }
-    }
+    }*/
 
 
 }

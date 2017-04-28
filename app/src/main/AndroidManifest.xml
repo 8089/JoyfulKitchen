@@ -50,10 +50,12 @@
         <activity android:name=".activity.LoginActivity" />
         <activity android:name=".activity.RegistActivity" />
         <activity android:name=".activity.UpdateFoodActivity" />
+        <activity android:name=".activity.CookeyBookActivity" />
+        <activity android:name=".activity.FoodValueActivity" />
 
         <service android:name=".service.BluetoothService" />
 
-        <activity android:name=".activity.FoodValueActivity"></activity>
+
     </application>
 
 </manifest>
