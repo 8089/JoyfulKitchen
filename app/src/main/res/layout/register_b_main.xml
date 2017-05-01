@@ -191,7 +191,7 @@
         android:layout_height="wrap_content"
         android:background="#14C143"
         android:padding="10dp"
-        android:text="下一步"
+        android:text="完成"
         android:textColor="@color/white"
         android:textSize="22dp"
         tools:ignore="HardcodedText,SpUsage" />

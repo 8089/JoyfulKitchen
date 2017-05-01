@@ -73,17 +73,19 @@
                     tools:ignore="ContentDescription" />
 
                 <EditText
+                    android:id="@+id/user_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@null"
-                    android:hint="手机号码"
+                    android:hint="电子邮箱"
                     tools:ignore="HardcodedText" />
             </LinearLayout>
 
             <LinearLayout
+
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginBottom="10dp"
@@ -101,6 +103,7 @@
                     tools:ignore="ContentDescription" />
 
                 <EditText
+                    android:id="@+id/user_pwd"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -112,6 +115,7 @@
             </LinearLayout>
 
             <Button
+                android:id="@+id/user_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"

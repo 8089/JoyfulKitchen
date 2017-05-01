@@ -4,8 +4,10 @@ package com.joyful.joyfulkitchen.model;
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Keep;
 import org.greenrobot.greendao.annotation.Property;
 
+import java.io.Serializable;
 import java.util.Date;
 
 //@Entity 用于标识这是一个需要Greendao帮我们生成代码的bean
@@ -19,8 +21,9 @@ import java.util.Date;
 //@JoinProperty 对于更复杂的关系，可以使用这个注解标明目标属性的源属性。
 
 @Entity(nameInDb = "tb_user")
-public class User {
-
+@Keep
+public class User implements Serializable{
+    private static final long serialVersionUID = 1L;
     @Id(autoincrement = true)
     @Property(nameInDb = "user_id")
     private Long userId;                   // INTEGER PRIMARY KEY AUTO_INCREMENT,
@@ -223,5 +226,27 @@ public class User {
         this.updateTime = updateTime;
     }
 
-    
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", nickName='" + nickName + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", pwd='" + pwd + '\'' +
+                ", img='" + img + '\'' +
+                ", birth=" + birth +
+                ", sex=" + sex +
+                ", city='" + city + '\'' +
+                ", country='" + country + '\'' +
+                ", weight=" + weight +
+                ", heigth=" + heigth +
+                ", target=" + target +
+                ", power=" + power +
+                ", active=" + active +
+                ", token='" + token + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                '}';
+    }
 }

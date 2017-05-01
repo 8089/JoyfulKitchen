@@ -52,7 +52,9 @@
 
         <service android:name=".service.BluetoothService" />
 
-        <activity android:name=".activity.FoodValueActivity"></activity>
+        <activity android:name=".activity.FoodValueActivity"/>
+
+        <!--<activity android:name=".activity.MainActivity"/>-->
     </application>
 
 </manifest>

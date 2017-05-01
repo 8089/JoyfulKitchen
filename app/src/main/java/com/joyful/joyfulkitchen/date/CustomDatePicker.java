@@ -26,7 +26,7 @@ public class CustomDatePicker {
      * 定义结果回调接口
      */
     public interface ResultHandler {
-        void handle(String time);
+        void handle(String time) throws ParseException;
     }
 
     public enum SCROLL_TYPE {
@@ -119,7 +119,11 @@ public class CustomDatePicker {
             @Override
             public void onClick(View view) {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.CHINA);
-                handler.handle(sdf.format(selectedCalender.getTime()));
+                try {
+                    handler.handle(sdf.format(selectedCalender.getTime()));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 datePickerDialog.dismiss();
             }
         });
