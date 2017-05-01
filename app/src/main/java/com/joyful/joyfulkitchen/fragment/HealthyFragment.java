@@ -1,5 +1,6 @@
 package com.joyful.joyfulkitchen.fragment;
 
+import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGattCharacteristic;
@@ -11,12 +12,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.support.design.widget.TabLayout;
+import android.support.v13.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -65,6 +69,8 @@ public class HealthyFragment extends Fragment {
 
     private TextView tv_food_select;
 
+
+    private static final int MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION = 1;
     // -----------
     private BluetoothAdapter.LeScanCallback lazyCallback;
 
@@ -82,7 +88,7 @@ public class HealthyFragment extends Fragment {
     private TabLayout tabLayout;
     private TabFragmentPageAdapter tabFragmentPageAdapter;
 
-    protected boolean isVisible;
+//    protected boolean isVisible;
 
 
     private Handler handler = new Handler(){
@@ -129,7 +135,7 @@ public class HealthyFragment extends Fragment {
      * 在这里实现Fragment数据的缓加载.
      * @param
      */
-    @Override
+    /*@Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         if(getUserVisibleHint()) {
             isVisible = true;
@@ -137,7 +143,7 @@ public class HealthyFragment extends Fragment {
             isVisible = false;
         }
         super.setUserVisibleHint(isVisibleToUser);
-    }
+    }*/
 
     public static HealthyFragment newInstance(String param1) {
         HealthyFragment fragment = new HealthyFragment();
@@ -165,9 +171,10 @@ public class HealthyFragment extends Fragment {
         initView(view);
 
         // 添加监听事件
-        setOnListeners();
+        addListeners();
 
-        initLanya();
+        // 初始化蓝牙
+//        initLanya();
 
         return view;
     }
@@ -226,8 +233,7 @@ public class HealthyFragment extends Fragment {
         inflater.inflate(R.menu.home_menu, menu);
     }
 
-    private void setOnListeners() {
-
+    private void addListeners() {
 
         tv_ke.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -284,13 +290,34 @@ public class HealthyFragment extends Fragment {
 
     }
 
+/*
 
     private void initLanya() {
+        requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION);
+//判断是否需要 向用户解释，为什么要申请该权限
+        shouldShowRequestPermissionRationale(Manifest.permission.READ_CONTACTS);
+
         //打开蓝牙
         BluetoothManager bluetoothManager =
                 (BluetoothManager) getActivity().getSystemService(Context.BLUETOOTH_SERVICE);
 
         mBluetoothAdapter = bluetoothManager.getAdapter();
+        */
+/*if (ContextCompat.checkSelfPermission(getActivity(),
+                Mani fest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//请求权限
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                    MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION);
+//判断是否需要 向用户解释，为什么要申请该权限
+            if(ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                    Manifest.permission.READ_CONTACTS)) {
+                ToastUtils.showToast(getActivity(), "打开蓝牙需要权限权限，给个呗");
+            }
+        }*//*
+
+
+
 
     }
 
@@ -514,5 +541,7 @@ public class HealthyFragment extends Fragment {
         Log.i("------onStop", "停止");
 
     }
+*/
+
 
 }
