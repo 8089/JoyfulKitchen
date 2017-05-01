@@ -165,6 +165,7 @@ public class SearchMeauList implements Serializable{
     public static class Matail implements Serializable{
         private String name ;
         private String count;
+        private boolean isComplete = false;
 
         public String getName() {
             return name;
@@ -180,6 +181,14 @@ public class SearchMeauList implements Serializable{
 
         public void setCount(String count) {
             this.count = count;
+        }
+
+        public boolean isComplete() {
+            return isComplete;
+        }
+
+        public void setComplete(boolean complete) {
+            isComplete = complete;
         }
 
         @Override

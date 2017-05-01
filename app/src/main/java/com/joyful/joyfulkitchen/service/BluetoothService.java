@@ -234,6 +234,12 @@ public class BluetoothService extends Service{
      * @return 如果返回的是true 连接成功启动,连接的结果 *通过异步报道
      */
     public boolean connect(final String address){
+        //  还有上次连接的 蓝牙
+        if (mBluetoothGatt != null) {
+            mBluetoothGatt.close();
+            //LogUtil.info("-------------关闭mBluetoothGatt");
+        }
+
         Log.i(TAG,"connect");
         if (mBluetoothAdapter == null || address == null) {
             Log.i(TAG,"BluetoothAdapter没有初始化或未指明的地址。");
@@ -254,6 +260,9 @@ public class BluetoothService extends Service{
             Log.i(TAG,"设备没找到，无法连接");
             return false;
         }
+
+
+
         //我们想直接连接到设备,所以我们设置符
         mBluetoothGatt = device.connectGatt(getApplicationContext(),false,mBluetoothGattCallback);
         Log.i(TAG, "尝试创建一个新的连接");
