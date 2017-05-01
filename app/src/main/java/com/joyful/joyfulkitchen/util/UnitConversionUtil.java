@@ -24,4 +24,27 @@ public class UnitConversionUtil {
     }
 
 
+    // 传入 g ，根据单位 转换
+    public static int Conversion(int a, int index) {
+        int rs = 0;
+        switch (index){
+            case 0:
+                rs = a;
+                break;
+            case 1:
+                rs = UnitConversionUtil.g2Two(a);
+                break;
+            case 2:
+                rs = UnitConversionUtil.g2Lb(a);
+                break;
+            case 3:
+                rs = UnitConversionUtil.g2Ml(a);
+                break;
+            case 4:
+                rs = UnitConversionUtil.g2Oz(a);
+                break;
+        }
+        return rs;
+    }
+
 }

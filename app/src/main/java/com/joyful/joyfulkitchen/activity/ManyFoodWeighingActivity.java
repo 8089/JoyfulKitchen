@@ -1,4 +1,4 @@
-package com.joyful.joyfulkitchen.fragment;
+package com.joyful.joyfulkitchen.activity;
 
 import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
@@ -17,30 +17,22 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
-import android.support.design.widget.TabLayout;
+import android.support.annotation.Nullable;
 import android.support.v13.app.ActivityCompat;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.joyful.joyfulkitchen.R;
-import com.joyful.joyfulkitchen.activity.FoodTypeSelectActivity;
-import com.joyful.joyfulkitchen.adapter.TabFragmentPageAdapter;
-import com.joyful.joyfulkitchen.dao.FoodDao;
-import com.joyful.joyfulkitchen.dao.GreenDaoManager;
-import com.joyful.joyfulkitchen.model.Food;
+import com.joyful.joyfulkitchen.base.BaseApplication;
+import com.joyful.joyfulkitchen.fragment.HealthyFragment;
+import com.joyful.joyfulkitchen.model.SearchMeauList;
 import com.joyful.joyfulkitchen.service.BluetoothService;
 import com.joyful.joyfulkitchen.util.ToastUtils;
 import com.joyful.joyfulkitchen.util.UnitConversionUtil;
@@ -51,29 +43,31 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
-import static com.joyful.joyfulkitchen.RefreshAndLoad.PullToRefreshLayout.TAG;
+import static com.joyful.joyfulkitchen.base.BaseApplication.getContext;
 
+public class ManyFoodWeighingActivity extends AppCompatActivity {
 
-// 健康饮食
-public class HealthyFragment extends Fragment {
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_Name = "ARG_Name";
+    public static final String TAG = "ManyFoodWeighingActivity";
 
-    private String mParam1;
-
-    private RoundIndicatorView mRoundIndicatorView;
     private TextView tv_ke, tv_show_unit;
-    private Toolbar toolbar;
+
+    // 显示 放入材料的 view
+    private TextView tv_show_next_food;
+
+    //  下一步的按钮呢
+    private Button btn_next;
+    // 单位的下标
     private int index = 0;
+
     private String[] units = {"克", "两", "磅", "毫升", "安士"};
 
-    private TextView tv_food_select;
+    // 中间的圆
+    private RoundIndicatorView mRoundIndicatorView;
 
-
+    // 蓝牙6.0以上需要权限
     private static final int MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION = 1;
-    // -----------
-    private BluetoothAdapter.LeScanCallback lazyCallback;
 
+    private BluetoothAdapter.LeScanCallback lazyCallback;
     private BluetoothAdapter mBluetoothAdapter;
     private String mDeviceAddress = null;
     private ArrayList<ArrayList<BluetoothGattCharacteristic>> mGattCharacteristics = new ArrayList();
@@ -81,16 +75,17 @@ public class HealthyFragment extends Fragment {
     private BluetoothService mBluetoothLeService;
     private static final int REQUEST_ENABLE_BT = 0;
 
+    //食材
+    private List<SearchMeauList.Matail> foodMaterialData;
+    // 步骤
+    private List<SearchMeauList.StepsBean> foodStepsData;
+    // 默认显示食材
+    private boolean rs = true;
+    // 下标
+    private int foodIndex = -1;
 
-
-    private List<Food> foods;
-
-    private TabLayout tabLayout;
-    private TabFragmentPageAdapter tabFragmentPageAdapter;
-
-//    protected boolean isVisible;
-
-
+    private Context mContext = this;
+    
     private Handler handler = new Handler(){
         Intent intent = new Intent();
         @Override
@@ -107,114 +102,75 @@ public class HealthyFragment extends Fragment {
         }
     };
 
-    /**
-     * 在这里实现Fragment数据的缓加载.
-     * @param
-     */
-    /*@Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        if(getUserVisibleHint()) {
-            isVisible = true;
-        } else {
-            isVisible = false;
-        }
-        super.setUserVisibleHint(isVisibleToUser);
-    }*/
-
-    public static HealthyFragment newInstance(String param1) {
-        HealthyFragment fragment = new HealthyFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_Name, param1);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_Name);
-        }
-    }
+        setContentView(R.layout.activity_many_food_weighing);
 
+        // 添加 屏幕常亮
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        initView();
 
-        View view = inflater.inflate(R.layout.fragment_healthy, container, false);
-
-        // 初始化view
-        initView(view);
-
+        // 初始化数据
+        initData();
         // 添加监听事件
         addListeners();
-
+        
         // 初始化蓝牙
-//        initLanya();
-
-        return view;
+        initLanya();
     }
 
 
 
-    private void initView(View view) {
-        setHasOptionsMenu(true);
-        toolbar = (Toolbar) view.findViewById(R.id.home_toolbar);
-        toolbar.setTitle(null);
+    private void initData() {
+        BaseApplication baseApplication = (BaseApplication)getApplication();
+        foodMaterialData = baseApplication.getFoodMaterialData();
+        foodStepsData = baseApplication.getFoodStepsData();
 
-        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+        boolean rs = showFood();
 
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.action_search:
-                        ToastUtils.showToast(getContext(), "action_search");
-                        break;
-                    case R.id.action_settings:
-                        ToastUtils.showToast(getContext(), "action_settings");
-                        break;
-                }
+
+    }
+
+    // 当没有食物显示的时候 返回 false， 有食物要显示就返回 true
+    private boolean showFood() {
+        foodIndex = -1;
+        for (SearchMeauList.Matail matail :foodMaterialData){
+            /*if ("适量".equals(matail.getCount())){
+                matail.setComplete(true);
+            }*/
+            if (!matail.isComplete()){
+                tv_show_next_food.setText("请放入 " + matail.getName()+ matail.getCount());
+                foodIndex++;
                 return true;
             }
-        });
-
-        mRoundIndicatorView = (RoundIndicatorView) view.findViewById(R.id.riv_view);
-        tv_ke = (TextView) view.findViewById(R.id.tv_ke);
-        tv_show_unit = (TextView) view.findViewById(R.id.tv_show_unit);
-        tv_show_unit.setText("0g");
-
-        tv_food_select = (TextView) view.findViewById(R.id.tv_food_select);
-
-        FoodDao foodDao = GreenDaoManager.getInstance().getSession().getFoodDao();
-        foods = foodDao.loadAll();
-
-        //Fragment+ViewPager+FragmentViewPager组合的使用
-        ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewPager_home);
-        tabFragmentPageAdapter = new TabFragmentPageAdapter(getActivity().getSupportFragmentManager(),getContext(), foods);
-        viewPager.setAdapter(tabFragmentPageAdapter);
-
-        //TabLayout
-        tabLayout = (TabLayout) view.findViewById(R.id.tabLayout_home);
-        tabLayout.setupWithViewPager(viewPager);
-
-
-
-
+            foodIndex++;
+            continue;
+        }
+        return false;
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        menu.clear();
-        inflater.inflate(R.menu.home_menu, menu);
+    // 判断所有食材是否 称量完毕, 是返回 true， 否返回 false
+    private boolean isOk(){
+        for (SearchMeauList.Matail matail :foodMaterialData){
+            if(!matail.isComplete()){
+                return false;
+            }
+        }
+        return true;
     }
+
+
 
     private void addListeners() {
 
+        // 转换单位
         tv_ke.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new MaterialDialog.Builder(getContext())
+
+                new MaterialDialog.Builder(mContext)
                         .title(R.string.unit_title)
                         .items(R.array.unit)
                         .itemsCallbackSingleChoice(0, new MaterialDialog.ListCallbackSingleChoice() {
@@ -222,9 +178,8 @@ public class HealthyFragment extends Fragment {
                             public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
 
                                 tv_ke.setText(text);
-                                //克,两,磅,毫升,安士
+                                //克, 两, 磅, 毫升, 安士
                                 index = which;
-
                                 return true;
                             }
                         })
@@ -235,45 +190,66 @@ public class HealthyFragment extends Fragment {
             }
         });
 
-        tv_food_select.setOnClickListener(new View.OnClickListener() {
+        // 点击下一步  进入 下一个食材
+        btn_next.setOnClickListener(new View.OnClickListener() {
+            boolean complete = false;
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), FoodTypeSelectActivity.class);
-                startActivityForResult(intent, 1);
+                foodMaterialData.get(foodIndex).setComplete(true);
+
+                showFood();
+
+                if (complete){
+                    Intent intent = new Intent(getContext(), ShowStepsActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+
+                if (isOk()){
+                    tv_show_next_food.setText("所有食材已称量完毕.");
+                    btn_next.setText("进入制作步骤");
+                    complete = true;
+                }
+
             }
         });
+
+
+    }
+
+    private void initView() {
+        mRoundIndicatorView = (RoundIndicatorView) findViewById(R.id.riv_view);
+        tv_ke = (TextView) findViewById(R.id.tv_ke);
+        tv_show_unit = (TextView) findViewById(R.id.tv_show_unit);
+        tv_show_next_food = (TextView) findViewById(R.id.tv_show_next_food);
+        btn_next = (Button) findViewById(R.id.btn_next);
+        tv_show_unit.setText("0g");
 
     }
 
 
-/*
-
+    
+    /**  蓝牙模块 */
     private void initLanya() {
-        requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
-                MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION);
-//判断是否需要 向用户解释，为什么要申请该权限
-        shouldShowRequestPermissionRationale(Manifest.permission.READ_CONTACTS);
 
         //打开蓝牙
         BluetoothManager bluetoothManager =
-                (BluetoothManager) getActivity().getSystemService(Context.BLUETOOTH_SERVICE);
+                (BluetoothManager) this.getSystemService(Context.BLUETOOTH_SERVICE);
 
         mBluetoothAdapter = bluetoothManager.getAdapter();
-        */
-/*if (ContextCompat.checkSelfPermission(getActivity(),
+
+
+        if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 //请求权限
-            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
                     MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION);
 //判断是否需要 向用户解释，为什么要申请该权限
-            if(ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+            if(ActivityCompat.shouldShowRequestPermissionRationale(this,
                     Manifest.permission.READ_CONTACTS)) {
-                ToastUtils.showToast(getActivity(), "打开蓝牙需要权限权限，给个呗");
+                ToastUtils.showToast(this, "打开蓝牙");
             }
-        }*//*
-
-
-
+        }
 
     }
 
@@ -286,18 +262,17 @@ public class HealthyFragment extends Fragment {
 
             mBluetoothLeService = ((BluetoothService.LocalBinder) service).getService();
             if (!mBluetoothLeService.initialize()) {
-                Log.i(TAG, "无法初始化蓝牙");
-//                finish();
+//                Log.i(TAG, "无法初始化蓝牙");
+                finish();
             }
 
-            Toast.makeText(getContext(), "连接设备", Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, "连接设备", Toast.LENGTH_LONG).show();
             // 自动连接到设备成功启动初始化。
             mBluetoothLeService.connect(mDeviceAddress);
         }
 
         @Override
         public void onServiceDisconnected(ComponentName componentName) {
-            Log.i(TAG, "无法连接");
             mBluetoothLeService = null;
         }
     };
@@ -307,9 +282,10 @@ public class HealthyFragment extends Fragment {
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             if (BluetoothService.ACTION_GATT_CONNECTED.equals(action)) {
-                Toast.makeText(getContext(), "连接成功", Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, "连接成功", Toast.LENGTH_LONG).show();
             } else if (BluetoothService.ACTION_GATT_DISCONNECTED.equals(action)) {
-                Toast.makeText(getContext(), "断开连接", Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, "断开连接", Toast.LENGTH_LONG).show();
+
             } else if (BluetoothService.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
                 // 显示所有用户界面上的支持服务和特色
                 displayGattServices(mBluetoothLeService.getSupportedGattServices());
@@ -388,9 +364,9 @@ public class HealthyFragment extends Fragment {
 
                 mBluetoothAdapter.stopLeScan(lazyCallback);
 
-                Intent gattServiceIntent = new Intent(getActivity().getApplicationContext(), BluetoothService.class);
-                Log.i("--------------",""+getContext()+"--"+getActivity());
-                boolean ble = getActivity().getApplicationContext().bindService(gattServiceIntent, mServiceConnection, Context.BIND_AUTO_CREATE);//绑定服务
+                Intent gattServiceIntent = new Intent(mContext, BluetoothService.class);
+                Log.i("--------------",""+getContext()+"--"+ this);
+                boolean ble = getApplicationContext().bindService(gattServiceIntent, mServiceConnection, Context.BIND_AUTO_CREATE);//绑定服务
                 if (ble) {
                     Log.i("绑定成功", "dd");
                 } else {
@@ -398,7 +374,7 @@ public class HealthyFragment extends Fragment {
                 }
                 Log.i("---------------",gattServiceIntent+"--"+mServiceConnection+"---"+Context.BIND_AUTO_CREATE);
 
-                getActivity().registerReceiver(mGattUpdateReceiver, makeGattUpdateIntentFilter());
+                registerReceiver(mGattUpdateReceiver, makeGattUpdateIntentFilter());
             }
         }
     }
@@ -416,10 +392,10 @@ public class HealthyFragment extends Fragment {
     public void onStart() {
         super.onStart();
         if (mDeviceAddress != null) {
-            Intent gattServiceIntent = new Intent(getActivity(), BluetoothService.class);
+            Intent gattServiceIntent = new Intent(this, BluetoothService.class);
             if(mBluetoothLeService ==null)
-                getActivity().bindService(gattServiceIntent, mServiceConnection, Context.BIND_AUTO_CREATE);//绑定服务
-            getActivity().registerReceiver(mGattUpdateReceiver, makeGattUpdateIntentFilter());
+                this.bindService(gattServiceIntent, mServiceConnection, Context.BIND_AUTO_CREATE);//绑定服务
+            this.registerReceiver(mGattUpdateReceiver, makeGattUpdateIntentFilter());
         }
         Log.i("------onStart", "开始");
     }
@@ -428,17 +404,17 @@ public class HealthyFragment extends Fragment {
     public void onResume() {
         super.onResume();
         if (!mBluetoothAdapter.isEnabled()) {
-            Toast.makeText(getContext(), "打开蓝牙成功", Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, "打开蓝牙成功", Toast.LENGTH_LONG).show();
             Log.i("打开蓝牙成功", "BluetoothConnection");
             Intent enableBtIntent = new Intent( BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
         }
 
-        Toast.makeText(getContext(), "打开蓝牙后",Toast.LENGTH_LONG).show();
+        Toast.makeText(mContext, "打开蓝牙后",Toast.LENGTH_LONG).show();
 
         if (lazyCallback == null) {
             Log.i("lazyCallback","lazyCallback  new前");
-            lazyCallback = new HealthyFragment.LazyCallback();
+            lazyCallback = new ManyFoodWeighingActivity.LazyCallback();
         }
         Log.i("lazyCallback","new 后");
 
@@ -458,11 +434,11 @@ public class HealthyFragment extends Fragment {
         }).start();
 
 
-        getActivity().registerReceiver(mGattUpdateReceiver,makeGattUpdateIntentFilter());
+        this.registerReceiver(mGattUpdateReceiver,makeGattUpdateIntentFilter());
 
         if (mBluetoothLeService != null) {
             final boolean result = mBluetoothLeService.connect(mDeviceAddress);
-            Log.i(TAG, "连接请求的结果是否连接=" + result);
+//            Log.i(TAG, "连接请求的结果是否连接=" + result);
         }
     }
 
@@ -486,18 +462,19 @@ public class HealthyFragment extends Fragment {
             if (mBluetoothLeService.isRestricted()){
                 if(mServiceConnection != null) {
                     if(mBluetoothLeService != null)
-                        getActivity().unbindService(mServiceConnection);
+                        this.unbindService(mServiceConnection);
                 }
             }
         }
 
         if (mDeviceAddress != null && mGattCharacteristics != null) {
-            getActivity().unregisterReceiver(mGattUpdateReceiver);
+            this.unregisterReceiver(mGattUpdateReceiver);
         }
         Log.i("------onStop", "停止");
 
     }
-*/
-
-
+        
+    /**  蓝牙模块结束 */
+    
+    
 }

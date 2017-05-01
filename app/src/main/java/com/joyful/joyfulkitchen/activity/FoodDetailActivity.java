@@ -17,6 +17,7 @@ import com.android.volley.toolbox.Volley;
 import com.joyful.joyfulkitchen.R;
 import com.joyful.joyfulkitchen.adapter.FoodMaterialsAdapter;
 import com.joyful.joyfulkitchen.adapter.FoodStepsAdapter;
+import com.joyful.joyfulkitchen.base.BaseApplication;
 import com.joyful.joyfulkitchen.model.SearchMeauList;
 import com.joyful.joyfulkitchen.util.BitmapCache;
 import com.joyful.joyfulkitchen.view.DampView;
@@ -84,8 +85,12 @@ public class FoodDetailActivity extends AppCompatActivity {
         weighing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent startWeighting = new Intent(FoodDetailActivity.this, MainActivity.class);
-                startActivity(startWeighting);
+                ((BaseApplication)getApplication()).setFoodMaterialData(foodMaterialData);
+                ((BaseApplication)getApplication()).setFoodStepsData(foodStepsData);
+                Intent intent = new Intent(FoodDetailActivity.this, ManyFoodWeighingActivity.class);
+
+                startActivity(intent);
+                finish();
             }
         });
 

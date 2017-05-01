@@ -52,6 +52,9 @@
         <activity android:name=".activity.UpdateFoodActivity" />
         <activity android:name=".activity.CookeyBookActivity" />
         <activity android:name=".activity.FoodValueActivity" />
+        <activity android:name=".activity.ManyFoodWeighingActivity" />
+        <activity android:name=".activity.ShowStepsActivity" />
+
 
         <service android:name=".service.BluetoothService" />
 
