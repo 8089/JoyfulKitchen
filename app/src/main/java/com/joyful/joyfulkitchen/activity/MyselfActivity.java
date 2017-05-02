@@ -18,7 +18,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
- * Created by Administrator on 2017/4/18.
+ *   我  的 页面
  */
 
 public class MyselfActivity extends AppCompatActivity {

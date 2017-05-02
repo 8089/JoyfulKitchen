@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Administrator on 2017/4/30.
+ *    称量完成后显示的 步骤
  */
 
 public class ShowStepsActivity extends AppCompatActivity {

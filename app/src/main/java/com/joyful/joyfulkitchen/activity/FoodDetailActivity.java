@@ -26,6 +26,9 @@ import com.joyful.joyfulkitchen.view.ListViewUtility;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *  菜谱 详细 页面
+ */
 public class FoodDetailActivity extends AppCompatActivity {
 
     private static final String TAG = "FoodDetailActivity";

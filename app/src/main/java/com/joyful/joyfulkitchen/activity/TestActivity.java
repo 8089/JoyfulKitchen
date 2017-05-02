@@ -13,8 +13,6 @@ public class TestActivity extends AppCompatActivity {
         setContentView(R.layout.gtext);
 
 
-
-
     }
 
 
