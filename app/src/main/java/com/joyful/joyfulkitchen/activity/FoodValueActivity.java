@@ -16,6 +16,9 @@ import com.joyful.joyfulkitchen.model.Food;
 
 import java.text.DecimalFormat;
 
+/**
+ *    食物 营养 价值页面
+ */
 public class FoodValueActivity extends AppCompatActivity implements View.OnClickListener{
     private Context context = this;
     private Food food;

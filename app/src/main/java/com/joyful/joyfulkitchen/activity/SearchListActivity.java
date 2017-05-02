@@ -23,6 +23,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 搜索 食谱 列表
+ */
 public class SearchListActivity extends AppCompatActivity implements View.OnClickListener,AdapterView.OnItemClickListener{
 
     private static final String TAG = "SearchListActivity";

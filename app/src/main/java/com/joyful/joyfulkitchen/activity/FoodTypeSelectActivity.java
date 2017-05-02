@@ -23,6 +23,9 @@ import com.joyful.joyfulkitchen.volley.FoodTypeSelectVolley;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 食材类型  查找
+ */
 
 public class FoodTypeSelectActivity extends AppCompatActivity {
     private Context context = this;

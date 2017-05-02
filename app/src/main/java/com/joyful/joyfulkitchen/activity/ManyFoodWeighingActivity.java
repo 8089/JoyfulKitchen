@@ -45,6 +45,10 @@ import java.util.Objects;
 
 import static com.joyful.joyfulkitchen.base.BaseApplication.getContext;
 
+
+/**
+ *  食谱称量
+ */
 public class ManyFoodWeighingActivity extends AppCompatActivity {
 
     public static final String TAG = "ManyFoodWeighingActivity";

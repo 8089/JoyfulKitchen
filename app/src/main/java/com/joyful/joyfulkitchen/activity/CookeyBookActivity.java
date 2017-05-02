@@ -24,7 +24,7 @@ import java.util.List;
 import static com.joyful.joyfulkitchen.base.BaseApplication.getContext;
 
 /**
- * Created by Administrator on 2017/4/27.
+ *   菜谱页面  主
  */
 
 public class CookeyBookActivity extends AppCompatActivity implements View.OnClickListener {
