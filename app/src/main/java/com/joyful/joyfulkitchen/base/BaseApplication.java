@@ -6,8 +6,8 @@ import android.content.Context;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.joyful.joyfulkitchen.dao.GreenDaoManager;
 import com.joyful.joyfulkitchen.model.SearchMeauList;
+import com.joyful.joyfulkitchen.model.User;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class BaseApplication extends Application {
@@ -21,6 +21,10 @@ public class BaseApplication extends Application {
     // 步骤
     private List<SearchMeauList.StepsBean> foodStepsData;
 
+    // 用户信息
+    private User user;
+
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -33,7 +37,6 @@ public class BaseApplication extends Application {
 
         // 图片 Fresco
         Fresco.initialize(this);
-
         // volley
     }
 
@@ -61,5 +64,13 @@ public class BaseApplication extends Application {
 
     public void setFoodStepsData(List<SearchMeauList.StepsBean> foodStepsData) {
         this.foodStepsData = foodStepsData;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

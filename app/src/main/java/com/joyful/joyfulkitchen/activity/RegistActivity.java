@@ -69,9 +69,9 @@ public class RegistActivity extends AppCompatActivity implements View.OnClickLis
                 this.finish();
                 break;
             case R.id.gologin:
+                this.finish();
                 Intent golo = new Intent(RegistActivity.this, LoginActivity.class);
                 startActivity(golo);
-                this.finish();
             case R.id.register:
                 String email = user_email.getText().toString();
                 String pwd = user_pwd.getText().toString();

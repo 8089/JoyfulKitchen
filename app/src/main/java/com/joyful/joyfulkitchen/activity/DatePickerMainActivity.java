@@ -113,13 +113,12 @@ public class DatePickerMainActivity extends Activity implements OnClickListener 
                 break;
             case R.id.finish:
                 // 当距离 上一时间小于一秒时 ,不能够再次提交
-                if(System.currentTimeMillis()-lastTime<=1000){
-                    ToastUtil.toastMessage((Activity) context,"不能够重复的提交数据哦...");
-                }else{
-                    Log.i(TAG, "initData: " + user.toString());
-                    // 提交注册
-                    new RegiestVolley(this, user).doVolley();
+                if (System.currentTimeMillis() - lastTime <= 1000) {
+                    ToastUtil.toastMessage((Activity) context, "不能够重复的提交数据哦...");
                 }
+                Log.i(TAG, "initData: " + user.toString());
+                new RegiestVolley(this, user).doVolley();
+
                 break;
             case R.id.selectDate:
                 // 日期格式为yyyy-MM-dd 生日

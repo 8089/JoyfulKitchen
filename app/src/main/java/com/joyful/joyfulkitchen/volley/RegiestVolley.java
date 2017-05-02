@@ -15,6 +15,7 @@ import com.joyful.joyfulkitchen.activity.RegistActivity;
 import com.joyful.joyfulkitchen.model.User;
 import com.joyful.joyfulkitchen.util.ToastUtil;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,20 +38,17 @@ public class RegiestVolley {
     RequestQueue mQueue = VolleySingleton.getInstance().getRequestQueue();
 
     public void doVolley() {
-
         StringRequest stringRequest = new StringRequest(Request.Method.POST, "http://www.xicode.cn/one/regist", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.e(TAG, response);
-
                 if (response.equalsIgnoreCase("toactive")) {
                     ToastUtil.toastMessage(activity, "快点去您的邮箱中激活账号..");
-                } else if (response.equalsIgnoreCase("tryagainregist")) {
-                    ToastUtil.toastMessage(activity, "注册失败,请重新注册");
-                } else {
                     activity.finish();
                     Intent intent = new Intent(activity, LoginActivity.class);
                     activity.startActivity(intent);
+                } else{
+                    ToastUtil.toastMessage(activity, "注册失败,请重新注册");
                 }
 
             }
@@ -84,16 +82,14 @@ public class RegiestVolley {
                 private int power;
                 private int active;
                 private String token;*/
-
-
-//   User{userId=null, nickName='null', phone='null', email='oooo@163.com', pwd='www', img='null', birth=Thu Jan 01 00:00:00 GMT+08:00 2015, sex=1, city='null', country='null', weight=0.0, heigth=0.0, target=4, power=4, active=0, token='null', createTime=null, updateTime=null}
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
                 map.put("email", user.getEmail());
                 map.put("pwd", user.getPwd());
-                map.put("birth", String.valueOf(user.getBirth().getTime()));
+                map.put("brith", sdf.format(user.getBirth()));
                 map.put("sex", String.valueOf(user.getSex()));
                 map.put("weight", String.valueOf(user.getWeight()));
-                map.put("heigth", String.valueOf(user.getHeigth()));
+                map.put("height", String.valueOf(user.getHeigth()));
                 map.put("target", String.valueOf(user.getTarget()));
                 map.put("power", String.valueOf(user.getPower()));
                 // 各种请求参数
