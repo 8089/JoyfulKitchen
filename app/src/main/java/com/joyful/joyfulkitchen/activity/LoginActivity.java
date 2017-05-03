@@ -26,8 +26,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     // 返回
     private ImageView back;
-    // 去注册
-    private TextView regist;
+    // 去注册 忘记密码
+    private TextView regist,to_usrForgetPwd;
     // 邮箱密码
     private EditText user_email,user_pwd;
     // 登录
@@ -55,6 +55,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         // 登录
         user_login = (Button) findViewById(R.id.user_login);
+
+        // 忘记密码
+        to_usrForgetPwd = (TextView) findViewById(R.id.to_usrForgetPwd);
     }
 
     private void initData() {
@@ -62,6 +65,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         regist.setOnClickListener(this);
         // 登录
         user_login.setOnClickListener(this);
+
+        // 去忘记密码
+        to_usrForgetPwd.setOnClickListener(this);
+
     }
 
 
@@ -85,10 +92,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                  ToastUtil.toastMessage((Activity) context, "输入密码有误!");
              } else {
                     new LoginVolley(this,email,pwd).doVolley();
-//                 Intent intent = new Intent(.this, RuleViewMainActivity.class);
-//                 startActivity(intent);
-//                 this.finish();
              }
+             break;
+         case R.id.to_usrForgetPwd:
+             Intent intent = new Intent(LoginActivity.this, ForgetPwdActivity.class);
+             startActivity(intent);
              break;
          default:
              break;

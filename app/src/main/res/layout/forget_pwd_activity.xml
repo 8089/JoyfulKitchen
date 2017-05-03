@@ -2,10 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/forget_pwd_activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/back_register">
-
+    android:background="@drawable/back_register"
+    android:orientation="vertical"
+    tools:context="com.joyful.joyfulkitchen.activity.ForgetPwdActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -73,14 +75,14 @@
                     tools:ignore="ContentDescription" />
 
                 <EditText
-                    android:id="@+id/user_email"
+                    android:id="@+id/user_oldemail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@null"
-                    android:hint="电子邮箱"
+                    android:hint="输入您的邮箱"
                     tools:ignore="HardcodedText" />
             </LinearLayout>
 
@@ -103,43 +105,60 @@
                     tools:ignore="ContentDescription" />
 
                 <EditText
-                    android:id="@+id/user_pwd"
+                    android:id="@+id/user_newpwd"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@null"
-                    android:hint="请输入密码"
+                    android:hint="请输入新的密码"
                     tools:ignore="HardcodedText" />
             </LinearLayout>
 
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/register_a_inputbox_a"
+                android:elevation="5dip"
+                android:orientation="horizontal"
+                tools:ignore="UnusedAttribute">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="8dp"
+                    app:srcCompat="@drawable/spot_po"
+                    tools:ignore="ContentDescription" />
+
+                <EditText
+                    android:id="@+id/user_renewpwd"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@null"
+                    android:hint="再次输入新的密码"
+                    tools:ignore="HardcodedText" />
+            </LinearLayout>
+
+
             <Button
-                android:id="@+id/user_login"
+                android:id="@+id/user_forget"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/register_a_register"
                 android:elevation="5dip"
-                android:text="登录"
+                android:text="前往邮箱查看密码"
                 android:textColor="@color/white"
                 android:textSize="22dp"
                 tools:ignore="HardcodedText,SpUsage,UnusedAttribute" />
-
-            <TextView
-                android:id="@+id/to_usrForgetPwd"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_marginRight="25dp"
-                android:layout_marginTop="20dp"
-                android:text="忘记密码？"
-                android:textColor="#b0ffffff"
-                android:textSize="18dp"
-                tools:ignore="HardcodedText,RtlHardcoded,SpUsage" />
-
-        </LinearLayout>
+       </LinearLayout>
 
     </LinearLayout>
-
 </LinearLayout>

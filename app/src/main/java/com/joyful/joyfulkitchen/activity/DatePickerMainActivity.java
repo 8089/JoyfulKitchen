@@ -112,6 +112,7 @@ public class DatePickerMainActivity extends Activity implements OnClickListener 
                 this.finish();
                 break;
             case R.id.finish:
+                finish.setEnabled(false);
                 // 当距离 上一时间小于一秒时 ,不能够再次提交
                 if (System.currentTimeMillis() - lastTime <= 1000) {
                     ToastUtil.toastMessage((Activity) context, "不能够重复的提交数据哦...");
