@@ -15,11 +15,8 @@ public class BaseApplication extends Application {
     private static BaseApplication mApplication;
     private static Context mContext;
 
-    //食材
-    private List<SearchMeauList.Matail> foodMaterialData;
-    ;
-    // 步骤
-    private List<SearchMeauList.StepsBean> foodStepsData;
+    // 菜谱
+    private SearchMeauList searchMeauList;
 
     @Override
     public void onCreate() {
@@ -47,19 +44,11 @@ public class BaseApplication extends Application {
     }
 
 
-    public List<SearchMeauList.Matail> getFoodMaterialData() {
-        return foodMaterialData;
+    public SearchMeauList getSearchMeauList() {
+        return searchMeauList;
     }
 
-    public void setFoodMaterialData(List<SearchMeauList.Matail> foodMaterialData) {
-        this.foodMaterialData = foodMaterialData;
-    }
-
-    public List<SearchMeauList.StepsBean> getFoodStepsData() {
-        return foodStepsData;
-    }
-
-    public void setFoodStepsData(List<SearchMeauList.StepsBean> foodStepsData) {
-        this.foodStepsData = foodStepsData;
+    public void setSearchMeauList(SearchMeauList searchMeauList) {
+        this.searchMeauList = searchMeauList;
     }
 }

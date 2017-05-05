@@ -41,11 +41,6 @@ public class Record {
     @ToOne(joinProperty = "userId")
     private User user;              // INTEGER ,                              -- 用户编号
 
-    @Property(nameInDb = "food_id")
-    private Long foodId;
-    @ToOne(joinProperty = "foodId")
-    private Food food;              // INTEGER,                              -- 食材编号(外键)
-
     /** Used to resolve relations */
     @Generated(hash = 2040040024)
     private transient DaoSession daoSession;
@@ -53,9 +48,9 @@ public class Record {
     /** Used for active entity operations. */
     @Generated(hash = 765166123)
     private transient RecordDao myDao;
-    @Generated(hash = 1467421670)
+    @Generated(hash = 1855573095)
     public Record(Long record_id, double totalWeight, double totalEnergy, String meauName,
-            Date createTime, Date updateTime, Long userId, Long foodId) {
+            Date createTime, Date updateTime, Long userId) {
         this.record_id = record_id;
         this.totalWeight = totalWeight;
         this.totalEnergy = totalEnergy;
@@ -63,7 +58,6 @@ public class Record {
         this.createTime = createTime;
         this.updateTime = updateTime;
         this.userId = userId;
-        this.foodId = foodId;
     }
     @Generated(hash = 477726293)
     public Record() {
@@ -110,12 +104,6 @@ public class Record {
     public void setUserId(Long userId) {
         this.userId = userId;
     }
-    public Long getFoodId() {
-        return this.foodId;
-    }
-    public void setFoodId(Long foodId) {
-        this.foodId = foodId;
-    }
     @Generated(hash = 251390918)
     private transient Long user__resolvedKey;
     /** To-one relationship, resolved on first access. */
@@ -143,35 +131,6 @@ public class Record {
             this.user = user;
             userId = user == null ? null : user.getUserId();
             user__resolvedKey = userId;
-        }
-    }
-    @Generated(hash = 1118738352)
-    private transient Long food__resolvedKey;
-    /** To-one relationship, resolved on first access. */
-    @Generated(hash = 733342235)
-    public Food getFood() {
-        Long __key = this.foodId;
-        if (food__resolvedKey == null || !food__resolvedKey.equals(__key)) {
-            final DaoSession daoSession = this.daoSession;
-            if (daoSession == null) {
-                throw new DaoException("Entity is detached from DAO context");
-            }
-            FoodDao targetDao = daoSession.getFoodDao();
-            Food foodNew = targetDao.load(__key);
-            synchronized (this) {
-                food = foodNew;
-                food__resolvedKey = __key;
-            }
-        }
-        return food;
-    }
-    /** called by internal mechanisms, do not call yourself. */
-    @Generated(hash = 1555829230)
-    public void setFood(Food food) {
-        synchronized (this) {
-            this.food = food;
-            foodId = food == null ? null : food.getFoodId();
-            food__resolvedKey = foodId;
         }
     }
     /**
@@ -214,5 +173,5 @@ public class Record {
         myDao = daoSession != null ? daoSession.getRecordDao() : null;
     }
 
-
+    
 }

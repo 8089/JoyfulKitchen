@@ -11,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.joyful.joyfulkitchen.R;
 import com.joyful.joyfulkitchen.adapter.FoodTypeSelectAdapter;
@@ -40,6 +41,9 @@ public class FoodTypeSelectActivity extends AppCompatActivity {
 
     private FoodTypeSelectAdapter mFoodTypeSelectAdapter;
 
+    // 搜索框
+    private TextView tv_food_select;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +55,11 @@ public class FoodTypeSelectActivity extends AppCompatActivity {
 
     private void initView() {
         iv_back = (ImageView) findViewById(R.id.iv_back);
-        xTabHost = (XTabHost) findViewById(R.id.tabhost1);
+
+        tv_food_select = (TextView) findViewById(R.id.tv_food_select);
+
+        // 选项卡
+//        xTabHost = (XTabHost) findViewById(R.id.tabhost1);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.rv_food_search);
         mLinearLayoutManager = new LinearLayoutManager(FoodTypeSelectActivity.this);
@@ -60,6 +68,16 @@ public class FoodTypeSelectActivity extends AppCompatActivity {
     }
 
     private void initData() {
+
+        tv_food_select.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, SearchFoodListActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
         // 返回
         iv_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,13 +85,13 @@ public class FoodTypeSelectActivity extends AppCompatActivity {
                 finish();
             }
         });
-        // 下面的按钮
-        xTabHost.setOnSelectListener(new XTabHost.OnSelectListener() {
+        //  选项卡的 选择事件
+        /*xTabHost.setOnSelectListener(new XTabHost.OnSelectListener() {
             @Override
             public void onSelect(int index, String text) {
                 ToastUtils.showToast(FoodTypeSelectActivity.this, index + "," + text);
             }
-        });
+        });*/
 
         mFoodTypeSelectAdapter = new FoodTypeSelectAdapter(this, foodTypeList);
         mRecyclerView.setAdapter(mFoodTypeSelectAdapter);

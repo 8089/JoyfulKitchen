@@ -88,8 +88,6 @@ public class FoodDetailActivity extends AppCompatActivity {
         weighing.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((BaseApplication)getApplication()).setFoodMaterialData(foodMaterialData);
-                ((BaseApplication)getApplication()).setFoodStepsData(foodStepsData);
                 Intent intent = new Intent(FoodDetailActivity.this, ManyFoodWeighingActivity.class);
 
                 startActivity(intent);
@@ -101,6 +99,8 @@ public class FoodDetailActivity extends AppCompatActivity {
         Intent intent = this.getIntent();
 
         SearchMeauList searchMeauList = (SearchMeauList) intent.getSerializableExtra("searchMeauList");
+        ((BaseApplication)getApplication()).setSearchMeauList(searchMeauList);
+
 
         if (searchMeauList != null) {
             this.foodMaterialData.clear();

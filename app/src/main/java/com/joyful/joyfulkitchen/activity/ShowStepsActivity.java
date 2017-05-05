@@ -32,7 +32,7 @@ public class ShowStepsActivity extends AppCompatActivity {
 
         food_steps = (ListView) findViewById(R.id.food_steps);
 
-        foodStepsData = ((BaseApplication)getApplication()).getFoodStepsData();
+        foodStepsData = ((BaseApplication)getApplication()).getSearchMeauList().getSteps();
 
         // 步骤
         foodStepsAdapter = new FoodStepsAdapter(this, foodStepsData);
