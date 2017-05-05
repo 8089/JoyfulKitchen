@@ -8,7 +8,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.joyful.joyfulkitchen.adapter.RecyclerAdapter;
 import com.joyful.joyfulkitchen.dao.GreenDaoManager;
 import com.joyful.joyfulkitchen.dao.RecordDao;
 import com.joyful.joyfulkitchen.model.Food;
@@ -23,7 +22,6 @@ import org.json.JSONObject;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Date;
-import java.util.List;
 
 /**
  * 用户注册 请求
@@ -98,9 +96,9 @@ public class FoodByNameVolley {
                             if (initSize == size) {
                                 RecordDao gecordDao = GreenDaoManager.getInstance().getSession().getRecordDao();
                                 gecordDao.insert(record);
-
-//                            Log.i("aaa", "insert = " + insert);
-                                // 每一条记录上传到服务器
+                                // 添加称量的用户
+                                // 把 记录 上传到服务器中
+                                new RecordAddVolley(activity,record).doVolley();
                                 initSize = 0;
                             }
 

@@ -33,7 +33,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.RegistActivity">
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -58,11 +58,11 @@
         <activity android:name=".activity.ShowStepsActivity" />
         <activity android:name=".activity.SearchFoodListActivity" />
         <activity android:name=".activity.WeightOneFoodActivity" />
+        <activity android:name=".activity.ForgetPwdActivity"/>
 
         <service android:name=".service.BluetoothService" />
 
-        <activity android:name=".activity.MainActivity" />
-        <activity android:name=".activity.ForgetPwdActivity"></activity>
+        <!--<activity android:name=".activity.MainActivity" />-->
     </application>
 
 </manifest>
