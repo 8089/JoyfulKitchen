@@ -1,15 +1,18 @@
 package com.joyful.joyfulkitchen.volley;
 
 import android.app.Activity;
-import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.joyful.joyfulkitchen.adapter.FoodTypesSelectedAdapter;
+import com.android.volley.toolbox.StringRequest;
+import com.joyful.joyfulkitchen.activity.LoginActivity;
+import com.joyful.joyfulkitchen.adapter.RecyclerAdapter;
 import com.joyful.joyfulkitchen.model.Food;
 import com.joyful.joyfulkitchen.util.ToastUtil;
 
@@ -17,27 +20,37 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
- * 加载所有食材的类型
+ * 用户注册 请求
  */
-public class FoodTypeSelectedVolley {
 
-    public static final String TAG = "FoodTypeSelectedVolley";
+public class FoodSearchVolley {
 
-    private Context context;
+    private String TAG = "DatePickerMainActivity";
+    private Activity activity;
+    private String foodName;
+
     private List<Food> data;
-    private FoodTypesSelectedAdapter adpter;
-    private long foodTypeId;
+    private RecyclerAdapter<Food> recyclerAdapter;
 
-    public FoodTypeSelectedVolley(Context context, List<Food> data, FoodTypesSelectedAdapter adpter, long foodTypeId) {
-        super();
-        this.context = context;
+    public FoodSearchVolley(Activity activity, String foodName, RecyclerAdapter<Food> recyclerAdapter, List<Food> data) {
+        this.activity = activity;
+        this.recyclerAdapter = recyclerAdapter;
         this.data = data;
-        this.adpter = adpter;
-        this.foodTypeId = foodTypeId;
+        try {
+            this.foodName=URLEncoder.encode(foodName,"utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
     }
 
     // 请求列队对象
@@ -46,18 +59,18 @@ public class FoodTypeSelectedVolley {
     public void doVolley() {
         JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(
                 Request.Method.GET
-                , "http://www.xicode.cn/one/food/types/" + foodTypeId
+                , "http://www.xicode.cn/one/food/getfood?foodname=" + foodName
                 , null
                 , new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 Log.i(TAG, "onResponse: " + response.toString());
+                data.clear();
                 if (response.length() > 0) {
+                    // 清除数据
                     for (int i = 0; i < response.length(); i++) {
                         try {
                             JSONObject obj = response.getJSONObject(i);
-
-                            // 还有一些 是否为空的处理.....
 
                             Long foodId = obj.getLong("id");
                             String foodName = obj.getString("foodName");
@@ -73,17 +86,15 @@ public class FoodTypeSelectedVolley {
 //                            Log.i(TAG, "onResponse: "+updateTime);
 
                             Food food = new Food(foodId, foodName, food_img, energy, protein, fat, carbohydrate, fiber, cholesterol, new Long(0), createTime, new Date());
-
                             data.add(food);
-
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     }
                     Log.i(TAG, "onResponse: " + data.size());
-                    adpter.notifyDataSetChanged();
+                    recyclerAdapter.notifyDataSetChanged();
                 } else {
-                    ToastUtil.toastMessage((Activity) context, "请求数据不存在!");
+                    ToastUtil.toastMessage(activity, "请求数据不存在!");
                 }
             }
         }, new Response.ErrorListener() {
@@ -93,8 +104,6 @@ public class FoodTypeSelectedVolley {
             }
         }
         );
-        // 加入到消息列队
         mQueue.add(jsonObjectRequest);
     }
-
 }

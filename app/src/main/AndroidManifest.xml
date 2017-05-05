@@ -56,6 +56,8 @@
         <activity android:name=".activity.FoodValueActivity" />
         <activity android:name=".activity.ManyFoodWeighingActivity" />
         <activity android:name=".activity.ShowStepsActivity" />
+        <activity android:name=".activity.SearchFoodListActivity" />
+        <activity android:name=".activity.WeightOneFoodActivity" />
 
         <service android:name=".service.BluetoothService" />
 

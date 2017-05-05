@@ -12,7 +12,6 @@ import org.greenrobot.greendao.internal.DaoConfig;
 import org.greenrobot.greendao.database.Database;
 import org.greenrobot.greendao.database.DatabaseStatement;
 
-import com.joyful.joyfulkitchen.model.Food;
 import com.joyful.joyfulkitchen.model.User;
 
 import com.joyful.joyfulkitchen.model.Record;
@@ -37,7 +36,6 @@ public class RecordDao extends AbstractDao<Record, Long> {
         public final static Property CreateTime = new Property(4, java.util.Date.class, "createTime", false, "create_time");
         public final static Property UpdateTime = new Property(5, java.util.Date.class, "updateTime", false, "update_time");
         public final static Property UserId = new Property(6, Long.class, "userId", false, "user_id");
-        public final static Property FoodId = new Property(7, Long.class, "foodId", false, "food_id");
     }
 
     private DaoSession daoSession;
@@ -62,8 +60,7 @@ public class RecordDao extends AbstractDao<Record, Long> {
                 "\"meau_name\" TEXT," + // 3: meauName
                 "\"create_time\" INTEGER," + // 4: createTime
                 "\"update_time\" INTEGER," + // 5: updateTime
-                "\"user_id\" INTEGER," + // 6: userId
-                "\"food_id\" INTEGER);"); // 7: foodId
+                "\"user_id\" INTEGER);"); // 6: userId
     }
 
     /** Drops the underlying database table. */
@@ -102,11 +99,6 @@ public class RecordDao extends AbstractDao<Record, Long> {
         if (userId != null) {
             stmt.bindLong(7, userId);
         }
- 
-        Long foodId = entity.getFoodId();
-        if (foodId != null) {
-            stmt.bindLong(8, foodId);
-        }
     }
 
     @Override
@@ -139,11 +131,6 @@ public class RecordDao extends AbstractDao<Record, Long> {
         if (userId != null) {
             stmt.bindLong(7, userId);
         }
- 
-        Long foodId = entity.getFoodId();
-        if (foodId != null) {
-            stmt.bindLong(8, foodId);
-        }
     }
 
     @Override
@@ -166,8 +153,7 @@ public class RecordDao extends AbstractDao<Record, Long> {
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // meauName
             cursor.isNull(offset + 4) ? null : new java.util.Date(cursor.getLong(offset + 4)), // createTime
             cursor.isNull(offset + 5) ? null : new java.util.Date(cursor.getLong(offset + 5)), // updateTime
-            cursor.isNull(offset + 6) ? null : cursor.getLong(offset + 6), // userId
-            cursor.isNull(offset + 7) ? null : cursor.getLong(offset + 7) // foodId
+            cursor.isNull(offset + 6) ? null : cursor.getLong(offset + 6) // userId
         );
         return entity;
     }
@@ -181,7 +167,6 @@ public class RecordDao extends AbstractDao<Record, Long> {
         entity.setCreateTime(cursor.isNull(offset + 4) ? null : new java.util.Date(cursor.getLong(offset + 4)));
         entity.setUpdateTime(cursor.isNull(offset + 5) ? null : new java.util.Date(cursor.getLong(offset + 5)));
         entity.setUserId(cursor.isNull(offset + 6) ? null : cursor.getLong(offset + 6));
-        entity.setFoodId(cursor.isNull(offset + 7) ? null : cursor.getLong(offset + 7));
      }
     
     @Override
@@ -217,11 +202,8 @@ public class RecordDao extends AbstractDao<Record, Long> {
             SqlUtils.appendColumns(builder, "T", getAllColumns());
             builder.append(',');
             SqlUtils.appendColumns(builder, "T0", daoSession.getUserDao().getAllColumns());
-            builder.append(',');
-            SqlUtils.appendColumns(builder, "T1", daoSession.getFoodDao().getAllColumns());
             builder.append(" FROM tb_record T");
             builder.append(" LEFT JOIN tb_user T0 ON T.\"user_id\"=T0.\"user_id\"");
-            builder.append(" LEFT JOIN tb_food T1 ON T.\"food_id\"=T1.\"food_id\"");
             builder.append(' ');
             selectDeep = builder.toString();
         }
@@ -234,10 +216,6 @@ public class RecordDao extends AbstractDao<Record, Long> {
 
         User user = loadCurrentOther(daoSession.getUserDao(), cursor, offset);
         entity.setUser(user);
-        offset += daoSession.getUserDao().getAllColumns().length;
-
-        Food food = loadCurrentOther(daoSession.getFoodDao(), cursor, offset);
-        entity.setFood(food);
 
         return entity;    
     }

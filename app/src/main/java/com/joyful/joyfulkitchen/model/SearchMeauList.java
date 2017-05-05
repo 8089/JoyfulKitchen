@@ -165,6 +165,7 @@ public class SearchMeauList implements Serializable{
     public static class Matail implements Serializable{
         private String name ;
         private String count;
+        private double weight = 0;  // 实际称量重量
         private boolean isComplete = false;
 
         public String getName() {
@@ -189,6 +190,14 @@ public class SearchMeauList implements Serializable{
 
         public void setComplete(boolean complete) {
             isComplete = complete;
+        }
+
+        public double getWeight() {
+            return weight;
+        }
+
+        public void setWeight(double weight) {
+            this.weight = weight;
         }
 
         @Override

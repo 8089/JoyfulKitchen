@@ -1,6 +1,7 @@
 package com.joyful.joyfulkitchen.activity;
 
 import android.Manifest;
+import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGattCharacteristic;
@@ -31,23 +32,33 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.joyful.joyfulkitchen.R;
 import com.joyful.joyfulkitchen.base.BaseApplication;
+import com.joyful.joyfulkitchen.dao.GreenDaoManager;
+import com.joyful.joyfulkitchen.dao.RecordDao;
 import com.joyful.joyfulkitchen.fragment.HealthyFragment;
+import com.joyful.joyfulkitchen.model.Food;
+import com.joyful.joyfulkitchen.model.Record;
 import com.joyful.joyfulkitchen.model.SearchMeauList;
 import com.joyful.joyfulkitchen.service.BluetoothService;
 import com.joyful.joyfulkitchen.util.ToastUtils;
 import com.joyful.joyfulkitchen.util.UnitConversionUtil;
 import com.joyful.joyfulkitchen.view.RoundIndicatorView;
+import com.joyful.joyfulkitchen.volley.FoodByNameVolley;
+import com.joyful.joyfulkitchen.volley.FoodSearchVolley;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 
 import static com.joyful.joyfulkitchen.base.BaseApplication.getContext;
 
 
 /**
- *  食谱称量
+ * 食谱称量
  */
 public class ManyFoodWeighingActivity extends AppCompatActivity {
 
@@ -79,6 +90,9 @@ public class ManyFoodWeighingActivity extends AppCompatActivity {
     private BluetoothService mBluetoothLeService;
     private static final int REQUEST_ENABLE_BT = 0;
 
+    private List<Record> records = new ArrayList<Record>();
+    //  菜谱
+    private SearchMeauList searchMeauList;
     //食材
     private List<SearchMeauList.Matail> foodMaterialData;
     // 步骤
@@ -89,20 +103,31 @@ public class ManyFoodWeighingActivity extends AppCompatActivity {
     private int foodIndex = -1;
 
     private Context mContext = this;
-    
-    private Handler handler = new Handler(){
+
+
+    private Handler handler = new Handler() {
         Intent intent = new Intent();
+
         @Override
         public void handleMessage(Message msg) {
 
-            int a = msg.arg1 ;
-            String s = (String )msg.obj ;
+            int a = msg.arg1;
+
+            if (foodIndex != -1) {
+                if (foodMaterialData.get(foodIndex).getCount().indexOf("g") > 0) {
+                    foodMaterialData.get(foodIndex).setWeight(a);
+                }
+            }
+
+
+            String s = (String) msg.obj;
             a = UnitConversionUtil.Conversion(a, index);
             mRoundIndicatorView.setCurrentNumAnim(a);
             tv_show_unit.setText(a + units[index]);
-            char c1 = s.charAt(2) ;
-            char c2 = s.charAt(6) ;
-            Log.i("----------状态-----","第二个" + c1 + "第6个" + c2);
+            char c1 = s.charAt(2);
+            char c2 = s.charAt(6);
+
+            Log.i("----------状态-----", "第二个" + c1 + "第6个" + c2);
         }
     };
 
@@ -120,17 +145,17 @@ public class ManyFoodWeighingActivity extends AppCompatActivity {
         initData();
         // 添加监听事件
         addListeners();
-        
+
         // 初始化蓝牙
         initLanya();
     }
 
 
-
     private void initData() {
-        BaseApplication baseApplication = (BaseApplication)getApplication();
-        foodMaterialData = baseApplication.getFoodMaterialData();
-        foodStepsData = baseApplication.getFoodStepsData();
+        BaseApplication baseApplication = (BaseApplication) getApplication();
+        searchMeauList = baseApplication.getSearchMeauList();
+        foodMaterialData = baseApplication.getSearchMeauList().getFoodMatail();
+        foodStepsData = baseApplication.getSearchMeauList().getSteps();
 
         boolean rs = showFood();
 
@@ -140,12 +165,12 @@ public class ManyFoodWeighingActivity extends AppCompatActivity {
     // 当没有食物显示的时候 返回 false， 有食物要显示就返回 true
     private boolean showFood() {
         foodIndex = -1;
-        for (SearchMeauList.Matail matail :foodMaterialData){
+        for (SearchMeauList.Matail matail : foodMaterialData) {
             /*if ("适量".equals(matail.getCount())){
                 matail.setComplete(true);
             }*/
-            if (!matail.isComplete()){
-                tv_show_next_food.setText("请放入 " + matail.getName()+ matail.getCount());
+            if (!matail.isComplete()) {
+                tv_show_next_food.setText("请放入 " + matail.getName() + matail.getCount());
                 foodIndex++;
                 return true;
             }
@@ -156,15 +181,14 @@ public class ManyFoodWeighingActivity extends AppCompatActivity {
     }
 
     // 判断所有食材是否 称量完毕, 是返回 true， 否返回 false
-    private boolean isOk(){
-        for (SearchMeauList.Matail matail :foodMaterialData){
-            if(!matail.isComplete()){
+    private boolean isOk() {
+        for (SearchMeauList.Matail matail : foodMaterialData) {
+            if (!matail.isComplete()) {
                 return false;
             }
         }
         return true;
     }
-
 
 
     private void addListeners() {
@@ -197,19 +221,66 @@ public class ManyFoodWeighingActivity extends AppCompatActivity {
         // 点击下一步  进入 下一个食材
         btn_next.setOnClickListener(new View.OnClickListener() {
             boolean complete = false;
+
             @Override
             public void onClick(View v) {
                 foodMaterialData.get(foodIndex).setComplete(true);
 
                 showFood();
 
-                if (complete){
+                if (complete) {
+                    Record record = new Record();
+                    record.setMeauName(searchMeauList.getTitle());
+                    record.setCreateTime(new Date());
+                    for (int i = 0; i < foodMaterialData.size(); i++) {
+                        // 根据食材名称获取食材
+                        // new FoodByNameVolley((Activity) mContext, foodMaterialData.get(i).getName(), list).doVolley();
+                        new FoodByNameVolley((Activity) mContext, foodMaterialData.get(i), foodMaterialData.get(i).getName(), record, foodMaterialData.size()).doVolley();
+                    }
+
+
+
+
+
+                   /* new Thread(){
+                        // 记录食材
+                        @Override
+                        public void run() {
+                            RecordDao gecordDao = GreenDaoManager.getInstance().getSession().getRecordDao();
+                            List<Food> list = new ArrayList<Food>();
+                            for(int i = 0; i < foodMaterialData.size(); i++){
+                                Record record = new Record();
+                                // 根据食材名称获取食材
+
+                                new FoodByNameVolley((Activity) mContext, foodMaterialData.get(i).getName(), list).doVolley();
+                                Food food = list.get(i);
+                                Log.e("aaa", food == null? "food 没有数据": food.getFoodName());
+                                if (food != null) {
+                                        // 判断是否有称重 并且 单位是 g 的
+                                    if (foodMaterialData.get(i).isComplete() && foodMaterialData.get(i).getCount().indexOf("g") > 0) {
+                                        double totalEnergy = food.getEnergy() / 100 * foodMaterialData.get(i).getWeight();
+                                        double totalWeight = foodMaterialData.get(i).getWeight();
+                                        record.setTotalEnergy(totalEnergy);
+                                        record.setTotalWeight(totalWeight);
+                                    }
+                                    record.setCreateTime(new Date());
+                                    record.setFood(food);
+                                    record.setMeauName(searchMeauList.getTitle());
+                                    Log.i("aaa", record.toString());
+                                    long insert = gecordDao.insert(record);
+                                    Log.i("aaa", "insert = " + insert);
+                                    // 每一条记录上传到服务器
+
+                                }
+                            }
+                        }
+                    }.start();*/
                     Intent intent = new Intent(getContext(), ShowStepsActivity.class);
                     startActivity(intent);
                     finish();
                 }
 
-                if (isOk()){
+                if (isOk()) {
                     tv_show_next_food.setText("所有食材已称量完毕.");
                     btn_next.setText("进入制作步骤");
                     complete = true;
@@ -232,8 +303,9 @@ public class ManyFoodWeighingActivity extends AppCompatActivity {
     }
 
 
-    
-    /**  蓝牙模块 */
+    /**
+     * 蓝牙模块
+     */
     private void initLanya() {
 
         //打开蓝牙
@@ -249,7 +321,7 @@ public class ManyFoodWeighingActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
                     MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION);
 //判断是否需要 向用户解释，为什么要申请该权限
-            if(ActivityCompat.shouldShowRequestPermissionRationale(this,
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                     Manifest.permission.READ_CONTACTS)) {
                 ToastUtils.showToast(this, "打开蓝牙");
             }
@@ -297,18 +369,19 @@ public class ManyFoodWeighingActivity extends AppCompatActivity {
                 String data = intent.getStringExtra(BluetoothService.EXTRA_DATA);
                 final String state = intent.getStringExtra("EXTRA_STATE");
                 final Integer data1 = Integer.parseInt(data);
-                new Thread(){
+                new Thread() {
                     @Override
                     public void run() {
                         Message message = Message.obtain();
-                        message.arg1 = data1 ;
-                        message.obj = state ;
+                        message.arg1 = data1;
+                        message.obj = state;
                         handler.sendMessage(message);
                     }
                 }.start();
             }
         }
     };
+
     //发现服务
     private void displayGattServices(List<BluetoothGattService> gattServices) {
         if (gattServices != null) {
@@ -369,14 +442,14 @@ public class ManyFoodWeighingActivity extends AppCompatActivity {
                 mBluetoothAdapter.stopLeScan(lazyCallback);
 
                 Intent gattServiceIntent = new Intent(mContext, BluetoothService.class);
-                Log.i("--------------",""+getContext()+"--"+ this);
+                Log.i("--------------", "" + getContext() + "--" + this);
                 boolean ble = getApplicationContext().bindService(gattServiceIntent, mServiceConnection, Context.BIND_AUTO_CREATE);//绑定服务
                 if (ble) {
                     Log.i("绑定成功", "dd");
                 } else {
                     Log.i("绑定失败", "dd");
                 }
-                Log.i("---------------",gattServiceIntent+"--"+mServiceConnection+"---"+Context.BIND_AUTO_CREATE);
+                Log.i("---------------", gattServiceIntent + "--" + mServiceConnection + "---" + Context.BIND_AUTO_CREATE);
 
                 registerReceiver(mGattUpdateReceiver, makeGattUpdateIntentFilter());
             }
@@ -397,7 +470,7 @@ public class ManyFoodWeighingActivity extends AppCompatActivity {
         super.onStart();
         if (mDeviceAddress != null) {
             Intent gattServiceIntent = new Intent(this, BluetoothService.class);
-            if(mBluetoothLeService ==null)
+            if (mBluetoothLeService == null)
                 this.bindService(gattServiceIntent, mServiceConnection, Context.BIND_AUTO_CREATE);//绑定服务
             this.registerReceiver(mGattUpdateReceiver, makeGattUpdateIntentFilter());
         }
@@ -410,27 +483,27 @@ public class ManyFoodWeighingActivity extends AppCompatActivity {
         if (!mBluetoothAdapter.isEnabled()) {
             Toast.makeText(mContext, "打开蓝牙成功", Toast.LENGTH_LONG).show();
             Log.i("打开蓝牙成功", "BluetoothConnection");
-            Intent enableBtIntent = new Intent( BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
         }
 
-        Toast.makeText(mContext, "打开蓝牙后",Toast.LENGTH_LONG).show();
+        Toast.makeText(mContext, "打开蓝牙后", Toast.LENGTH_LONG).show();
 
         if (lazyCallback == null) {
-            Log.i("lazyCallback","lazyCallback  new前");
+            Log.i("lazyCallback", "lazyCallback  new前");
             lazyCallback = new ManyFoodWeighingActivity.LazyCallback();
         }
-        Log.i("lazyCallback","new 后");
+        Log.i("lazyCallback", "new 后");
 
 
         new Thread(new Runnable() {
             @Override
             public void run() {
-                try{
+                try {
                     boolean d = mBluetoothAdapter.startLeScan(lazyCallback);
-                    Log.i("扫描状态：",d + "");
-                }catch (Exception e){
-                    Log.i("异常：",e.toString()+"扫描异常");
+                    Log.i("扫描状态：", d + "");
+                } catch (Exception e) {
+                    Log.i("异常：", e.toString() + "扫描异常");
                     e.printStackTrace();
                 }
 
@@ -438,7 +511,7 @@ public class ManyFoodWeighingActivity extends AppCompatActivity {
         }).start();
 
 
-        this.registerReceiver(mGattUpdateReceiver,makeGattUpdateIntentFilter());
+        this.registerReceiver(mGattUpdateReceiver, makeGattUpdateIntentFilter());
 
         if (mBluetoothLeService != null) {
             final boolean result = mBluetoothLeService.connect(mDeviceAddress);
@@ -459,13 +532,14 @@ public class ManyFoodWeighingActivity extends AppCompatActivity {
         mBluetoothLeService = null;
 
     }
+
     @Override
     public void onStop() {
         super.onStop();
         if (mDeviceAddress != null) {
-            if (mBluetoothLeService.isRestricted()){
-                if(mServiceConnection != null) {
-                    if(mBluetoothLeService != null)
+            if (mBluetoothLeService.isRestricted()) {
+                if (mServiceConnection != null) {
+                    if (mBluetoothLeService != null)
                         this.unbindService(mServiceConnection);
                 }
             }
@@ -477,8 +551,8 @@ public class ManyFoodWeighingActivity extends AppCompatActivity {
         Log.i("------onStop", "停止");
 
     }
-        
+
     /**  蓝牙模块结束 */
-    
-    
+
+
 }

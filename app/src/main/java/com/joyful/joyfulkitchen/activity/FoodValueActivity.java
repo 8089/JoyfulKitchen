@@ -30,7 +30,7 @@ public class FoodValueActivity extends AppCompatActivity implements View.OnClick
 
     private TextView  foodName,energy,protein,fat,carbohydrate,fiber,cholesterol;
 
-
+    private TextView choose;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,12 +57,13 @@ public class FoodValueActivity extends AppCompatActivity implements View.OnClick
         carbohydrate= (TextView) findViewById(R.id.carbohydrate);
         fiber= (TextView) findViewById(R.id.fiber);
         cholesterol= (TextView) findViewById(R.id.cholesterol);
+        choose= (TextView) findViewById(R.id.choose);
     }
 
     private void initData() {
 
         back.setOnClickListener(this);
-
+        choose.setOnClickListener(this);
         Uri uri = Uri.parse(food.getFoodImg());
         food_img.setImageURI(uri);
         foodName.setText(food.getFoodName());
@@ -83,6 +84,10 @@ public class FoodValueActivity extends AppCompatActivity implements View.OnClick
         switch (v.getId()){
             case R.id.back:
                 this.finish();
+                break;
+            case R.id.choose:
+                setResult(1);
+                finish();
                 break;
             default:
                 break;
