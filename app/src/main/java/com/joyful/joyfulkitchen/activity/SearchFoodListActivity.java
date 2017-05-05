@@ -30,7 +30,7 @@ public class SearchFoodListActivity extends AppCompatActivity {
 
     public Context context = this;
 
-    // 搜索框  小麦
+    // 搜索框
     private SearchView mSearchView;
     // 列表
     private RecyclerView mRecyclerView;

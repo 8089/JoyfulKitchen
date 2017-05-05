@@ -1,17 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@mipmap/home_bg"
+    >
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.v7.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/iv_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/back"
+                    />
+
+                <TextView
+                    android:id="@+id/weightFoods"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="小麦精华霜"
+                    android:textSize="25dp"
+                    android:textColor="@color/white"
+                    android:gravity="center_horizontal"
+                    />
+            </android.support.v7.widget.Toolbar>l
+
+        </LinearLayout>
+        
         <include layout="@layout/base_round" />
 
     </RelativeLayout>
 
+<ScrollView
+    android:layout_marginTop="20dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+        <include layout="@layout/food_content" />
+
+    </LinearLayout>
+
+
+</ScrollView>
 
 
 </LinearLayout>

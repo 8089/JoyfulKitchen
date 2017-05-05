@@ -14,6 +14,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.joyful.joyfulkitchen.R;
 import com.joyful.joyfulkitchen.model.Food;
 
+import java.io.Serializable;
 import java.text.DecimalFormat;
 
 /**
@@ -39,7 +40,7 @@ public class FoodValueActivity extends AppCompatActivity implements View.OnClick
         Intent intent = this.getIntent();
 
         food = (Food) intent.getSerializableExtra("foodvalue");
-        Log.i(TAG, "onCreate: "+food.toString());
+        Log.i(TAG, "onCreate: " + food.toString());
 
         initview();
         
@@ -87,6 +88,9 @@ public class FoodValueActivity extends AppCompatActivity implements View.OnClick
                 break;
             case R.id.choose:
                 setResult(1);
+                Intent intent = new Intent(context, WeightOneFoodActivity.class);
+                intent.putExtra("foodvalue", (Serializable)food);
+                startActivity(intent);
                 finish();
                 break;
             default:

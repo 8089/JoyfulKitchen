@@ -238,43 +238,6 @@ public class ManyFoodWeighingActivity extends AppCompatActivity {
                         new FoodByNameVolley((Activity) mContext, foodMaterialData.get(i), foodMaterialData.get(i).getName(), record, foodMaterialData.size()).doVolley();
                     }
 
-
-
-
-
-                   /* new Thread(){
-                        // 记录食材
-                        @Override
-                        public void run() {
-                            RecordDao gecordDao = GreenDaoManager.getInstance().getSession().getRecordDao();
-                            List<Food> list = new ArrayList<Food>();
-                            for(int i = 0; i < foodMaterialData.size(); i++){
-                                Record record = new Record();
-                                // 根据食材名称获取食材
-
-                                new FoodByNameVolley((Activity) mContext, foodMaterialData.get(i).getName(), list).doVolley();
-                                Food food = list.get(i);
-                                Log.e("aaa", food == null? "food 没有数据": food.getFoodName());
-                                if (food != null) {
-                                        // 判断是否有称重 并且 单位是 g 的
-                                    if (foodMaterialData.get(i).isComplete() && foodMaterialData.get(i).getCount().indexOf("g") > 0) {
-                                        double totalEnergy = food.getEnergy() / 100 * foodMaterialData.get(i).getWeight();
-                                        double totalWeight = foodMaterialData.get(i).getWeight();
-                                        record.setTotalEnergy(totalEnergy);
-                                        record.setTotalWeight(totalWeight);
-                                    }
-                                    record.setCreateTime(new Date());
-                                    record.setFood(food);
-                                    record.setMeauName(searchMeauList.getTitle());
-                                    Log.i("aaa", record.toString());
-                                    long insert = gecordDao.insert(record);
-                                    Log.i("aaa", "insert = " + insert);
-                                    // 每一条记录上传到服务器
-
-                                }
-                            }
-                        }
-                    }.start();*/
                     Intent intent = new Intent(getContext(), ShowStepsActivity.class);
                     startActivity(intent);
                     finish();
