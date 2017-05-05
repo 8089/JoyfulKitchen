@@ -60,11 +60,9 @@
         <activity android:name=".activity.WeightOneFoodActivity" />
         <activity android:name=".activity.ForgetPwdActivity" />
 
-
         <service android:name=".service.BluetoothService" />
 
         <!--<activity android:name=".activity.MainActivity" />-->
-
     </application>
 
 </manifest>
