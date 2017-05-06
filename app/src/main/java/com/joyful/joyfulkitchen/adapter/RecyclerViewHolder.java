@@ -33,7 +33,7 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
         return (T) view;
     }
 
-    public RecyclerViewHolder setText(int viewId, String text) {
+    public RecyclerViewHolder setText(int viewId, CharSequence text) {
         TextView tv = findView(viewId);
         tv.setText(text);
         return this;
@@ -57,7 +57,7 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
         return this;
     }
 
-    public RecyclerViewHolder setImageNet(int viewId, String url) {
+    public RecyclerViewHolder setImageNet(int viewId, CharSequence url) {
         ImageView image = findView(viewId);
         //使用你所用的网络框架等
         return this;

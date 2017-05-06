@@ -6,11 +6,18 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.joyful.joyfulkitchen.Itemdecoration.FoodSearchItemDecoration;
 import com.joyful.joyfulkitchen.Itemdecoration.MyItemDecoration;
@@ -18,6 +25,7 @@ import com.joyful.joyfulkitchen.R;
 import com.joyful.joyfulkitchen.adapter.RecyclerAdapter;
 import com.joyful.joyfulkitchen.adapter.RecyclerViewHolder;
 import com.joyful.joyfulkitchen.model.Food;
+import com.joyful.joyfulkitchen.util.StringFormatUtil;
 import com.joyful.joyfulkitchen.util.ToastUtils;
 import com.joyful.joyfulkitchen.volley.FoodSearchVolley;
 
@@ -28,10 +36,8 @@ import java.util.List;
 // 搜索单个食材 列表
 public class SearchFoodListActivity extends AppCompatActivity {
 
-    public Context context = this;
+    public Context mContext = this;
 
-    // 搜索框
-    private SearchView mSearchView;
     // 列表
     private RecyclerView mRecyclerView;
 
@@ -40,6 +46,19 @@ public class SearchFoodListActivity extends AppCompatActivity {
 
     // 适配器
     private RecyclerAdapter<Food> recyclerAdapter;
+
+    // 搜索的文字
+    private String mLightStr;
+    private EditText et_search;
+    private TextView tv_cancel;
+    private FrameLayout mNoLayout;
+
+    //是否显示搜索结果的状体标志
+    private final static int NO_TTHING = 0;
+    private final static int SHOW_DATA = 1;
+    private static int STATE = 0;  //默认的是没有数据
+
+    private String mKey;  //key值
 
 
     @Override
@@ -57,48 +76,71 @@ public class SearchFoodListActivity extends AppCompatActivity {
     }
 
     private void addListener() {
-        // 为该SearchView组件设置事件监听器
-        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        et_search.addTextChangedListener(new TextWatcher() {
             @Override
-            public boolean onQueryTextSubmit(String query) {
-                ToastUtils.showToast(getApplicationContext(), "hhhh" + query);
-                new FoodSearchVolley(SearchFoodListActivity.this, query, recyclerAdapter, foodList).doVolley();
-                return true;
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
             }
 
             @Override
-            public boolean onQueryTextChange(String newText) {
-                // 实际应用中应该在该方法内执行实际查询
-                // 此处仅使用Toast显示用户输入的查询内容
-                ToastUtils.showToast(getApplicationContext(), "bbbb" + newText);
-                return false;
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                if (!TextUtils.isEmpty(charSequence)) {
+
+                    mKey = charSequence.toString().trim();
+                    new FoodSearchVolley(SearchFoodListActivity.this, mKey, recyclerAdapter, foodList, mNoLayout, mRecyclerView).doVolley();
+//                    initData(charSequence.toString());
+
+                    changeStates(STATE);
+
+                } else {
+                    STATE = NO_TTHING;
+
+                    changeStates(STATE);
+
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
 
+
+        tv_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                et_search.setText("");
+//                mDataBeen.clear();
+//                mLoadMoreData.clear();
+                et_search.setHint("请输入你搜索的关键字");
+                mNoLayout.setVisibility(View.INVISIBLE);
+                mRecyclerView.setVisibility(View.INVISIBLE);
+            }
+        });
     }
 
     private void initView() {
 
-        mSearchView = (SearchView) findViewById(R.id.sv_food_search);
-        // 设置该SearchView默认是否自动缩小为图标
-        mSearchView.setIconifiedByDefault(false);
-        // 设置该SearchView显示搜索按钮
-        mSearchView.setSubmitButtonEnabled(true);
-        // 设置该SearchView内默认显示的提示文本
-        mSearchView.setQueryHint("查找食材");
-
-        SearchView.SearchAutoComplete textView = ( SearchView.SearchAutoComplete) mSearchView.findViewById(R.id.search_src_text);
-        textView.setTextColor(Color.WHITE);
+        et_search = (EditText) findViewById(R.id.et_search);
+        tv_cancel = (TextView) findViewById(R.id.tv_cancel);
+        mNoLayout = (FrameLayout) findViewById(R.id.no_data);
 
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        mRecyclerView.setLayoutManager(layoutManager);
-        mRecyclerView.addItemDecoration(new MyItemDecoration());
+
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+//        mRecyclerView.addItemDecoration(new MyItemDecoration());
+
         mRecyclerView.setAdapter(recyclerAdapter = new RecyclerAdapter<Food>(this, foodList, R.layout.recyclerview_item_show_food) {
             @Override
             public void convert(RecyclerViewHolder holder, Food data, int position) {
-                holder.setText(R.id.tv_food_name, data.getFoodName());
+
+                StringFormatUtil stringFormatUtil = new StringFormatUtil(mContext, data.getFoodName(), mKey, R.color.colorPrimaryDark).fillColor();
+
+                holder.setText(R.id.tv_food_name, stringFormatUtil.getResult());
+
             };
         });
 
@@ -107,7 +149,7 @@ public class SearchFoodListActivity extends AppCompatActivity {
 
             @Override
             public void OnItemClickListener(View view, int position) {
-                Intent intent = new Intent(context,FoodValueActivity.class);
+                Intent intent = new Intent(mContext, FoodValueActivity.class);
                 intent.putExtra("foodvalue", (Serializable) foodList.get(position));
                 startActivityForResult(intent, 1);
             }
@@ -115,11 +157,30 @@ public class SearchFoodListActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * 改变搜索装填
+     *
+     * @param state 搜索key值
+     */
+    private void changeStates(int state) {
+        switch (state) {
+            case NO_TTHING:
+                mNoLayout.setVisibility(View.VISIBLE);
+                mRecyclerView.setVisibility(View.INVISIBLE);
+                break;
+
+            case SHOW_DATA:
+                mNoLayout.setVisibility(View.GONE);
+                mRecyclerView.setVisibility(View.VISIBLE);
+                break;
+
+
+        }
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.i("requestCode = ", requestCode + "");
-        Log.i("requestCode = ", resultCode + "");
         switch (resultCode){
             case 1: // 点击了选择
                 finish();

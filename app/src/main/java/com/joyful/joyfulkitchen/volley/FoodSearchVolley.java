@@ -2,7 +2,10 @@ package com.joyful.joyfulkitchen.volley;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.FrameLayout;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -41,9 +44,16 @@ public class FoodSearchVolley {
     private List<Food> data;
     private RecyclerAdapter<Food> recyclerAdapter;
 
-    public FoodSearchVolley(Activity activity, String foodName, RecyclerAdapter<Food> recyclerAdapter, List<Food> data) {
+    private FrameLayout mNoLayout;
+    // 列表
+    private RecyclerView mRecyclerView;
+
+
+    public FoodSearchVolley(Activity activity, String foodName, RecyclerAdapter<Food> recyclerAdapter, List<Food> data, FrameLayout mNoLayout, RecyclerView mRecyclerView) {
         this.activity = activity;
         this.recyclerAdapter = recyclerAdapter;
+        this.mNoLayout = mNoLayout;
+        this.mRecyclerView = mRecyclerView;
         this.data = data;
         try {
             this.foodName=URLEncoder.encode(foodName,"utf-8");
@@ -92,6 +102,15 @@ public class FoodSearchVolley {
                         }
                     }
                     Log.i(TAG, "onResponse: " + data.size());
+
+                    if (data.size() > 0) {
+                        mNoLayout.setVisibility(View.GONE);
+                        mRecyclerView.setVisibility(View.VISIBLE);
+                    }else{
+                        mNoLayout.setVisibility(View.VISIBLE);
+                        mRecyclerView.setVisibility(View.INVISIBLE);
+                    }
+
                     recyclerAdapter.notifyDataSetChanged();
                 } else {
                     ToastUtil.toastMessage(activity, "请求数据不存在!");

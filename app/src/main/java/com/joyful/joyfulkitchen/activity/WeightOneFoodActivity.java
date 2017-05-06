@@ -66,7 +66,7 @@ public class WeightOneFoodActivity extends AppCompatActivity {
     // 称量的重量
     private TextView weighting;
 
-
+    private TextView protein, fat, carbohydrate, fiber, cholesterol, energy;
     // 蓝牙6.0以上需要权限
     private static final int MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION = 1;
 
@@ -77,6 +77,8 @@ public class WeightOneFoodActivity extends AppCompatActivity {
     private BluetoothGattCharacteristic mNotifyCharacteristic;
     private BluetoothService mBluetoothLeService;
     private static final int REQUEST_ENABLE_BT = 0;
+
+    private java.text.DecimalFormat df = new java.text.DecimalFormat("#.##");
 
 
     private Handler handler = new Handler() {
@@ -98,6 +100,7 @@ public class WeightOneFoodActivity extends AppCompatActivity {
             Log.i("----------状态-----", "第二个" + c1 + "第6个" + c2);
         }
     };
+
 
 
     @Override
@@ -124,6 +127,12 @@ public class WeightOneFoodActivity extends AppCompatActivity {
         weightFoods.setText(food.getFoodName());
         foodName.setText(food.getFoodName());
 
+        energy.setText(df.format(food.getEnergy()) + "");  //  热量
+        protein.setText(df.format(food.getProtein()) + ""); //  蛋白质（克）
+        fat.setText(df.format(food.getFat()) + "");  //  脂肪（克）
+        carbohydrate.setText(df.format(food.getCarbohydrate()) + ""); //  碳水化合物（克）
+        fiber.setText(df.format(food.getFiber()) + "");  //  膳食纤维（克）
+        cholesterol.setText(df.format(food.getCholesterol()) + "");
 
     }
 
@@ -173,6 +182,13 @@ public class WeightOneFoodActivity extends AppCompatActivity {
         foodName = (TextView) findViewById(R.id.foodName);  // main的标题
         weighting = (TextView) findViewById(R.id.weighting);  // 实际多少克
 
+
+        energy = (TextView) findViewById(R.id.energy);  //  热量
+        protein = (TextView) findViewById(R.id.protein);  //  蛋白质（克）
+        fat = (TextView) findViewById(R.id.fat);  //  脂肪（克）
+        carbohydrate = (TextView) findViewById(R.id.carbohydrate);  //  碳水化合物（克）
+        fiber = (TextView) findViewById(R.id.fiber);  //  膳食纤维（克）
+        cholesterol = (TextView) findViewById(R.id.cholesterol);  // 胆固醇（毫克）
 
     }
 
