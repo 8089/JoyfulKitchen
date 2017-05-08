@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *  菜谱 详细 页面
+ * 菜谱 详细 页面
  */
 public class FoodDetailActivity extends AppCompatActivity {
 
@@ -51,6 +51,9 @@ public class FoodDetailActivity extends AppCompatActivity {
     private String cainame = "";
     // 描述
     private String miaosu = "";
+
+    private SearchMeauList searchMeauList;
+
     //食材
     private List<SearchMeauList.Matail> foodMaterialData = new ArrayList<SearchMeauList.Matail>();
     ;
@@ -62,9 +65,6 @@ public class FoodDetailActivity extends AppCompatActivity {
 
     //开始称量
     private Button weighing;
-
-
-
 
 
     @Override
@@ -79,6 +79,7 @@ public class FoodDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent upcbk = new Intent(FoodDetailActivity.this, UpdateFoodActivity.class);
+                upcbk.putExtra("searchMeauList",searchMeauList);
                 startActivity(upcbk);
             }
         });
@@ -98,8 +99,8 @@ public class FoodDetailActivity extends AppCompatActivity {
 
         Intent intent = this.getIntent();
 
-        SearchMeauList searchMeauList = (SearchMeauList) intent.getSerializableExtra("searchMeauList");
-        ((BaseApplication)getApplication()).setSearchMeauList(searchMeauList);
+        this.searchMeauList = (SearchMeauList) intent.getSerializableExtra("searchMeauList");
+        ((BaseApplication) getApplication()).setSearchMeauList(searchMeauList);
 
 
         if (searchMeauList != null) {
@@ -108,7 +109,6 @@ public class FoodDetailActivity extends AppCompatActivity {
             this.caiUrl = "";
             this.cainame = "";
             this.miaosu = "";
-
             this.foodMaterialData = searchMeauList.getFoodMatail();
             this.foodStepsData = searchMeauList.getSteps();
             this.caiUrl = searchMeauList.getAlbums().get(0);
@@ -116,7 +116,7 @@ public class FoodDetailActivity extends AppCompatActivity {
             this.miaosu = searchMeauList.getImtro();
 
             Log.i(TAG, "onCreate=====FoodDetailActivity" + this.foodMaterialData);
-            Log.i(TAG, "onCreate=====FoodDetailActivity" +  this.foodStepsData );
+            Log.i(TAG, "onCreate=====FoodDetailActivity" + this.foodStepsData);
         }
         // 消息列队 缓存图片
         RequestQueue queue = Volley.newRequestQueue(context);

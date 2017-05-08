@@ -7,10 +7,10 @@
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="15dp"
+        android:background="@color/blue"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         >
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -20,11 +20,12 @@
                 android:id="@+id/back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@color/blue"
                 android:src="@drawable/back"
                 />
             <TextView
                 android:layout_weight="1"
-                android:id="@+id/foodName"
+                android:id="@+id/food_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -33,6 +34,7 @@
                 android:textSize="25dp"
                 />
             <TextView
+                android:id="@+id/food_edit_save"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -43,43 +45,39 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:orientation="vertical">
         <ListView
-            android:id="@+id/food_list"
+            android:id="@+id/edit_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
         </ListView>
-
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            >
+            android:orientation="horizontal">
 
-            <TextView
+            <Button
+                android:id="@+id/food_add"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="20dp"
                 android:text="添加"
                 />
-            <TextView
+            <Button
+                android:id="@+id/start_chen"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="20dp"
                 android:text="开始称量"/>
         </LinearLayout>
-
-    </FrameLayout>
-
+    </LinearLayout>
 
 </LinearLayout>
