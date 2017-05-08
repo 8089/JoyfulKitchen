@@ -19,7 +19,7 @@ public class BaseApplication extends Application {
     private SearchMeauList searchMeauList;
 
     // 用户信息
-    private User user;
+    private User user = null;
 
 
     @Override

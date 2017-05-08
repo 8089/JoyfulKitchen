@@ -81,6 +81,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
          case R.id.goregist:
              Intent gore = new Intent(LoginActivity.this, RegistActivity.class);
              startActivity(gore);
+             finish();
              break;
          case R.id.user_login:
              // 登录操作
@@ -97,6 +98,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
          case R.id.to_usrForgetPwd:
              Intent intent = new Intent(LoginActivity.this, ForgetPwdActivity.class);
              startActivity(intent);
+             finish();
              break;
          default:
              break;

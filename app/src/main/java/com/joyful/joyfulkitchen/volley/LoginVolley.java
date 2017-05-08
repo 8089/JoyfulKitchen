@@ -96,8 +96,8 @@ public class LoginVolley {
 
                         // 跳转到主页
                         activity.finish();
-                        Intent intent = new Intent(activity, MainActivity.class);
-                        activity.startActivity(intent);
+                        /*Intent intent = new Intent(activity, MainActivity.class);
+                        activity.startActivity(intent);*/
 
                     }else{
                         ToastUtil.toastMessage(activity,"登录失败");
