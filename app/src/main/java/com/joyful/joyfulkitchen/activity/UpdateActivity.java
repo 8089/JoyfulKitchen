@@ -39,7 +39,7 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
     private Button btnTakephoto;//拍照
     private Button btnPhotos;//相册
     private Bitmap head;//头像Bitmap
-    private static String path = "/sdcard/myHead/";//sd路径
+    public static String path = "myHead/";//sd路径
 
     private LayoutInflater inflater;
     private View layout;
@@ -75,7 +75,7 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
 
 
 
-        Bitmap bt = BitmapFactory.decodeFile(path + "head.jpg");//从Sd中找头像，转换成Bitmap
+        Bitmap bt = BitmapFactory.decodeFile(getFilesDir() + path + "head.jpg");//从Sd中找头像，转换成Bitmap
         if(bt != null){
             @SuppressWarnings("deprecation")
             Drawable drawable = new BitmapDrawable(bt);//转换成drawable
@@ -99,8 +99,12 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
                 break;
             case R.id.btnTakePhoto://调用相机拍照
                 Intent intent2 = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                intent2.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(Environment.getExternalStorageDirectory(),
+                /*intent2.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(Environment.getExternalStorageDirectory(),
+                        "head.jpg")));*/
+
+                intent2.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(getFilesDir(),
                         "head.jpg")));
+
                 startActivityForResult(intent2, 2);//采用ForResult打开
                 break;
             case R.id.myFace:
@@ -129,8 +133,7 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
                 break;
             case 2:
                 if (resultCode == RESULT_OK) {
-                    File temp = new File(Environment.getExternalStorageDirectory()
-                            + "/head.jpg");
+                    File temp = new File(getFilesDir() + "/head.jpg");
                     cropPhoto(Uri.fromFile(temp));//裁剪图片
                 }
 
@@ -173,19 +176,19 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
         startActivityForResult(intent, 3);
     }
     private void setPicToView(Bitmap mBitmap) {
-        String sdStatus = Environment.getExternalStorageState();
+        /*String sdStatus = Environment.getExternalStorageState();
 
         if (!sdStatus.equals(Environment.MEDIA_MOUNTED)) { // 检测sd是否可用
             return;
-        }
+        }*/
         FileOutputStream b = null;
-        File file = new File(path);
+        File file = new File(getFilesDir() + path);
         try {
             file.mkdirs();// 创建文件夹
         }catch (Exception e){
         }
 
-        String fileName = path +  "head.jpg";//图片名字
+        String fileName = getFilesDir() + path +  "head.jpg";//图片名字
         try {
            b = new FileOutputStream(fileName);
             mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, b);// 把数据写入文件
