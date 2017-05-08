@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,7 +71,7 @@ public class RecordFragment extends Fragment {
         Calendar now = Calendar.getInstance();
         this.year =  now.get(Calendar.YEAR);
         this.month = now.get(Calendar.MONTH) + 1;
-        this.day = Calendar.DAY_OF_MONTH;
+        this.day = now.get(Calendar.DAY_OF_MONTH);
     }
 
     @Override

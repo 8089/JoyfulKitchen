@@ -51,7 +51,7 @@
         <activity android:name=".activity.FoodTypeSelectedActivity" />
         <activity android:name=".activity.MyselfActivity" />
         <activity android:name=".activity.LoginActivity" />
-        <!-- <activity android:name=".activity.RegistActivity" /> -->
+         <activity android:name=".activity.RegistActivity" />
         <activity android:name=".activity.UpdateFoodActivity" />
         <activity android:name=".activity.CookeyBookActivity" />
         <activity android:name=".activity.FoodValueActivity" />
@@ -59,7 +59,7 @@
         <activity android:name=".activity.ShowStepsActivity" />
         <activity android:name=".activity.SearchFoodListActivity" />
         <activity android:name=".activity.WeightOneFoodActivity" />
-        <activity android:name=".activity.ForgetPwdActivity"/>
+        <activity android:name=".activity.ForgetPwdActivity" />
 
         <service android:name=".service.BluetoothService" />
 

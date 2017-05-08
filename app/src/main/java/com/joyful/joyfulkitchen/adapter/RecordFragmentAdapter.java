@@ -25,7 +25,7 @@ public class RecordFragmentAdapter extends BaseAdapter {
     private Context context;
     private LayoutInflater inflater;
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
-    private java.text.DecimalFormat   df = new   java.text.DecimalFormat("#.##");
+    private java.text.DecimalFormat df = new java.text.DecimalFormat("#.##");
 
     public RecordFragmentAdapter(Context context, List<Record> data) {
         this.context = context;

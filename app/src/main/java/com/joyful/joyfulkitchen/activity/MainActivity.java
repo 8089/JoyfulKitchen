@@ -78,29 +78,6 @@ public class MainActivity extends AppCompatActivity  implements BottomNavigation
             );
         }
 
-
-
-
-        for (int i = 0; i < 999; i++) {
-            try {
-                Food food = new Food();
-                food.setFoodId((long) i);
-                food.setFoodName("小麦 ==" + i);
-                food.setFoodImg("http://oojlkncnc.bkt.clouddn.com/%E8%B0%B7%E7%B1%BB%E5%B0%8F%E9%BA%A6.2.jpg");
-                food.setEnergy(317);
-                food.setProtein(11.9);
-                food.setFat(11.9);
-                food.setCarbohydrate(1.3);
-                food.setFiber(64.4);
-                food.setCholesterol(10.8);
-                food.setCreateTime(new Date());
-                FoodDao foodDao = GreenDaoManager.getInstance().getSession().getFoodDao();
-                foodDao.insert(food);
-                break;
-            } catch (Exception e) {
-                continue;
-            }
-        }
     }
 
     // 初始化底部导航
@@ -113,12 +90,12 @@ public class MainActivity extends AppCompatActivity  implements BottomNavigation
 //                .setActiveColor(R.color.colorPrimary)
 //                .setBarBackgroundColor(R.color.chocolate);//设置整个控件的背景色
         //设置徽章
-        badgeItem = new BadgeItem()//
+//        badgeItem = new BadgeItem()//
                 //             .setBorderWidth(2)//Badge的Border(边界)宽度
                 //                .setBorderColor("#FF0000")//Badge的Border颜色
                 //                .setBackgroundColor("#9ACD32")//Badge背景颜色
                 //                .setGravity(Gravity.RIGHT| Gravity.TOP)//位置，默认右上角
-                                .setText("12");//显示的文本
+//                                .setText("12");//显示的文本
                 //                .setTextColor("#F0F8FF")//文本颜色
                 //                .setAnimationDuration(2000)
 //                                .setHideOnSelect(true);//当选中状态时消失，非选中状态显示
@@ -126,7 +103,7 @@ public class MainActivity extends AppCompatActivity  implements BottomNavigation
                 .addItem(new BottomNavigationItem(R.mipmap.healthy, "健康饮食").setActiveColorResource(R.color.orange))
 //                .addItem(new BottomNavigationItem(R.mipmap.ckb, "菜谱").setActiveColorResource(R.color.orange))
 //                .addItem(new BottomNavigationItem(R.mipmap.gourmet_circle, "美食圈").setActiveColorResource(R.color.orange).setBadgeItem(badgeItem))
-                .addItem(new BottomNavigationItem(R.mipmap.gourmet_circle, "饮食记录").setActiveColorResource(R.color.orange).setBadgeItem(badgeItem))
+                .addItem(new BottomNavigationItem(R.mipmap.gourmet_circle, "饮食记录").setActiveColorResource(R.color.orange))
                 .addItem(new BottomNavigationItem(R.mipmap.my, "我的").setActiveColorResource(R.color.orange))
                 .initialise();
         fragments = getFragments();
