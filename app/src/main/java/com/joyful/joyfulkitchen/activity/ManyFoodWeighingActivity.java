@@ -74,8 +74,8 @@ public class ManyFoodWeighingActivity extends AppCompatActivity {
     // 单位的下标
     private int index = 0;
 
-    private String[] units = {"克", "两", "磅", "毫升", "安士"};
-
+//    private String[] units = {"克", "两", "磅", "毫升", "安士"};
+    private CharSequence[] units;
     // 中间的圆
     private RoundIndicatorView mRoundIndicatorView;
 
@@ -121,9 +121,9 @@ public class ManyFoodWeighingActivity extends AppCompatActivity {
 
 
             String s = (String) msg.obj;
+            tv_show_unit.setText(UnitConversionUtil.conversionString(a, index) + units[index] );
             a = UnitConversionUtil.Conversion(a, index);
             mRoundIndicatorView.setCurrentNumAnim(a);
-            tv_show_unit.setText(a + units[index]);
             char c1 = s.charAt(2);
             char c2 = s.charAt(6);
 
@@ -152,6 +152,9 @@ public class ManyFoodWeighingActivity extends AppCompatActivity {
 
 
     private void initData() {
+
+        units = this.getResources().getTextArray(R.array.unit);// 获取数组
+
         BaseApplication baseApplication = (BaseApplication) getApplication();
         searchMeauList = baseApplication.getSearchMeauList();
         foodMaterialData = baseApplication.getSearchMeauList().getFoodMatail();

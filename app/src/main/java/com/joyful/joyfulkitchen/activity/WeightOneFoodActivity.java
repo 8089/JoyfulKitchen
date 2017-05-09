@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -34,6 +35,7 @@ import com.joyful.joyfulkitchen.model.Food;
 import com.joyful.joyfulkitchen.service.BluetoothService;
 import com.joyful.joyfulkitchen.util.ToastUtils;
 import com.joyful.joyfulkitchen.util.UnitConversionUtil;
+import com.joyful.joyfulkitchen.view.FoodItemContentView;
 import com.joyful.joyfulkitchen.view.RoundIndicatorView;
 
 import java.util.ArrayList;
@@ -52,7 +54,8 @@ public class WeightOneFoodActivity extends AppCompatActivity {
     private RoundIndicatorView mRoundIndicatorView;
 
     private int index = 0;
-    private String[] units = {"克", "两", "磅", "毫升", "安士"};
+//    private String[] units = {"克", "两", "磅", "毫升", "安士"};
+    private CharSequence[] units;
 
     // 传出来的食物
     private Food food;
@@ -66,7 +69,12 @@ public class WeightOneFoodActivity extends AppCompatActivity {
     // 称量的重量
     private TextView weighting;
 
-    private TextView protein, fat, carbohydrate, fiber, cholesterol, energy;
+    private FoodItemContentView protein;
+    private FoodItemContentView fat;
+    private FoodItemContentView carbohydrate;
+    private FoodItemContentView fiber;
+    private FoodItemContentView cholesterol;
+    private FoodItemContentView energy;
     // 蓝牙6.0以上需要权限
     private static final int MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION = 1;
 
@@ -90,10 +98,18 @@ public class WeightOneFoodActivity extends AppCompatActivity {
 
             weighting.setText(a + "g");
 
+            energy.setCurrentContentText(df.format(a * (food.getEnergy() / 100)) + "");  //  热量
+            protein.setCurrentContentText(df.format(a * (food.getProtein() / 100)) + ""); //  蛋白质（克）
+            fat.setCurrentContentText(df.format(a * (food.getFat() / 100)) + "");  //  脂肪（克）
+            carbohydrate.setCurrentContentText(df.format(a * (food.getCarbohydrate() / 100)) + ""); //  碳水化合物（克）
+            fiber.setCurrentContentText(df.format(a * (food.getFiber() / 100)) + "");  //  膳食纤维（克）
+            cholesterol.setCurrentContentText(df.format(a * (food.getCholesterol() / 1000)) + "");
+
             String s = (String) msg.obj;
+
+            tv_show_unit.setText(UnitConversionUtil.conversionString(a, index) + units[index] );
             a = UnitConversionUtil.Conversion(a, index);
             mRoundIndicatorView.setCurrentNumAnim(a);
-            tv_show_unit.setText(a + units[index]);
             char c1 = s.charAt(2);
             char c2 = s.charAt(6);
 
@@ -124,15 +140,19 @@ public class WeightOneFoodActivity extends AppCompatActivity {
 
     private void initData() {
 
+        units = this.getResources().getTextArray(R.array.unit);
+
+
         weightFoods.setText(food.getFoodName());
         foodName.setText(food.getFoodName());
+        food_img.setImageURI(Uri.parse(food.getFoodImg()));
 
-        energy.setText(df.format(food.getEnergy()) + "");  //  热量
-        protein.setText(df.format(food.getProtein()) + ""); //  蛋白质（克）
-        fat.setText(df.format(food.getFat()) + "");  //  脂肪（克）
-        carbohydrate.setText(df.format(food.getCarbohydrate()) + ""); //  碳水化合物（克）
-        fiber.setText(df.format(food.getFiber()) + "");  //  膳食纤维（克）
-        cholesterol.setText(df.format(food.getCholesterol()) + "");
+        energy.setContentText(df.format(food.getEnergy()) + "");  //  热量
+        protein.setContentText(df.format(food.getProtein()) + ""); //  蛋白质（克）
+        fat.setContentText(df.format(food.getFat()) + "");  //  脂肪（克）
+        carbohydrate.setContentText(df.format(food.getCarbohydrate()) + ""); //  碳水化合物（克）
+        fiber.setContentText(df.format(food.getFiber()) + "");  //  膳食纤维（克）
+        cholesterol.setContentText(df.format(food.getCholesterol()) + "");
 
     }
 
@@ -183,12 +203,12 @@ public class WeightOneFoodActivity extends AppCompatActivity {
         weighting = (TextView) findViewById(R.id.weighting);  // 实际多少克
 
 
-        energy = (TextView) findViewById(R.id.energy);  //  热量
-        protein = (TextView) findViewById(R.id.protein);  //  蛋白质（克）
-        fat = (TextView) findViewById(R.id.fat);  //  脂肪（克）
-        carbohydrate = (TextView) findViewById(R.id.carbohydrate);  //  碳水化合物（克）
-        fiber = (TextView) findViewById(R.id.fiber);  //  膳食纤维（克）
-        cholesterol = (TextView) findViewById(R.id.cholesterol);  // 胆固醇（毫克）
+        energy = (FoodItemContentView) findViewById(R.id.energy);  //  热量
+        protein = (FoodItemContentView) findViewById(R.id.protein);  //  蛋白质（克）
+        fat = (FoodItemContentView) findViewById(R.id.fat);  //  脂肪（克）
+        carbohydrate = (FoodItemContentView) findViewById(R.id.carbohydrate);  //  碳水化合物（克）
+        fiber = (FoodItemContentView) findViewById(R.id.fiber);  //  膳食纤维（克）
+        cholesterol = (FoodItemContentView) findViewById(R.id.cholesterol);  // 胆固醇（毫克）
 
     }
 

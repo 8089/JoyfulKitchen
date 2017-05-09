@@ -35,7 +35,7 @@
             android:id="@+id/weighting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="200g"
+            android:text="0g"
             android:textSize="20dp"
             android:layout_marginRight="20dp"
             android:layout_gravity="center"
@@ -51,7 +51,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="@color/white">
+            android:background="@color/white"
+            android:orientation="horizontal">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -69,145 +70,59 @@
                 android:gravity="center"
                 android:text="每100克"
                 android:textColor="#AFC595" />
-        </LinearLayout>
 
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
                 android:gravity="center"
-                android:text="热量（千卡）" />
+                android:layout_weight="1"
+                android:textColor="#AFC595"
+                android:text="当前含量"/>
 
-            <TextView
-                android:id="@+id/energy"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="53.0" />
+
         </LinearLayout>
 
-        <LinearLayout
+        <com.joyful.joyfulkitchen.view.FoodItemContentView
+            android:id="@+id/energy"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="@color/white">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="蛋白质（克）" />
-
-            <TextView
-                android:id="@+id/protein"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="1.59" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="脂肪（克）" />
-
-            <TextView
-                android:id="@+id/fat"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="53.0" />
-        </LinearLayout>
-
-
-        <LinearLayout
+            fresco:nutrient="热量（千卡）"
+            />
+        <com.joyful.joyfulkitchen.view.FoodItemContentView
+            android:id="@+id/protein"
+            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="@color/white">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="碳水化合物（克）" />
-
-            <TextView
-                android:id="@+id/carbohydrate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="11.16" />
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="膳食纤维（克）" />
-
-            <TextView
-                android:id="@+id/fiber"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="53.0" />
-        </LinearLayout>
-
-
-        <LinearLayout
+            fresco:nutrient="蛋白质（克）"
+            />
+        <com.joyful.joyfulkitchen.view.FoodItemContentView
+            android:id="@+id/fat"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="@color/white">
+            fresco:nutrient="脂肪（克）"
+            />
+        <com.joyful.joyfulkitchen.view.FoodItemContentView
+            android:id="@+id/carbohydrate"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            fresco:nutrient="碳水化合物（克）"
+            />
+        <com.joyful.joyfulkitchen.view.FoodItemContentView
+            android:id="@+id/fiber"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            fresco:nutrient="膳食纤维（克）"
+            />
+        <com.joyful.joyfulkitchen.view.FoodItemContentView
+            android:id="@+id/cholesterol"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            fresco:nutrient="胆固醇（毫克）"
+            />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="胆固醇（毫克）" />
-
-            <TextView
-                android:id="@+id/cholesterol"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="11.16" />
-        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

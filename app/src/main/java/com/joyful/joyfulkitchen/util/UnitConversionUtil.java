@@ -3,6 +3,8 @@ package com.joyful.joyfulkitchen.util;
 
 public class UnitConversionUtil {
 
+    private static java.text.DecimalFormat df = new java.text.DecimalFormat("#.##");
+
     /**  克转换成安士*/
     public static int g2Oz(int g) {
         return (int) Math.round(g * 0.035274);
@@ -45,6 +47,30 @@ public class UnitConversionUtil {
                 break;
         }
         return rs;
+    }
+
+
+    // 传入 g ，根据单位 转换
+    public static String conversionString(int a, int index) {
+        String str = null;
+        switch (index){
+            case 0:
+                str = a + "";
+                break;
+            case 1:
+                str = df.format(a * 0.2);
+                break;
+            case 2:
+                str = df.format(a * 0.0022046);
+                break;
+            case 3:
+                str = a + "";
+                break;
+            case 4:
+                str = df.format(a * 0.035274);
+                break;
+        }
+        return str;
     }
 
 }

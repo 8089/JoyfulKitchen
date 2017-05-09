@@ -55,5 +55,10 @@
     </declare-styleable>
 
 
+    <declare-styleable name="FoodItemContentView">
+        <!-- 营养元素的值 -->
+        <attr name="nutrient" format="string" />
+
+    </declare-styleable>
 
 </resources>

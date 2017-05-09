@@ -20,7 +20,7 @@ public class MeauUtil {
 //    public static String userAgent = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36";
 
     //配置您申请的KEY
-    public static final String APPKEY = "bab2446e9fd1afadbdf35ebbe6fac633";
+    public static final String APPKEY = "a8af9da2c78c4de58b6a74a759b80a06";
 
     //1.菜谱大全
     public static String getFood(String menuName, int fristIndex, int row) {
