@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -30,6 +31,7 @@ public class FoodTypeSelectedActivity extends AppCompatActivity{
 
     private long foodTypeid;
     private String foodTypeName;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,12 +66,42 @@ public class FoodTypeSelectedActivity extends AppCompatActivity{
         foodNameslistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(context,FoodValueActivity.class);
-                intent.putExtra("foodvalue", (Serializable) foodlist.get(position));
-                startActivity(intent);
+
+                String add = getIntent().getStringExtra("add");
+                if(add !=null&& add.equalsIgnoreCase("add")){
+//                    ToastUtil.toastMessage(FoodTypeSelectedActivity.this, "FoodTypeSelectActivity" + add);
+
+                    Intent intent = new Intent(context,FoodValueActivity.class);
+                    intent.putExtra("foodvalue", (Serializable) foodlist.get(position));
+                    intent.putExtra("add","add");
+                    startActivityForResult(intent,1);
+                }else{
+                    Intent intent = new Intent(context,FoodValueActivity.class);
+                    intent.putExtra("foodvalue", (Serializable) foodlist.get(position));
+                    startActivity(intent);
+
+                }
             }
         });
    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode){
+            case 1:
+                Bundle MarsBuddle = data.getExtras();
+                Food food= (Food) MarsBuddle.getSerializable("foodvalue");
+                Log.i("ccc", "FoodTypeSelectedActivity"+food);
 
+                Intent intent= new Intent(context, FoodTypeSelectActivity.class);
+                intent.putExtra("foodvalue", (Serializable)food);
+
+                Log.i("ccc", "onActivityResult: FoodTypeSelectedActivity"+requestCode);
+                setResult(1,intent);
+                finish();
+                break;
+            default:
+                break;
+        }
+    }
 }

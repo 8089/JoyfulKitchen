@@ -2,14 +2,12 @@ package com.joyful.joyfulkitchen.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -19,14 +17,11 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import com.joyful.joyfulkitchen.Itemdecoration.FoodSearchItemDecoration;
-import com.joyful.joyfulkitchen.Itemdecoration.MyItemDecoration;
 import com.joyful.joyfulkitchen.R;
 import com.joyful.joyfulkitchen.adapter.RecyclerAdapter;
 import com.joyful.joyfulkitchen.adapter.RecyclerViewHolder;
 import com.joyful.joyfulkitchen.model.Food;
 import com.joyful.joyfulkitchen.util.StringFormatUtil;
-import com.joyful.joyfulkitchen.util.ToastUtils;
 import com.joyful.joyfulkitchen.volley.FoodSearchVolley;
 
 import java.io.Serializable;
@@ -70,8 +65,6 @@ public class SearchFoodListActivity extends AppCompatActivity {
         initView();
 
         addListener();
-
-
 
     }
 
@@ -149,9 +142,22 @@ public class SearchFoodListActivity extends AppCompatActivity {
 
             @Override
             public void OnItemClickListener(View view, int position) {
-                Intent intent = new Intent(mContext, FoodValueActivity.class);
-                intent.putExtra("foodvalue", (Serializable) foodList.get(position));
-                startActivityForResult(intent, 1);
+
+                String add = getIntent().getStringExtra("add");
+                if(add !=null&& add.equalsIgnoreCase("add")){
+//                    ToastUtil.toastMessage(SearchFoodListActivity.this, "FoodTypeSelectActivity  setOnClickListener" + add);
+
+                    Intent intent = new Intent(mContext, FoodValueActivity.class);
+                    intent.putExtra("foodvalue", (Serializable) foodList.get(position));
+                    intent.putExtra("add","add");
+                    startActivityForResult(intent,1);
+                }else{
+                    Intent intent = new Intent(mContext, FoodValueActivity.class);
+                    intent.putExtra("foodvalue", (Serializable) foodList.get(position));
+                    startActivityForResult(intent, 1);
+                }
+
+
             }
         });
 
@@ -173,19 +179,29 @@ public class SearchFoodListActivity extends AppCompatActivity {
                 mNoLayout.setVisibility(View.GONE);
                 mRecyclerView.setVisibility(View.VISIBLE);
                 break;
-
-
         }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (resultCode){
-            case 1: // 点击了选择
+        Log.i("ccc", "SearchFoodListActivity,,," + "requestCode = " + requestCode + ",resultCode="+ resultCode);
+
+        switch (requestCode){
+            case 1:
+//                ToastUtil.toastMessage(this,"SearchFoodListActivity"+resultCode);
+
+                Food food = (Food) data.getSerializableExtra("foodvalue");
+                Log.i("ccc", "FoodTypeSelectActivity"+food);
+
+                Intent intent= new Intent(this, FoodTypeSelectActivity.class);
+                intent.putExtra("foodvalue", (Serializable)food);
+                setResult(1,intent);
                 finish();
+                break;
+            default:
                 break;
 
         }
+
     }
 }
