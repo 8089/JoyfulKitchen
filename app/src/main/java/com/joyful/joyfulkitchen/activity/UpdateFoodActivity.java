@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -14,8 +15,8 @@ import android.widget.TextView;
 import com.joyful.joyfulkitchen.R;
 import com.joyful.joyfulkitchen.adapter.UpdateFoodAdapter;
 import com.joyful.joyfulkitchen.base.BaseApplication;
+import com.joyful.joyfulkitchen.model.Food;
 import com.joyful.joyfulkitchen.model.SearchMeauList;
-import com.joyful.joyfulkitchen.util.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +37,10 @@ public class UpdateFoodActivity extends AppCompatActivity implements View.OnClic
     private UpdateFoodAdapter adpate;
 
     private BaseApplication baseApplication;
+
+
+    // 添加的食物
+    private Food food;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +72,6 @@ public class UpdateFoodActivity extends AppCompatActivity implements View.OnClic
         baseApplication = (BaseApplication) getApplication();
         baseApplication.setSearchMeauList(searchMeauList);
 
-        foodMaterialData.clear();
         foodMaterialData = searchMeauList.getFoodMatail();
         food_title.setText(searchMeauList.getTitle());
 
@@ -87,11 +91,20 @@ public class UpdateFoodActivity extends AppCompatActivity implements View.OnClic
             case R.id.back:
                 this.finish();
                 break;
+            // 保存
             case R.id.food_edit_save:
-                adpate.notifyDataSetChanged();
-                baseApplication.getSearchMeauList().setFoodMatail(foodMaterialData);
-                ToastUtil.toastMessage(UpdateFoodActivity.this,"保存成功!");
+//                adpate.notifyDataSetChanged();
+//                baseApplication.getSearchMeauList().setFoodMatail(foodMaterialData);
+//                ToastUtil.toastMessage(UpdateFoodActivity.this,"保存成功!");
                 break;
+            // 添加食材
+            case R.id.food_add:
+                adpate.notifyDataSetChanged();
+                Intent intent = new Intent(context, FoodTypeSelectActivity.class);
+                intent.putExtra("add","add");
+                startActivityForResult(intent,1);
+                break;
+            // 开始称量
             case R.id.start_chen:
                 this.finish();
                 Intent gore = new Intent(context, ManyFoodWeighingActivity.class);
@@ -100,6 +113,28 @@ public class UpdateFoodActivity extends AppCompatActivity implements View.OnClic
             default:
                 break;
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode){
+            case 1:
+//                ToastUtil.toastMessage(this,"UpdateFoodActivity"+requestCode);
+
+                food = (Food) data.getSerializableExtra("foodvalue");
+                Log.i("ccc", "onActivityResult: UpdateFoodActivity"+food.getFoodName());
+
+                SearchMeauList.Matail matail = new SearchMeauList.Matail();
+                matail.setName(food.getFoodName());
+                foodMaterialData.add(matail);
+
+                adpate.notifyDataSetChanged();
+
+                break;
+            default:
+                break;
+        }
+
     }
 
     @Override

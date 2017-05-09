@@ -1,7 +1,6 @@
 
 package com.joyful.joyfulkitchen.activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,18 +8,19 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.joyful.joyfulkitchen.R;
 import com.joyful.joyfulkitchen.adapter.FoodTypeSelectAdapter;
+import com.joyful.joyfulkitchen.model.Food;
 import com.joyful.joyfulkitchen.model.FoodType;
-import com.joyful.joyfulkitchen.util.ToastUtil;
-import com.joyful.joyfulkitchen.util.ToastUtils;
 import com.joyful.joyfulkitchen.view.XTabHost;
 import com.joyful.joyfulkitchen.volley.FoodTypeSelectVolley;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,10 +44,15 @@ public class FoodTypeSelectActivity extends AppCompatActivity {
     // 搜索框
     private TextView tv_food_select;
 
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.food_type_select);
+
+
+
+
         initView();
         initData();
     }
@@ -72,8 +77,19 @@ public class FoodTypeSelectActivity extends AppCompatActivity {
         tv_food_select.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, SearchFoodListActivity.class);
-                startActivity(intent);
+
+                String add = getIntent().getStringExtra("add");
+                if(add !=null&& add.equalsIgnoreCase("add")){
+//                    ToastUtil.toastMessage(FoodTypeSelectActivity.this,"setOnClickListener"+add);
+
+                    Intent intent = new Intent(context,SearchFoodListActivity.class);
+                    intent.putExtra("add","add");
+                    startActivityForResult(intent,1);
+                }else{
+                    Intent intent = new Intent(context, SearchFoodListActivity.class);
+                    startActivity(intent);
+
+                }
             }
         });
 
@@ -104,11 +120,22 @@ public class FoodTypeSelectActivity extends AppCompatActivity {
             // 点击每一个食材类型时
             @Override
             public void onItemClick(View view, int layoutPosition, int position) {
-                Intent intent = new Intent(context,FoodTypeSelectedActivity.class);
-                intent.putExtra("foodTypeid",foodTypeList.get(position).getFoodTypeId());
-                intent.putExtra("foodTypeName",foodTypeList.get(position).getTypeName());
-                ToastUtil.toastMessage((Activity) context,foodTypeList.get(position).getFoodTypeId()+"");
-                startActivity(intent);
+                String add = getIntent().getStringExtra("add");
+                if(add !=null&& add.equalsIgnoreCase("add")){
+//                    ToastUtil.toastMessage(FoodTypeSelectActivity.this,"FoodTypeSelectActivity"+add);
+
+                    Intent intent = new Intent(context,FoodTypeSelectedActivity.class);
+                    intent.putExtra("foodTypeid",foodTypeList.get(position).getFoodTypeId());
+                    intent.putExtra("foodTypeName",foodTypeList.get(position).getTypeName());
+                    intent.putExtra("add","add");
+
+                    startActivityForResult(intent,1);
+                }else{
+                    Intent intent = new Intent(context,FoodTypeSelectedActivity.class);
+                    intent.putExtra("foodTypeid",foodTypeList.get(position).getFoodTypeId());
+                    intent.putExtra("foodTypeName",foodTypeList.get(position).getTypeName());
+                    startActivity(intent);
+                }
             }
 
             @Override
@@ -116,5 +143,24 @@ public class FoodTypeSelectActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode){
+            case 1:
+//                ToastUtil.toastMessage(this,"FoodTypeSelectActivity"+resultCode);
+
+                Food food = (Food) data.getSerializableExtra("foodvalue");
+                Log.i("ccc", "FoodTypeSelectActivity"+food);
+
+                Intent intent= new Intent(context, UpdateFoodActivity.class);
+                intent.putExtra("foodvalue", (Serializable)food);
+                setResult(1,intent);
+                finish();
+                break;
+            default:
+                break;
+        }
     }
 }

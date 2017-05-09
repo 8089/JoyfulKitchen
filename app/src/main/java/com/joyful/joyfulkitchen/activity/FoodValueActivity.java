@@ -32,6 +32,7 @@ public class FoodValueActivity extends AppCompatActivity implements View.OnClick
     private TextView  foodName,energy,protein,fat,carbohydrate,fiber,cholesterol;
 
     private TextView choose;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,10 +88,36 @@ public class FoodValueActivity extends AppCompatActivity implements View.OnClick
                 this.finish();
                 break;
             case R.id.choose:
-                setResult(1);
-                Intent intent = new Intent(context, WeightOneFoodActivity.class);
+                String add = this.getIntent().getStringExtra("add");
+                if(add !=null&& add.equalsIgnoreCase("add")){
+//                    ToastUtil.toastMessage(FoodValueActivity.this, "FoodTypeSelectActivity" + add);
+
+                    Intent intent= new Intent(context, FoodTypeSelectedActivity.class);
+                    intent.putExtra("foodvalue", (Serializable)food);
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }else{
+                    Intent intent= new Intent(context, WeightOneFoodActivity.class);
+                    intent.putExtra("foodvalue", (Serializable)food);
+                    startActivityForResult(intent,1);
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        switch (requestCode){
+            case 1:
+                Intent intent= new Intent(context, FoodTypeSelectActivity.class);
                 intent.putExtra("foodvalue", (Serializable)food);
-                startActivity(intent);
+
+                Log.i("ccc", "onActivityResult: FoodTypeSelectedActivity"+requestCode);
+                setResult(1,intent);
                 finish();
                 break;
             default:
