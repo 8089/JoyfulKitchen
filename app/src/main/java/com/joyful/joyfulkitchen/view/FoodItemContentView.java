@@ -11,10 +11,7 @@ import android.widget.TextView;
 
 import com.joyful.joyfulkitchen.R;
 
-/**
- * Created by Administrator on 2017/5/9.
- */
-
+// 展示菜单元素的 view
 public class FoodItemContentView extends LinearLayout {
 
     // 营养元素

@@ -17,7 +17,6 @@ import com.joyful.joyfulkitchen.R;
 import com.joyful.joyfulkitchen.adapter.FoodTypeSelectAdapter;
 import com.joyful.joyfulkitchen.model.Food;
 import com.joyful.joyfulkitchen.model.FoodType;
-import com.joyful.joyfulkitchen.view.XTabHost;
 import com.joyful.joyfulkitchen.volley.FoodTypeSelectVolley;
 
 import java.io.Serializable;
@@ -33,7 +32,6 @@ public class FoodTypeSelectActivity extends AppCompatActivity {
     public static final String TAG = "FoodTypeSelectActivity";
     private ImageView iv_back;
     private RecyclerView mRecyclerView;
-    private XTabHost xTabHost;
 
     private LinearLayoutManager mLinearLayoutManager;
 
@@ -63,8 +61,6 @@ public class FoodTypeSelectActivity extends AppCompatActivity {
 
         tv_food_select = (TextView) findViewById(R.id.tv_food_select);
 
-        // 选项卡
-//        xTabHost = (XTabHost) findViewById(R.id.tabhost1);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.rv_food_search);
         mLinearLayoutManager = new LinearLayoutManager(FoodTypeSelectActivity.this);
@@ -80,7 +76,6 @@ public class FoodTypeSelectActivity extends AppCompatActivity {
 
                 String add = getIntent().getStringExtra("add");
                 if(add !=null&& add.equalsIgnoreCase("add")){
-//                    ToastUtil.toastMessage(FoodTypeSelectActivity.this,"setOnClickListener"+add);
 
                     Intent intent = new Intent(context,SearchFoodListActivity.class);
                     intent.putExtra("add","add");
@@ -101,13 +96,7 @@ public class FoodTypeSelectActivity extends AppCompatActivity {
                 finish();
             }
         });
-        //  选项卡的 选择事件
-        /*xTabHost.setOnSelectListener(new XTabHost.OnSelectListener() {
-            @Override
-            public void onSelect(int index, String text) {
-                ToastUtils.showToast(FoodTypeSelectActivity.this, index + "," + text);
-            }
-        });*/
+
 
         mFoodTypeSelectAdapter = new FoodTypeSelectAdapter(this, foodTypeList);
         mRecyclerView.setAdapter(mFoodTypeSelectAdapter);

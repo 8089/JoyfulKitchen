@@ -32,10 +32,6 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.joyful.joyfulkitchen.R;
 import com.joyful.joyfulkitchen.base.BaseApplication;
-import com.joyful.joyfulkitchen.dao.GreenDaoManager;
-import com.joyful.joyfulkitchen.dao.RecordDao;
-import com.joyful.joyfulkitchen.fragment.HealthyFragment;
-import com.joyful.joyfulkitchen.model.Food;
 import com.joyful.joyfulkitchen.model.Record;
 import com.joyful.joyfulkitchen.model.SearchMeauList;
 import com.joyful.joyfulkitchen.service.BluetoothService;
@@ -43,16 +39,12 @@ import com.joyful.joyfulkitchen.util.ToastUtils;
 import com.joyful.joyfulkitchen.util.UnitConversionUtil;
 import com.joyful.joyfulkitchen.view.RoundIndicatorView;
 import com.joyful.joyfulkitchen.volley.FoodByNameVolley;
-import com.joyful.joyfulkitchen.volley.FoodSearchVolley;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 
 import static com.joyful.joyfulkitchen.base.BaseApplication.getContext;
 

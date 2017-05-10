@@ -41,7 +41,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.TestActivity" />
         <activity android:name=".activity.RuleViewMainActivity" />
         <activity android:name=".activity.DatePickerMainActivity" />
         <activity android:name=".activity.UpdateActivity" />
@@ -49,7 +48,6 @@
         <activity android:name=".activity.SearchListActivity" />
         <activity android:name=".activity.FoodDetailActivity" />
         <activity android:name=".activity.FoodTypeSelectedActivity" />
-        <activity android:name=".activity.MyselfActivity" />
         <activity android:name=".activity.LoginActivity" />
         <activity android:name=".activity.RegistActivity" />
         <activity android:name=".activity.UpdateFoodActivity" />

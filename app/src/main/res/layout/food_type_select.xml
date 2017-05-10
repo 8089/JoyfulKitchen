@@ -62,21 +62,6 @@
         android:paddingRight="10dp"
         android:orientation="vertical">
 
-        <!--<com.joyful.joyfulkitchen.view.XTabHost
-            android:id="@+id/tabhost1"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_centerInParent="true"
-            android:padding="1dp"
-            app:default_index="0"
-            app:radius="6dp"
-            app:tab_select_color="@color/tab_select_color"
-            app:text_unselect_color="@color/text_unselect_color"
-            app:tab_unselect_color="@color/tab_unselect_color"
-            app:tab_space="1dp"
-            app:bg="@color/bg"
-            app:text_select_color="@color/text_select_color"
-            app:src="@array/text_arr1"/>-->
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_food_search"

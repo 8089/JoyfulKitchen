@@ -13,17 +13,12 @@ import com.ashokvarma.bottomnavigation.BadgeItem;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.joyful.joyfulkitchen.R;
-import com.joyful.joyfulkitchen.dao.FoodDao;
-import com.joyful.joyfulkitchen.dao.GreenDaoManager;
 
-import com.joyful.joyfulkitchen.fragment.HealthyFragment;
 import com.joyful.joyfulkitchen.fragment.HomeFragment;
 import com.joyful.joyfulkitchen.fragment.MyFragment;
 import com.joyful.joyfulkitchen.fragment.RecordFragment;
-import com.joyful.joyfulkitchen.model.Food;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity  implements BottomNavigationBar.OnTabSelectedListener  {

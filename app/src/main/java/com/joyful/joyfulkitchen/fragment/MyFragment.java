@@ -18,7 +18,6 @@ import android.widget.TextView;
 
 import com.joyful.joyfulkitchen.R;
 import com.joyful.joyfulkitchen.activity.LoginActivity;
-import com.joyful.joyfulkitchen.activity.MyselfActivity;
 import com.joyful.joyfulkitchen.activity.UpdateActivity;
 import com.joyful.joyfulkitchen.base.BaseApplication;
 import com.joyful.joyfulkitchen.model.User;
